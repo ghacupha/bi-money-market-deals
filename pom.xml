@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Money Market Bi</name>
-    <description>Description for Money Market Bi</description>
+    <description>BI Microservice for Money Market Bi deals is part of the Granular Bi System</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -18,6 +18,11 @@
     </parent>
 
     <properties>
+      <docker.image.prefix>ghacupha</docker.image.prefix>
+      <founder.website>https://github.com/ghacupha</founder.website>
+      <owner.email>mailnjeru@gmail.com</owner.email>
+      <project.inceptionYear>2025</project.inceptionYear>
+      <project.owner>Edwin Njeru</project.owner>
         <!--
             Build properties
             The spring-boot version should match the one managed by https://mvnrepository.com/artifact/tech.jhipster/jhipster-dependencies/${jhipster-dependencies.version}
@@ -392,6 +397,59 @@
             </resource>
         </resources>
         <plugins>
+            <plugin>
+              <groupId>com.mycila</groupId>
+              <artifactId>license-maven-plugin</artifactId>
+              <version>4.0.rc2</version>
+              <configuration>
+                <excludes>
+                  <exclude>.idea/**</exclude>
+                  <exclude>docs/**</exclude>
+                  <exclude>.jhipster/**</exclude>
+                  <exclude>.husky/**</exclude>
+                  <exclude>node/**</exclude>
+                  <exclude>node_modules/**</exclude>
+                  <exclude>**/README</exclude>
+                  <exclude>**/pom.xml</exclude>
+                  <exclude>**/LICENSE</exclude>
+                  <exclude>src/test/resources/**</exclude>
+                  <exclude>src/main/resources/**</exclude>
+                  <exclude>src/main/docker/kafka-queue/**</exclude>
+                  <exclude>src/main/docker/zookeeper-data/**</exclude>
+                  <exclude>src/main/docker/zookeeper-logs/**</exclude>
+                  <exclude>.env</exclude>
+                  <exclude>npmw</exclude>
+                  <exclude>.lintstagedrc.cjs</exclude>
+                  <exclude>.prettierrc</exclude>
+                  <exclude>.prettierignore</exclude>
+                  <exclude>eslint.config.mjs</exclude>
+                  <exclude>src/main/webapp/manifest.webapp</exclude>
+                </excludes>
+                <header>com/mycila/maven/plugin/license/templates/GPL-3.txt</header>
+                <properties>
+                  <owner>${project.owner}</owner>
+                  <email>${owner.email}</email>
+                  <year>${project.inceptionYear}</year>
+                  <website>${founder.website}</website>
+                </properties>
+                <project>
+                  <name>${project.name}</name>
+                  <inceptionYear>${project.inceptionYear}</inceptionYear>
+                  <description>${project.description}</description>
+                </project>
+                <mapping>
+                  <java>JAVAPKG_STYLE</java>
+                </mapping>
+              </configuration>
+              <executions>
+                <execution>
+                  <!--<phase>process-sources</phase>-->
+                  <goals>
+                    <goal>format</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>

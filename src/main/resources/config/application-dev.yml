@@ -39,6 +39,8 @@ management:
       probability: 1.0 # report 100% of traces
 
 spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAPSERVERS}
   devtools:
     restart:
       enabled: true
@@ -50,7 +52,7 @@ spring:
       indent-output: true
   cloud:
     config:
-      uri: http://admin:${jhipster.registry.password}@localhost:8761/config
+      uri: http://admin:${jhipster.registry.password}@localhost:9761/config
       # name of the config server's property source (file.yml) that we want to use
       name: moneyMarketBi
       profile: dev
@@ -58,17 +60,21 @@ spring:
       # it can be set to any label, branch or commit of the configuration source Git repository
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/moneyMarketBi
-    username: moneyMarketBi
-    password:
+    url: ${LOCAL_PG_SERVER_BI}/moneyMarketBiDev
+    username: ${PG_DATABASE_PROD_USER_BI}
+    password: ${PG_DATABASE_PROD_PASSWORD_BI}
     hikari:
       poolName: Hikari
       auto-commit: false
+      maximum-pool-size: 30
+      allow-pool-suspension: true
   elasticsearch:
-    uris: http://localhost:9200
+    uris: ${SPRING_DATA_JEST_URI_DEV_BI}
+    username: ${ELASTIC_USERNAME:elastic}
+    password: ${ELASTIC_PASSWORD_BI}
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+    contexts: dev #, faker
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:

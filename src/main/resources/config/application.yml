@@ -17,6 +17,8 @@
 ---
 # Conditionally disable springdoc on missing api-docs profile
 spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAPSERVERS}
   config:
     activate:
       on-profile: '!api-docs'
@@ -135,7 +137,7 @@ spring:
         binder:
           replicationFactor: 1
           auto-create-topics: true
-          brokers: localhost:9092
+          brokers: ${KAFKA_BOOTSTRAPSERVERS}
       bindings:
         binding-out-0:
           content-type: text/plain
@@ -147,9 +149,22 @@ spring:
         kafkaProducer-out-0:
           content-type: text/plain
           group: money-market-bi
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${ERP_SYSTEM_EMAIL_USER}
+    password: ${ERP_SYSTEM_EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
   docker:
     compose:
-      enabled: true
+      enabled: false
       lifecycle-management: start-only
       file: src/main/docker/postgresql.yml
   profiles:
@@ -257,7 +272,7 @@ jhipster:
   #   allow-credentials: true
   #   max-age: 1800
   mail:
-    from: moneyMarketBi@localhost
+    from: ${BI_MAIL_BASE_DEV_URL}
   api-docs:
     default-include-pattern: /api/**
     management-include-pattern: /management/**
@@ -265,7 +280,7 @@ jhipster:
     description: Money Market Bi API documentation
     version: 0.0.1
     terms-of-service-url:
-    contact-name:
+    contact-name: Edwin Njeru
     contact-url:
     contact-email:
     license: unlicensed
