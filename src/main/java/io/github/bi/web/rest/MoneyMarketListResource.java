@@ -89,9 +89,6 @@ public class MoneyMarketListResource {
         if (moneyMarketListDTO.getId() != null) {
             throw new BadRequestAlertException("A new moneyMarketList cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if (Objects.isNull(moneyMarketListDTO.getReportBatch())) {
-            throw new BadRequestAlertException("Invalid association value provided", ENTITY_NAME, "null");
-        }
         moneyMarketListDTO = moneyMarketListService.save(moneyMarketListDTO);
         return ResponseEntity.created(new URI("/api/money-market-lists/" + moneyMarketListDTO.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, moneyMarketListDTO.getId().toString()))

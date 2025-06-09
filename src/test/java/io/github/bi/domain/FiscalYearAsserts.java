@@ -80,8 +80,6 @@ public class FiscalYearAsserts {
     public static void assertFiscalYearUpdatableRelationshipsEquals(FiscalYear expected, FiscalYear actual) {
         assertThat(actual)
             .as("Verify FiscalYear relationships")
-            .satisfies(a -> assertThat(a.getPlaceholders()).as("check placeholders").isEqualTo(expected.getPlaceholders()))
-            .satisfies(a -> assertThat(a.getCreatedBy()).as("check createdBy").isEqualTo(expected.getCreatedBy()))
-            .satisfies(a -> assertThat(a.getLastUpdatedBy()).as("check lastUpdatedBy").isEqualTo(expected.getLastUpdatedBy()));
+            .satisfies(a -> assertThat(a.getPlaceholders()).as("check placeholders").isEqualTo(expected.getPlaceholders()));
     }
 }

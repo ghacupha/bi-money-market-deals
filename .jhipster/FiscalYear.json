@@ -43,20 +43,6 @@
       "relationshipName": "placeholder",
       "relationshipSide": "left",
       "relationshipType": "many-to-many"
-    },
-    {
-      "otherEntityField": "applicationIdentity",
-      "otherEntityName": "applicationUser",
-      "relationshipName": "createdBy",
-      "relationshipSide": "left",
-      "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityField": "applicationIdentity",
-      "otherEntityName": "applicationUser",
-      "relationshipName": "lastUpdatedBy",
-      "relationshipSide": "left",
-      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceImpl"

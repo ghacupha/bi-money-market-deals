@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bi.IntegrationTest;
-import io.github.bi.domain.ApplicationUser;
 import io.github.bi.domain.FiscalYear;
 import io.github.bi.domain.Placeholder;
 import io.github.bi.domain.enumeration.FiscalYearStatusType;
@@ -608,50 +607,6 @@ class FiscalYearResourceIT {
 
         // Get all the fiscalYearList where placeholder equals to (placeholderId + 1)
         defaultFiscalYearShouldNotBeFound("placeholderId.equals=" + (placeholderId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllFiscalYearsByCreatedByIsEqualToSomething() throws Exception {
-        ApplicationUser createdBy;
-        if (TestUtil.findAll(em, ApplicationUser.class).isEmpty()) {
-            fiscalYearRepository.saveAndFlush(fiscalYear);
-            createdBy = ApplicationUserResourceIT.createEntity(em);
-        } else {
-            createdBy = TestUtil.findAll(em, ApplicationUser.class).get(0);
-        }
-        em.persist(createdBy);
-        em.flush();
-        fiscalYear.setCreatedBy(createdBy);
-        fiscalYearRepository.saveAndFlush(fiscalYear);
-        Long createdById = createdBy.getId();
-        // Get all the fiscalYearList where createdBy equals to createdById
-        defaultFiscalYearShouldBeFound("createdById.equals=" + createdById);
-
-        // Get all the fiscalYearList where createdBy equals to (createdById + 1)
-        defaultFiscalYearShouldNotBeFound("createdById.equals=" + (createdById + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllFiscalYearsByLastUpdatedByIsEqualToSomething() throws Exception {
-        ApplicationUser lastUpdatedBy;
-        if (TestUtil.findAll(em, ApplicationUser.class).isEmpty()) {
-            fiscalYearRepository.saveAndFlush(fiscalYear);
-            lastUpdatedBy = ApplicationUserResourceIT.createEntity(em);
-        } else {
-            lastUpdatedBy = TestUtil.findAll(em, ApplicationUser.class).get(0);
-        }
-        em.persist(lastUpdatedBy);
-        em.flush();
-        fiscalYear.setLastUpdatedBy(lastUpdatedBy);
-        fiscalYearRepository.saveAndFlush(fiscalYear);
-        Long lastUpdatedById = lastUpdatedBy.getId();
-        // Get all the fiscalYearList where lastUpdatedBy equals to lastUpdatedById
-        defaultFiscalYearShouldBeFound("lastUpdatedById.equals=" + lastUpdatedById);
-
-        // Get all the fiscalYearList where lastUpdatedBy equals to (lastUpdatedById + 1)
-        defaultFiscalYearShouldNotBeFound("lastUpdatedById.equals=" + (lastUpdatedById + 1));
     }
 
     private void defaultFiscalYearFiltering(String shouldBeFound, String shouldNotBeFound) throws Exception {

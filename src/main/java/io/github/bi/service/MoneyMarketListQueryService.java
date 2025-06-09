@@ -110,17 +110,8 @@ public class MoneyMarketListQueryService extends QueryService<MoneyMarketList> {
                 buildSpecification(criteria.getPlaceholderId(), root ->
                     root.join(MoneyMarketList_.placeholders, JoinType.LEFT).get(Placeholder_.id)
                 ),
-                buildSpecification(criteria.getUploadedById(), root ->
-                    root.join(MoneyMarketList_.uploadedBy, JoinType.LEFT).get(ApplicationUser_.id)
-                ),
-                buildSpecification(criteria.getReportBatchId(), root ->
-                    root.join(MoneyMarketList_.reportBatch, JoinType.LEFT).get(ReportBatch_.id)
-                ),
                 buildSpecification(criteria.getMoneyMarketDealId(), root ->
                     root.join(MoneyMarketList_.moneyMarketDeals, JoinType.LEFT).get(MoneyMarketDeal_.id)
-                ),
-                buildSpecification(criteria.getMoneyMarketUploadNotificationId(), root ->
-                    root.join(MoneyMarketList_.moneyMarketUploadNotifications, JoinType.LEFT).get(MoneyMarketUploadNotification_.id)
                 )
             );
         }

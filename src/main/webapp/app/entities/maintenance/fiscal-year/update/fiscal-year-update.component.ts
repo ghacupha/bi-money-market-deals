@@ -27,8 +27,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IPlaceholder } from 'app/entities/maintenance/placeholder/placeholder.model';
 import { PlaceholderService } from 'app/entities/maintenance/placeholder/service/placeholder.service';
-import { IApplicationUser } from 'app/entities/maintenance/application-user/application-user.model';
-import { ApplicationUserService } from 'app/entities/maintenance/application-user/service/application-user.service';
 import { FiscalYearStatusType } from 'app/entities/enumerations/fiscal-year-status-type.model';
 import { FiscalYearService } from '../service/fiscal-year.service';
 import { IFiscalYear } from '../fiscal-year.model';
@@ -45,21 +43,16 @@ export class FiscalYearUpdateComponent implements OnInit {
   fiscalYearStatusTypeValues = Object.keys(FiscalYearStatusType);
 
   placeholdersSharedCollection: IPlaceholder[] = [];
-  applicationUsersSharedCollection: IApplicationUser[] = [];
 
   protected fiscalYearService = inject(FiscalYearService);
   protected fiscalYearFormService = inject(FiscalYearFormService);
   protected placeholderService = inject(PlaceholderService);
-  protected applicationUserService = inject(ApplicationUserService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: FiscalYearFormGroup = this.fiscalYearFormService.createFiscalYearFormGroup();
 
   comparePlaceholder = (o1: IPlaceholder | null, o2: IPlaceholder | null): boolean => this.placeholderService.comparePlaceholder(o1, o2);
-
-  compareApplicationUser = (o1: IApplicationUser | null, o2: IApplicationUser | null): boolean =>
-    this.applicationUserService.compareApplicationUser(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ fiscalYear }) => {
@@ -113,11 +106,6 @@ export class FiscalYearUpdateComponent implements OnInit {
       this.placeholdersSharedCollection,
       ...(fiscalYear.placeholders ?? []),
     );
-    this.applicationUsersSharedCollection = this.applicationUserService.addApplicationUserToCollectionIfMissing<IApplicationUser>(
-      this.applicationUsersSharedCollection,
-      fiscalYear.createdBy,
-      fiscalYear.lastUpdatedBy,
-    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -130,19 +118,5 @@ export class FiscalYearUpdateComponent implements OnInit {
         ),
       )
       .subscribe((placeholders: IPlaceholder[]) => (this.placeholdersSharedCollection = placeholders));
-
-    this.applicationUserService
-      .query()
-      .pipe(map((res: HttpResponse<IApplicationUser[]>) => res.body ?? []))
-      .pipe(
-        map((applicationUsers: IApplicationUser[]) =>
-          this.applicationUserService.addApplicationUserToCollectionIfMissing<IApplicationUser>(
-            applicationUsers,
-            this.fiscalYear?.createdBy,
-            this.fiscalYear?.lastUpdatedBy,
-          ),
-        ),
-      )
-      .subscribe((applicationUsers: IApplicationUser[]) => (this.applicationUsersSharedCollection = applicationUsers));
   }
 }

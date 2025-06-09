@@ -73,40 +73,10 @@ public class FiscalYear implements Serializable {
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = {
-            "containingPlaceholder",
-            "dealers",
-            "placeholders",
-            "securityClearances",
-            "applicationUsers",
-            "fiscalYears",
-            "fiscalQuarters",
-            "fiscalMonths",
-            "reportBatches",
-            "moneyMarketLists",
-            "moneyMarketUploadNotifications",
-        },
+        value = { "containingPlaceholder", "placeholders", "fiscalYears", "fiscalQuarters", "fiscalMonths", "moneyMarketLists" },
         allowSetters = true
     )
     private Set<Placeholder> placeholders = new HashSet<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(
-        value = {
-            "organization", "department", "securityClearance", "dealerIdentity", "placeholders", "reportBatches", "moneyMarketLists",
-        },
-        allowSetters = true
-    )
-    private ApplicationUser createdBy;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(
-        value = {
-            "organization", "department", "securityClearance", "dealerIdentity", "placeholders", "reportBatches", "moneyMarketLists",
-        },
-        allowSetters = true
-    )
-    private ApplicationUser lastUpdatedBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -195,32 +165,6 @@ public class FiscalYear implements Serializable {
 
     public FiscalYear removePlaceholder(Placeholder placeholder) {
         this.placeholders.remove(placeholder);
-        return this;
-    }
-
-    public ApplicationUser getCreatedBy() {
-        return this.createdBy;
-    }
-
-    public void setCreatedBy(ApplicationUser applicationUser) {
-        this.createdBy = applicationUser;
-    }
-
-    public FiscalYear createdBy(ApplicationUser applicationUser) {
-        this.setCreatedBy(applicationUser);
-        return this;
-    }
-
-    public ApplicationUser getLastUpdatedBy() {
-        return this.lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(ApplicationUser applicationUser) {
-        this.lastUpdatedBy = applicationUser;
-    }
-
-    public FiscalYear lastUpdatedBy(ApplicationUser applicationUser) {
-        this.setLastUpdatedBy(applicationUser);
         return this;
     }
 

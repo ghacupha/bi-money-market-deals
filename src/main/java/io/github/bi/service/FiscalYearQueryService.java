@@ -106,12 +106,6 @@ public class FiscalYearQueryService extends QueryService<FiscalYear> {
                 buildSpecification(criteria.getFiscalYearStatus(), FiscalYear_.fiscalYearStatus),
                 buildSpecification(criteria.getPlaceholderId(), root ->
                     root.join(FiscalYear_.placeholders, JoinType.LEFT).get(Placeholder_.id)
-                ),
-                buildSpecification(criteria.getCreatedById(), root ->
-                    root.join(FiscalYear_.createdBy, JoinType.LEFT).get(ApplicationUser_.id)
-                ),
-                buildSpecification(criteria.getLastUpdatedById(), root ->
-                    root.join(FiscalYear_.lastUpdatedBy, JoinType.LEFT).get(ApplicationUser_.id)
                 )
             );
         }

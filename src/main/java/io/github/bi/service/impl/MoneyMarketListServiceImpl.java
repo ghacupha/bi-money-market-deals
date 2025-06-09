@@ -20,7 +20,6 @@ package io.github.bi.service.impl;
 
 import io.github.bi.domain.MoneyMarketList;
 import io.github.bi.repository.MoneyMarketListRepository;
-import io.github.bi.repository.ReportBatchRepository;
 import io.github.bi.repository.search.MoneyMarketListSearchRepository;
 import io.github.bi.service.MoneyMarketListService;
 import io.github.bi.service.dto.MoneyMarketListDTO;
@@ -48,26 +47,20 @@ public class MoneyMarketListServiceImpl implements MoneyMarketListService {
 
     private final MoneyMarketListSearchRepository moneyMarketListSearchRepository;
 
-    private final ReportBatchRepository reportBatchRepository;
-
     public MoneyMarketListServiceImpl(
         MoneyMarketListRepository moneyMarketListRepository,
         MoneyMarketListMapper moneyMarketListMapper,
-        MoneyMarketListSearchRepository moneyMarketListSearchRepository,
-        ReportBatchRepository reportBatchRepository
+        MoneyMarketListSearchRepository moneyMarketListSearchRepository
     ) {
         this.moneyMarketListRepository = moneyMarketListRepository;
         this.moneyMarketListMapper = moneyMarketListMapper;
         this.moneyMarketListSearchRepository = moneyMarketListSearchRepository;
-        this.reportBatchRepository = reportBatchRepository;
     }
 
     @Override
     public MoneyMarketListDTO save(MoneyMarketListDTO moneyMarketListDTO) {
         LOG.debug("Request to save MoneyMarketList : {}", moneyMarketListDTO);
         MoneyMarketList moneyMarketList = moneyMarketListMapper.toEntity(moneyMarketListDTO);
-        Long reportBatchId = moneyMarketList.getReportBatch().getId();
-        reportBatchRepository.findById(reportBatchId).ifPresent(moneyMarketList::reportBatch);
         moneyMarketList = moneyMarketListRepository.save(moneyMarketList);
         moneyMarketListSearchRepository.index(moneyMarketList);
         return moneyMarketListMapper.toDto(moneyMarketList);

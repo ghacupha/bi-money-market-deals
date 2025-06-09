@@ -23,19 +23,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="placeholder"
                                  />
-
-        <addForeignKeyConstraint baseColumnNames="uploaded_by_id"
-                                 baseTableName="money_market_list"
-                                 constraintName="fk_money_market_list__uploaded_by_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="application_user"
-                                 />
-
-        <addForeignKeyConstraint baseColumnNames="id"
-                                 baseTableName="money_market_list"
-                                 constraintName="fk_money_market_list__report_batch_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="report_batch"
-                                 />
     </changeSet>
 </databaseChangeLog>

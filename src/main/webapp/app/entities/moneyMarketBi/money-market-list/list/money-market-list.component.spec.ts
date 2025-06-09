@@ -79,7 +79,7 @@ describe('MoneyMarketList Management Component', () => {
       .mockReturnValueOnce(
         of(
           new HttpResponse({
-            body: [{ id: 29763 }],
+            body: [{ id: 21196 }],
             headers: new HttpHeaders({
               link: '<http://localhost/api/foo?page=1&size=20>; rel="next"',
             }),
@@ -89,7 +89,7 @@ describe('MoneyMarketList Management Component', () => {
       .mockReturnValueOnce(
         of(
           new HttpResponse({
-            body: [{ id: 21170 }],
+            body: [{ id: 31570 }],
             headers: new HttpHeaders({
               link: '<http://localhost/api/foo?page=0&size=20>; rel="prev",<http://localhost/api/foo?page=2&size=20>; rel="next"',
             }),
@@ -104,12 +104,12 @@ describe('MoneyMarketList Management Component', () => {
 
     // THEN
     expect(service.query).toHaveBeenCalled();
-    expect(comp.moneyMarketLists()[0]).toEqual(expect.objectContaining({ id: 29763 }));
+    expect(comp.moneyMarketLists()[0]).toEqual(expect.objectContaining({ id: 21196 }));
   });
 
   describe('trackId', () => {
     it('should forward to moneyMarketListService', () => {
-      const entity = { id: 29763 };
+      const entity = { id: 21196 };
       jest.spyOn(service, 'getMoneyMarketListIdentifier');
       const id = comp.trackId(entity);
       expect(service.getMoneyMarketListIdentifier).toHaveBeenCalledWith(entity);

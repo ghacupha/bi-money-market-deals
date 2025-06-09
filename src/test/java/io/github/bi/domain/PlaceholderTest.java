@@ -18,17 +18,12 @@ package io.github.bi.domain;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import static io.github.bi.domain.ApplicationUserTestSamples.*;
-import static io.github.bi.domain.DealerTestSamples.*;
 import static io.github.bi.domain.FiscalMonthTestSamples.*;
 import static io.github.bi.domain.FiscalQuarterTestSamples.*;
 import static io.github.bi.domain.FiscalYearTestSamples.*;
 import static io.github.bi.domain.MoneyMarketListTestSamples.*;
-import static io.github.bi.domain.MoneyMarketUploadNotificationTestSamples.*;
 import static io.github.bi.domain.PlaceholderTestSamples.*;
 import static io.github.bi.domain.PlaceholderTestSamples.*;
-import static io.github.bi.domain.ReportBatchTestSamples.*;
-import static io.github.bi.domain.SecurityClearanceTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.bi.web.rest.TestUtil;
@@ -65,28 +60,6 @@ class PlaceholderTest {
     }
 
     @Test
-    void dealerTest() {
-        Placeholder placeholder = getPlaceholderRandomSampleGenerator();
-        Dealer dealerBack = getDealerRandomSampleGenerator();
-
-        placeholder.addDealer(dealerBack);
-        assertThat(placeholder.getDealers()).containsOnly(dealerBack);
-        assertThat(dealerBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.removeDealer(dealerBack);
-        assertThat(placeholder.getDealers()).doesNotContain(dealerBack);
-        assertThat(dealerBack.getPlaceholders()).doesNotContain(placeholder);
-
-        placeholder.dealers(new HashSet<>(Set.of(dealerBack)));
-        assertThat(placeholder.getDealers()).containsOnly(dealerBack);
-        assertThat(dealerBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.setDealers(new HashSet<>());
-        assertThat(placeholder.getDealers()).doesNotContain(dealerBack);
-        assertThat(dealerBack.getPlaceholders()).doesNotContain(placeholder);
-    }
-
-    @Test
     void placeholderTest() {
         Placeholder placeholder = getPlaceholderRandomSampleGenerator();
         Placeholder placeholderBack = getPlaceholderRandomSampleGenerator();
@@ -106,50 +79,6 @@ class PlaceholderTest {
         placeholder.setPlaceholders(new HashSet<>());
         assertThat(placeholder.getPlaceholders()).doesNotContain(placeholderBack);
         assertThat(placeholderBack.getContainingPlaceholder()).isNull();
-    }
-
-    @Test
-    void securityClearanceTest() {
-        Placeholder placeholder = getPlaceholderRandomSampleGenerator();
-        SecurityClearance securityClearanceBack = getSecurityClearanceRandomSampleGenerator();
-
-        placeholder.addSecurityClearance(securityClearanceBack);
-        assertThat(placeholder.getSecurityClearances()).containsOnly(securityClearanceBack);
-        assertThat(securityClearanceBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.removeSecurityClearance(securityClearanceBack);
-        assertThat(placeholder.getSecurityClearances()).doesNotContain(securityClearanceBack);
-        assertThat(securityClearanceBack.getPlaceholders()).doesNotContain(placeholder);
-
-        placeholder.securityClearances(new HashSet<>(Set.of(securityClearanceBack)));
-        assertThat(placeholder.getSecurityClearances()).containsOnly(securityClearanceBack);
-        assertThat(securityClearanceBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.setSecurityClearances(new HashSet<>());
-        assertThat(placeholder.getSecurityClearances()).doesNotContain(securityClearanceBack);
-        assertThat(securityClearanceBack.getPlaceholders()).doesNotContain(placeholder);
-    }
-
-    @Test
-    void applicationUserTest() {
-        Placeholder placeholder = getPlaceholderRandomSampleGenerator();
-        ApplicationUser applicationUserBack = getApplicationUserRandomSampleGenerator();
-
-        placeholder.addApplicationUser(applicationUserBack);
-        assertThat(placeholder.getApplicationUsers()).containsOnly(applicationUserBack);
-        assertThat(applicationUserBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.removeApplicationUser(applicationUserBack);
-        assertThat(placeholder.getApplicationUsers()).doesNotContain(applicationUserBack);
-        assertThat(applicationUserBack.getPlaceholders()).doesNotContain(placeholder);
-
-        placeholder.applicationUsers(new HashSet<>(Set.of(applicationUserBack)));
-        assertThat(placeholder.getApplicationUsers()).containsOnly(applicationUserBack);
-        assertThat(applicationUserBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.setApplicationUsers(new HashSet<>());
-        assertThat(placeholder.getApplicationUsers()).doesNotContain(applicationUserBack);
-        assertThat(applicationUserBack.getPlaceholders()).doesNotContain(placeholder);
     }
 
     @Test
@@ -219,28 +148,6 @@ class PlaceholderTest {
     }
 
     @Test
-    void reportBatchTest() {
-        Placeholder placeholder = getPlaceholderRandomSampleGenerator();
-        ReportBatch reportBatchBack = getReportBatchRandomSampleGenerator();
-
-        placeholder.addReportBatch(reportBatchBack);
-        assertThat(placeholder.getReportBatches()).containsOnly(reportBatchBack);
-        assertThat(reportBatchBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.removeReportBatch(reportBatchBack);
-        assertThat(placeholder.getReportBatches()).doesNotContain(reportBatchBack);
-        assertThat(reportBatchBack.getPlaceholders()).doesNotContain(placeholder);
-
-        placeholder.reportBatches(new HashSet<>(Set.of(reportBatchBack)));
-        assertThat(placeholder.getReportBatches()).containsOnly(reportBatchBack);
-        assertThat(reportBatchBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.setReportBatches(new HashSet<>());
-        assertThat(placeholder.getReportBatches()).doesNotContain(reportBatchBack);
-        assertThat(reportBatchBack.getPlaceholders()).doesNotContain(placeholder);
-    }
-
-    @Test
     void moneyMarketListTest() {
         Placeholder placeholder = getPlaceholderRandomSampleGenerator();
         MoneyMarketList moneyMarketListBack = getMoneyMarketListRandomSampleGenerator();
@@ -260,27 +167,5 @@ class PlaceholderTest {
         placeholder.setMoneyMarketLists(new HashSet<>());
         assertThat(placeholder.getMoneyMarketLists()).doesNotContain(moneyMarketListBack);
         assertThat(moneyMarketListBack.getPlaceholders()).doesNotContain(placeholder);
-    }
-
-    @Test
-    void moneyMarketUploadNotificationTest() {
-        Placeholder placeholder = getPlaceholderRandomSampleGenerator();
-        MoneyMarketUploadNotification moneyMarketUploadNotificationBack = getMoneyMarketUploadNotificationRandomSampleGenerator();
-
-        placeholder.addMoneyMarketUploadNotification(moneyMarketUploadNotificationBack);
-        assertThat(placeholder.getMoneyMarketUploadNotifications()).containsOnly(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketUploadNotificationBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.removeMoneyMarketUploadNotification(moneyMarketUploadNotificationBack);
-        assertThat(placeholder.getMoneyMarketUploadNotifications()).doesNotContain(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketUploadNotificationBack.getPlaceholders()).doesNotContain(placeholder);
-
-        placeholder.moneyMarketUploadNotifications(new HashSet<>(Set.of(moneyMarketUploadNotificationBack)));
-        assertThat(placeholder.getMoneyMarketUploadNotifications()).containsOnly(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketUploadNotificationBack.getPlaceholders()).containsOnly(placeholder);
-
-        placeholder.setMoneyMarketUploadNotifications(new HashSet<>());
-        assertThat(placeholder.getMoneyMarketUploadNotifications()).doesNotContain(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketUploadNotificationBack.getPlaceholders()).doesNotContain(placeholder);
     }
 }

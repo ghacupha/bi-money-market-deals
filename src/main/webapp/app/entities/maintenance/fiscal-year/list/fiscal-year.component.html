@@ -117,18 +117,6 @@
                 }
               </div>
             </th>
-            <th scope="col" jhiSortBy="createdBy.applicationIdentity">
-              <div class="d-flex">
-                <span>Created By</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="lastUpdatedBy.applicationIdentity">
-              <div class="d-flex">
-                <span>Last Updated By</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -142,24 +130,6 @@
               <td>{{ fiscalYear.startDate | formatMediumDate }}</td>
               <td>{{ fiscalYear.endDate | formatMediumDate }}</td>
               <td>{{ { null: '', OPEN: 'OPEN', CLOSED: 'CLOSED', IN_PROGRESS: 'IN_PROGRESS' }[fiscalYear.fiscalYearStatus ?? 'null'] }}</td>
-              <td>
-                @if (fiscalYear.createdBy) {
-                  <div>
-                    <a [routerLink]="['/moneymarketbi/application-user', fiscalYear.createdBy.id, 'view']">{{
-                      fiscalYear.createdBy.applicationIdentity
-                    }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (fiscalYear.lastUpdatedBy) {
-                  <div>
-                    <a [routerLink]="['/moneymarketbi/application-user', fiscalYear.lastUpdatedBy.id, 'view']">{{
-                      fiscalYear.lastUpdatedBy.applicationIdentity
-                    }}</a>
-                  </div>
-                }
-              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <a

@@ -52,33 +52,6 @@
               </div>
             }
           </dd>
-          <dt><span>Dealer</span></dt>
-          <dd>
-            @for (dealer of placeholderRef.dealers; track $index; let last = $last) {
-              <span>
-                <a [routerLink]="['/moneymarketbi/dealer', dealer.id, 'view']">{{ dealer?.id }}</a
-                >{{ last ? '' : ', ' }}
-              </span>
-            }
-          </dd>
-          <dt><span>Security Clearance</span></dt>
-          <dd>
-            @for (securityClearance of placeholderRef.securityClearances; track $index; let last = $last) {
-              <span>
-                <a [routerLink]="['/moneymarketbi/security-clearance', securityClearance.id, 'view']">{{ securityClearance?.id }}</a
-                >{{ last ? '' : ', ' }}
-              </span>
-            }
-          </dd>
-          <dt><span>Application User</span></dt>
-          <dd>
-            @for (applicationUser of placeholderRef.applicationUsers; track $index; let last = $last) {
-              <span>
-                <a [routerLink]="['/moneymarketbi/application-user', applicationUser.id, 'view']">{{ applicationUser?.id }}</a
-                >{{ last ? '' : ', ' }}
-              </span>
-            }
-          </dd>
           <dt><span>Fiscal Year</span></dt>
           <dd>
             @for (fiscalYear of placeholderRef.fiscalYears; track $index; let last = $last) {
@@ -106,31 +79,11 @@
               </span>
             }
           </dd>
-          <dt><span>Report Batch</span></dt>
-          <dd>
-            @for (reportBatch of placeholderRef.reportBatches; track $index; let last = $last) {
-              <span>
-                <a [routerLink]="['/moneymarketbi/report-batch', reportBatch.id, 'view']">{{ reportBatch?.id }}</a
-                >{{ last ? '' : ', ' }}
-              </span>
-            }
-          </dd>
           <dt><span>Money Market List</span></dt>
           <dd>
             @for (moneyMarketList of placeholderRef.moneyMarketLists; track $index; let last = $last) {
               <span>
                 <a [routerLink]="['/moneymarketbi/money-market-list', moneyMarketList.id, 'view']">{{ moneyMarketList?.id }}</a
-                >{{ last ? '' : ', ' }}
-              </span>
-            }
-          </dd>
-          <dt><span>Money Market Upload Notification</span></dt>
-          <dd>
-            @for (moneyMarketUploadNotification of placeholderRef.moneyMarketUploadNotifications; track $index; let last = $last) {
-              <span>
-                <a [routerLink]="['/moneymarketbi/money-market-upload-notification', moneyMarketUploadNotification.id, 'view']">{{
-                  moneyMarketUploadNotification?.id
-                }}</a
                 >{{ last ? '' : ', ' }}
               </span>
             }

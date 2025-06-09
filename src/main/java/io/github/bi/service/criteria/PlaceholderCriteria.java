@@ -48,13 +48,7 @@ public class PlaceholderCriteria implements Serializable, Criteria {
 
     private LongFilter containingPlaceholderId;
 
-    private LongFilter dealerId;
-
     private LongFilter placeholderId;
-
-    private LongFilter securityClearanceId;
-
-    private LongFilter applicationUserId;
 
     private LongFilter fiscalYearId;
 
@@ -62,11 +56,7 @@ public class PlaceholderCriteria implements Serializable, Criteria {
 
     private LongFilter fiscalMonthId;
 
-    private LongFilter reportBatchId;
-
     private LongFilter moneyMarketListId;
-
-    private LongFilter moneyMarketUploadNotificationId;
 
     private Boolean distinct;
 
@@ -77,16 +67,11 @@ public class PlaceholderCriteria implements Serializable, Criteria {
         this.description = other.optionalDescription().map(StringFilter::copy).orElse(null);
         this.token = other.optionalToken().map(StringFilter::copy).orElse(null);
         this.containingPlaceholderId = other.optionalContainingPlaceholderId().map(LongFilter::copy).orElse(null);
-        this.dealerId = other.optionalDealerId().map(LongFilter::copy).orElse(null);
         this.placeholderId = other.optionalPlaceholderId().map(LongFilter::copy).orElse(null);
-        this.securityClearanceId = other.optionalSecurityClearanceId().map(LongFilter::copy).orElse(null);
-        this.applicationUserId = other.optionalApplicationUserId().map(LongFilter::copy).orElse(null);
         this.fiscalYearId = other.optionalFiscalYearId().map(LongFilter::copy).orElse(null);
         this.fiscalQuarterId = other.optionalFiscalQuarterId().map(LongFilter::copy).orElse(null);
         this.fiscalMonthId = other.optionalFiscalMonthId().map(LongFilter::copy).orElse(null);
-        this.reportBatchId = other.optionalReportBatchId().map(LongFilter::copy).orElse(null);
         this.moneyMarketListId = other.optionalMoneyMarketListId().map(LongFilter::copy).orElse(null);
-        this.moneyMarketUploadNotificationId = other.optionalMoneyMarketUploadNotificationId().map(LongFilter::copy).orElse(null);
         this.distinct = other.distinct;
     }
 
@@ -171,25 +156,6 @@ public class PlaceholderCriteria implements Serializable, Criteria {
         this.containingPlaceholderId = containingPlaceholderId;
     }
 
-    public LongFilter getDealerId() {
-        return dealerId;
-    }
-
-    public Optional<LongFilter> optionalDealerId() {
-        return Optional.ofNullable(dealerId);
-    }
-
-    public LongFilter dealerId() {
-        if (dealerId == null) {
-            setDealerId(new LongFilter());
-        }
-        return dealerId;
-    }
-
-    public void setDealerId(LongFilter dealerId) {
-        this.dealerId = dealerId;
-    }
-
     public LongFilter getPlaceholderId() {
         return placeholderId;
     }
@@ -207,44 +173,6 @@ public class PlaceholderCriteria implements Serializable, Criteria {
 
     public void setPlaceholderId(LongFilter placeholderId) {
         this.placeholderId = placeholderId;
-    }
-
-    public LongFilter getSecurityClearanceId() {
-        return securityClearanceId;
-    }
-
-    public Optional<LongFilter> optionalSecurityClearanceId() {
-        return Optional.ofNullable(securityClearanceId);
-    }
-
-    public LongFilter securityClearanceId() {
-        if (securityClearanceId == null) {
-            setSecurityClearanceId(new LongFilter());
-        }
-        return securityClearanceId;
-    }
-
-    public void setSecurityClearanceId(LongFilter securityClearanceId) {
-        this.securityClearanceId = securityClearanceId;
-    }
-
-    public LongFilter getApplicationUserId() {
-        return applicationUserId;
-    }
-
-    public Optional<LongFilter> optionalApplicationUserId() {
-        return Optional.ofNullable(applicationUserId);
-    }
-
-    public LongFilter applicationUserId() {
-        if (applicationUserId == null) {
-            setApplicationUserId(new LongFilter());
-        }
-        return applicationUserId;
-    }
-
-    public void setApplicationUserId(LongFilter applicationUserId) {
-        this.applicationUserId = applicationUserId;
     }
 
     public LongFilter getFiscalYearId() {
@@ -304,25 +232,6 @@ public class PlaceholderCriteria implements Serializable, Criteria {
         this.fiscalMonthId = fiscalMonthId;
     }
 
-    public LongFilter getReportBatchId() {
-        return reportBatchId;
-    }
-
-    public Optional<LongFilter> optionalReportBatchId() {
-        return Optional.ofNullable(reportBatchId);
-    }
-
-    public LongFilter reportBatchId() {
-        if (reportBatchId == null) {
-            setReportBatchId(new LongFilter());
-        }
-        return reportBatchId;
-    }
-
-    public void setReportBatchId(LongFilter reportBatchId) {
-        this.reportBatchId = reportBatchId;
-    }
-
     public LongFilter getMoneyMarketListId() {
         return moneyMarketListId;
     }
@@ -340,25 +249,6 @@ public class PlaceholderCriteria implements Serializable, Criteria {
 
     public void setMoneyMarketListId(LongFilter moneyMarketListId) {
         this.moneyMarketListId = moneyMarketListId;
-    }
-
-    public LongFilter getMoneyMarketUploadNotificationId() {
-        return moneyMarketUploadNotificationId;
-    }
-
-    public Optional<LongFilter> optionalMoneyMarketUploadNotificationId() {
-        return Optional.ofNullable(moneyMarketUploadNotificationId);
-    }
-
-    public LongFilter moneyMarketUploadNotificationId() {
-        if (moneyMarketUploadNotificationId == null) {
-            setMoneyMarketUploadNotificationId(new LongFilter());
-        }
-        return moneyMarketUploadNotificationId;
-    }
-
-    public void setMoneyMarketUploadNotificationId(LongFilter moneyMarketUploadNotificationId) {
-        this.moneyMarketUploadNotificationId = moneyMarketUploadNotificationId;
     }
 
     public Boolean getDistinct() {
@@ -394,16 +284,11 @@ public class PlaceholderCriteria implements Serializable, Criteria {
             Objects.equals(description, that.description) &&
             Objects.equals(token, that.token) &&
             Objects.equals(containingPlaceholderId, that.containingPlaceholderId) &&
-            Objects.equals(dealerId, that.dealerId) &&
             Objects.equals(placeholderId, that.placeholderId) &&
-            Objects.equals(securityClearanceId, that.securityClearanceId) &&
-            Objects.equals(applicationUserId, that.applicationUserId) &&
             Objects.equals(fiscalYearId, that.fiscalYearId) &&
             Objects.equals(fiscalQuarterId, that.fiscalQuarterId) &&
             Objects.equals(fiscalMonthId, that.fiscalMonthId) &&
-            Objects.equals(reportBatchId, that.reportBatchId) &&
             Objects.equals(moneyMarketListId, that.moneyMarketListId) &&
-            Objects.equals(moneyMarketUploadNotificationId, that.moneyMarketUploadNotificationId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
@@ -415,16 +300,11 @@ public class PlaceholderCriteria implements Serializable, Criteria {
             description,
             token,
             containingPlaceholderId,
-            dealerId,
             placeholderId,
-            securityClearanceId,
-            applicationUserId,
             fiscalYearId,
             fiscalQuarterId,
             fiscalMonthId,
-            reportBatchId,
             moneyMarketListId,
-            moneyMarketUploadNotificationId,
             distinct
         );
     }
@@ -437,16 +317,11 @@ public class PlaceholderCriteria implements Serializable, Criteria {
             optionalDescription().map(f -> "description=" + f + ", ").orElse("") +
             optionalToken().map(f -> "token=" + f + ", ").orElse("") +
             optionalContainingPlaceholderId().map(f -> "containingPlaceholderId=" + f + ", ").orElse("") +
-            optionalDealerId().map(f -> "dealerId=" + f + ", ").orElse("") +
             optionalPlaceholderId().map(f -> "placeholderId=" + f + ", ").orElse("") +
-            optionalSecurityClearanceId().map(f -> "securityClearanceId=" + f + ", ").orElse("") +
-            optionalApplicationUserId().map(f -> "applicationUserId=" + f + ", ").orElse("") +
             optionalFiscalYearId().map(f -> "fiscalYearId=" + f + ", ").orElse("") +
             optionalFiscalQuarterId().map(f -> "fiscalQuarterId=" + f + ", ").orElse("") +
             optionalFiscalMonthId().map(f -> "fiscalMonthId=" + f + ", ").orElse("") +
-            optionalReportBatchId().map(f -> "reportBatchId=" + f + ", ").orElse("") +
             optionalMoneyMarketListId().map(f -> "moneyMarketListId=" + f + ", ").orElse("") +
-            optionalMoneyMarketUploadNotificationId().map(f -> "moneyMarketUploadNotificationId=" + f + ", ").orElse("") +
             optionalDistinct().map(f -> "distinct=" + f + ", ").orElse("") +
         "}";
     }

@@ -24,10 +24,8 @@ import { Subject, from, of } from 'rxjs';
 
 import { IPlaceholder } from 'app/entities/maintenance/placeholder/placeholder.model';
 import { PlaceholderService } from 'app/entities/maintenance/placeholder/service/placeholder.service';
-import { IApplicationUser } from 'app/entities/maintenance/application-user/application-user.model';
-import { ApplicationUserService } from 'app/entities/maintenance/application-user/service/application-user.service';
-import { IFiscalYear } from '../fiscal-year.model';
 import { FiscalYearService } from '../service/fiscal-year.service';
+import { IFiscalYear } from '../fiscal-year.model';
 import { FiscalYearFormService } from './fiscal-year-form.service';
 
 import { FiscalYearUpdateComponent } from './fiscal-year-update.component';
@@ -39,7 +37,6 @@ describe('FiscalYear Management Update Component', () => {
   let fiscalYearFormService: FiscalYearFormService;
   let fiscalYearService: FiscalYearService;
   let placeholderService: PlaceholderService;
-  let applicationUserService: ApplicationUserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -63,7 +60,6 @@ describe('FiscalYear Management Update Component', () => {
     fiscalYearFormService = TestBed.inject(FiscalYearFormService);
     fiscalYearService = TestBed.inject(FiscalYearService);
     placeholderService = TestBed.inject(PlaceholderService);
-    applicationUserService = TestBed.inject(ApplicationUserService);
 
     comp = fixture.componentInstance;
   });
@@ -91,45 +87,15 @@ describe('FiscalYear Management Update Component', () => {
       expect(comp.placeholdersSharedCollection).toEqual(expectedCollection);
     });
 
-    it('should call ApplicationUser query and add missing value', () => {
-      const fiscalYear: IFiscalYear = { id: 1005 };
-      const createdBy: IApplicationUser = { id: 2107 };
-      fiscalYear.createdBy = createdBy;
-      const lastUpdatedBy: IApplicationUser = { id: 2107 };
-      fiscalYear.lastUpdatedBy = lastUpdatedBy;
-
-      const applicationUserCollection: IApplicationUser[] = [{ id: 2107 }];
-      jest.spyOn(applicationUserService, 'query').mockReturnValue(of(new HttpResponse({ body: applicationUserCollection })));
-      const additionalApplicationUsers = [createdBy, lastUpdatedBy];
-      const expectedCollection: IApplicationUser[] = [...additionalApplicationUsers, ...applicationUserCollection];
-      jest.spyOn(applicationUserService, 'addApplicationUserToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ fiscalYear });
-      comp.ngOnInit();
-
-      expect(applicationUserService.query).toHaveBeenCalled();
-      expect(applicationUserService.addApplicationUserToCollectionIfMissing).toHaveBeenCalledWith(
-        applicationUserCollection,
-        ...additionalApplicationUsers.map(expect.objectContaining),
-      );
-      expect(comp.applicationUsersSharedCollection).toEqual(expectedCollection);
-    });
-
     it('should update editForm', () => {
       const fiscalYear: IFiscalYear = { id: 1005 };
       const placeholder: IPlaceholder = { id: 13408 };
       fiscalYear.placeholders = [placeholder];
-      const createdBy: IApplicationUser = { id: 2107 };
-      fiscalYear.createdBy = createdBy;
-      const lastUpdatedBy: IApplicationUser = { id: 2107 };
-      fiscalYear.lastUpdatedBy = lastUpdatedBy;
 
       activatedRoute.data = of({ fiscalYear });
       comp.ngOnInit();
 
       expect(comp.placeholdersSharedCollection).toContainEqual(placeholder);
-      expect(comp.applicationUsersSharedCollection).toContainEqual(createdBy);
-      expect(comp.applicationUsersSharedCollection).toContainEqual(lastUpdatedBy);
       expect(comp.fiscalYear).toEqual(fiscalYear);
     });
   });
@@ -210,16 +176,6 @@ describe('FiscalYear Management Update Component', () => {
         jest.spyOn(placeholderService, 'comparePlaceholder');
         comp.comparePlaceholder(entity, entity2);
         expect(placeholderService.comparePlaceholder).toHaveBeenCalledWith(entity, entity2);
-      });
-    });
-
-    describe('compareApplicationUser', () => {
-      it('should forward to applicationUserService', () => {
-        const entity = { id: 2107 };
-        const entity2 = { id: 4268 };
-        jest.spyOn(applicationUserService, 'compareApplicationUser');
-        comp.compareApplicationUser(entity, entity2);
-        expect(applicationUserService.compareApplicationUser).toHaveBeenCalledWith(entity, entity2);
       });
     });
   });

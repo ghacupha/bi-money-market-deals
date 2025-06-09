@@ -29,17 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bi.IntegrationTest;
-import io.github.bi.domain.ApplicationUser;
-import io.github.bi.domain.Dealer;
 import io.github.bi.domain.FiscalMonth;
 import io.github.bi.domain.FiscalQuarter;
 import io.github.bi.domain.FiscalYear;
 import io.github.bi.domain.MoneyMarketList;
-import io.github.bi.domain.MoneyMarketUploadNotification;
 import io.github.bi.domain.Placeholder;
 import io.github.bi.domain.Placeholder;
-import io.github.bi.domain.ReportBatch;
-import io.github.bi.domain.SecurityClearance;
 import io.github.bi.repository.PlaceholderRepository;
 import io.github.bi.repository.search.PlaceholderSearchRepository;
 import io.github.bi.service.PlaceholderService;
@@ -420,72 +415,6 @@ class PlaceholderResourceIT {
 
     @Test
     @Transactional
-    void getAllPlaceholdersByDealerIsEqualToSomething() throws Exception {
-        Dealer dealer;
-        if (TestUtil.findAll(em, Dealer.class).isEmpty()) {
-            placeholderRepository.saveAndFlush(placeholder);
-            dealer = DealerResourceIT.createEntity();
-        } else {
-            dealer = TestUtil.findAll(em, Dealer.class).get(0);
-        }
-        em.persist(dealer);
-        em.flush();
-        placeholder.addDealer(dealer);
-        placeholderRepository.saveAndFlush(placeholder);
-        Long dealerId = dealer.getId();
-        // Get all the placeholderList where dealer equals to dealerId
-        defaultPlaceholderShouldBeFound("dealerId.equals=" + dealerId);
-
-        // Get all the placeholderList where dealer equals to (dealerId + 1)
-        defaultPlaceholderShouldNotBeFound("dealerId.equals=" + (dealerId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllPlaceholdersBySecurityClearanceIsEqualToSomething() throws Exception {
-        SecurityClearance securityClearance;
-        if (TestUtil.findAll(em, SecurityClearance.class).isEmpty()) {
-            placeholderRepository.saveAndFlush(placeholder);
-            securityClearance = SecurityClearanceResourceIT.createEntity();
-        } else {
-            securityClearance = TestUtil.findAll(em, SecurityClearance.class).get(0);
-        }
-        em.persist(securityClearance);
-        em.flush();
-        placeholder.addSecurityClearance(securityClearance);
-        placeholderRepository.saveAndFlush(placeholder);
-        Long securityClearanceId = securityClearance.getId();
-        // Get all the placeholderList where securityClearance equals to securityClearanceId
-        defaultPlaceholderShouldBeFound("securityClearanceId.equals=" + securityClearanceId);
-
-        // Get all the placeholderList where securityClearance equals to (securityClearanceId + 1)
-        defaultPlaceholderShouldNotBeFound("securityClearanceId.equals=" + (securityClearanceId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllPlaceholdersByApplicationUserIsEqualToSomething() throws Exception {
-        ApplicationUser applicationUser;
-        if (TestUtil.findAll(em, ApplicationUser.class).isEmpty()) {
-            placeholderRepository.saveAndFlush(placeholder);
-            applicationUser = ApplicationUserResourceIT.createEntity(em);
-        } else {
-            applicationUser = TestUtil.findAll(em, ApplicationUser.class).get(0);
-        }
-        em.persist(applicationUser);
-        em.flush();
-        placeholder.addApplicationUser(applicationUser);
-        placeholderRepository.saveAndFlush(placeholder);
-        Long applicationUserId = applicationUser.getId();
-        // Get all the placeholderList where applicationUser equals to applicationUserId
-        defaultPlaceholderShouldBeFound("applicationUserId.equals=" + applicationUserId);
-
-        // Get all the placeholderList where applicationUser equals to (applicationUserId + 1)
-        defaultPlaceholderShouldNotBeFound("applicationUserId.equals=" + (applicationUserId + 1));
-    }
-
-    @Test
-    @Transactional
     void getAllPlaceholdersByFiscalYearIsEqualToSomething() throws Exception {
         FiscalYear fiscalYear;
         if (TestUtil.findAll(em, FiscalYear.class).isEmpty()) {
@@ -552,33 +481,11 @@ class PlaceholderResourceIT {
 
     @Test
     @Transactional
-    void getAllPlaceholdersByReportBatchIsEqualToSomething() throws Exception {
-        ReportBatch reportBatch;
-        if (TestUtil.findAll(em, ReportBatch.class).isEmpty()) {
-            placeholderRepository.saveAndFlush(placeholder);
-            reportBatch = ReportBatchResourceIT.createEntity(em);
-        } else {
-            reportBatch = TestUtil.findAll(em, ReportBatch.class).get(0);
-        }
-        em.persist(reportBatch);
-        em.flush();
-        placeholder.addReportBatch(reportBatch);
-        placeholderRepository.saveAndFlush(placeholder);
-        Long reportBatchId = reportBatch.getId();
-        // Get all the placeholderList where reportBatch equals to reportBatchId
-        defaultPlaceholderShouldBeFound("reportBatchId.equals=" + reportBatchId);
-
-        // Get all the placeholderList where reportBatch equals to (reportBatchId + 1)
-        defaultPlaceholderShouldNotBeFound("reportBatchId.equals=" + (reportBatchId + 1));
-    }
-
-    @Test
-    @Transactional
     void getAllPlaceholdersByMoneyMarketListIsEqualToSomething() throws Exception {
         MoneyMarketList moneyMarketList;
         if (TestUtil.findAll(em, MoneyMarketList.class).isEmpty()) {
             placeholderRepository.saveAndFlush(placeholder);
-            moneyMarketList = MoneyMarketListResourceIT.createEntity(em);
+            moneyMarketList = MoneyMarketListResourceIT.createEntity();
         } else {
             moneyMarketList = TestUtil.findAll(em, MoneyMarketList.class).get(0);
         }
@@ -592,28 +499,6 @@ class PlaceholderResourceIT {
 
         // Get all the placeholderList where moneyMarketList equals to (moneyMarketListId + 1)
         defaultPlaceholderShouldNotBeFound("moneyMarketListId.equals=" + (moneyMarketListId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllPlaceholdersByMoneyMarketUploadNotificationIsEqualToSomething() throws Exception {
-        MoneyMarketUploadNotification moneyMarketUploadNotification;
-        if (TestUtil.findAll(em, MoneyMarketUploadNotification.class).isEmpty()) {
-            placeholderRepository.saveAndFlush(placeholder);
-            moneyMarketUploadNotification = MoneyMarketUploadNotificationResourceIT.createEntity();
-        } else {
-            moneyMarketUploadNotification = TestUtil.findAll(em, MoneyMarketUploadNotification.class).get(0);
-        }
-        em.persist(moneyMarketUploadNotification);
-        em.flush();
-        placeholder.addMoneyMarketUploadNotification(moneyMarketUploadNotification);
-        placeholderRepository.saveAndFlush(placeholder);
-        Long moneyMarketUploadNotificationId = moneyMarketUploadNotification.getId();
-        // Get all the placeholderList where moneyMarketUploadNotification equals to moneyMarketUploadNotificationId
-        defaultPlaceholderShouldBeFound("moneyMarketUploadNotificationId.equals=" + moneyMarketUploadNotificationId);
-
-        // Get all the placeholderList where moneyMarketUploadNotification equals to (moneyMarketUploadNotificationId + 1)
-        defaultPlaceholderShouldNotBeFound("moneyMarketUploadNotificationId.equals=" + (moneyMarketUploadNotificationId + 1));
     }
 
     private void defaultPlaceholderFiltering(String shouldBeFound, String shouldNotBeFound) throws Exception {

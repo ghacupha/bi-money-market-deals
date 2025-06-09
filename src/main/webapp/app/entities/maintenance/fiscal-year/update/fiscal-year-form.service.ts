@@ -41,8 +41,6 @@ type FiscalYearFormGroupContent = {
   endDate: FormControl<IFiscalYear['endDate']>;
   fiscalYearStatus: FormControl<IFiscalYear['fiscalYearStatus']>;
   placeholders: FormControl<IFiscalYear['placeholders']>;
-  createdBy: FormControl<IFiscalYear['createdBy']>;
-  lastUpdatedBy: FormControl<IFiscalYear['lastUpdatedBy']>;
 };
 
 export type FiscalYearFormGroup = FormGroup<FiscalYearFormGroupContent>;
@@ -73,8 +71,6 @@ export class FiscalYearFormService {
       }),
       fiscalYearStatus: new FormControl(fiscalYearRawValue.fiscalYearStatus),
       placeholders: new FormControl(fiscalYearRawValue.placeholders ?? []),
-      createdBy: new FormControl(fiscalYearRawValue.createdBy),
-      lastUpdatedBy: new FormControl(fiscalYearRawValue.lastUpdatedBy),
     });
   }
 

@@ -148,58 +148,6 @@
             }
           </select>
         </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_uploadedBy">Uploaded By</label>
-          <select
-            class="form-control"
-            id="field_uploadedBy"
-            data-cy="uploadedBy"
-            name="uploadedBy"
-            formControlName="uploadedBy"
-            [compareWith]="compareApplicationUser"
-          >
-            @if (editForm.get(['uploadedBy'])!.value === null) {
-              <option [ngValue]="null" selected></option>
-            }
-            @for (applicationUserOption of applicationUsersSharedCollection; track $index) {
-              <option [ngValue]="applicationUserOption">{{ applicationUserOption.applicationIdentity }}</option>
-            }
-          </select>
-        </div>
-        @if (editForm.get(['uploadedBy'])!.invalid && (editForm.get(['uploadedBy'])!.dirty || editForm.get(['uploadedBy'])!.touched)) {
-          <div>
-            @if (editForm.get(['uploadedBy'])?.errors?.required) {
-              <small class="form-text text-danger">This field is required.</small>
-            }
-          </div>
-        }
-
-        <div class="mb-3">
-          <label class="form-label" for="field_reportBatch">Report Batch</label>
-          <select
-            class="form-control"
-            id="field_reportBatch"
-            data-cy="reportBatch"
-            name="reportBatch"
-            formControlName="reportBatch"
-            [compareWith]="compareReportBatch"
-          >
-            @if (editForm.get(['reportBatch'])!.value === null) {
-              <option [ngValue]="null" selected></option>
-            }
-            @for (reportBatchOption of reportBatchesCollection; track $index) {
-              <option [ngValue]="reportBatchOption">{{ reportBatchOption.description }}</option>
-            }
-          </select>
-        </div>
-        @if (editForm.get(['reportBatch'])!.invalid && (editForm.get(['reportBatch'])!.dirty || editForm.get(['reportBatch'])!.touched)) {
-          <div>
-            @if (editForm.get(['reportBatch'])?.errors?.required) {
-              <small class="form-text text-danger">This field is required.</small>
-            }
-          </div>
-        }
       </div>
 
       <div>

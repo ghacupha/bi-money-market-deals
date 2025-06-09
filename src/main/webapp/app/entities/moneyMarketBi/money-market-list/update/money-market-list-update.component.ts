@@ -27,10 +27,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IPlaceholder } from 'app/entities/maintenance/placeholder/placeholder.model';
 import { PlaceholderService } from 'app/entities/maintenance/placeholder/service/placeholder.service';
-import { IApplicationUser } from 'app/entities/maintenance/application-user/application-user.model';
-import { ApplicationUserService } from 'app/entities/maintenance/application-user/service/application-user.service';
-import { IReportBatch } from 'app/entities/moneyMarketBi/report-batch/report-batch.model';
-import { ReportBatchService } from 'app/entities/moneyMarketBi/report-batch/service/report-batch.service';
 import { reportBatchStatus } from 'app/entities/enumerations/report-batch-status.model';
 import { MoneyMarketListService } from '../service/money-market-list.service';
 import { IMoneyMarketList } from '../money-market-list.model';
@@ -47,25 +43,16 @@ export class MoneyMarketListUpdateComponent implements OnInit {
   reportBatchStatusValues = Object.keys(reportBatchStatus);
 
   placeholdersSharedCollection: IPlaceholder[] = [];
-  applicationUsersSharedCollection: IApplicationUser[] = [];
-  reportBatchesCollection: IReportBatch[] = [];
 
   protected moneyMarketListService = inject(MoneyMarketListService);
   protected moneyMarketListFormService = inject(MoneyMarketListFormService);
   protected placeholderService = inject(PlaceholderService);
-  protected applicationUserService = inject(ApplicationUserService);
-  protected reportBatchService = inject(ReportBatchService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: MoneyMarketListFormGroup = this.moneyMarketListFormService.createMoneyMarketListFormGroup();
 
   comparePlaceholder = (o1: IPlaceholder | null, o2: IPlaceholder | null): boolean => this.placeholderService.comparePlaceholder(o1, o2);
-
-  compareApplicationUser = (o1: IApplicationUser | null, o2: IApplicationUser | null): boolean =>
-    this.applicationUserService.compareApplicationUser(o1, o2);
-
-  compareReportBatch = (o1: IReportBatch | null, o2: IReportBatch | null): boolean => this.reportBatchService.compareReportBatch(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ moneyMarketList }) => {
@@ -119,14 +106,6 @@ export class MoneyMarketListUpdateComponent implements OnInit {
       this.placeholdersSharedCollection,
       ...(moneyMarketList.placeholders ?? []),
     );
-    this.applicationUsersSharedCollection = this.applicationUserService.addApplicationUserToCollectionIfMissing<IApplicationUser>(
-      this.applicationUsersSharedCollection,
-      moneyMarketList.uploadedBy,
-    );
-    this.reportBatchesCollection = this.reportBatchService.addReportBatchToCollectionIfMissing<IReportBatch>(
-      this.reportBatchesCollection,
-      moneyMarketList.reportBatch,
-    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -142,28 +121,5 @@ export class MoneyMarketListUpdateComponent implements OnInit {
         ),
       )
       .subscribe((placeholders: IPlaceholder[]) => (this.placeholdersSharedCollection = placeholders));
-
-    this.applicationUserService
-      .query()
-      .pipe(map((res: HttpResponse<IApplicationUser[]>) => res.body ?? []))
-      .pipe(
-        map((applicationUsers: IApplicationUser[]) =>
-          this.applicationUserService.addApplicationUserToCollectionIfMissing<IApplicationUser>(
-            applicationUsers,
-            this.moneyMarketList?.uploadedBy,
-          ),
-        ),
-      )
-      .subscribe((applicationUsers: IApplicationUser[]) => (this.applicationUsersSharedCollection = applicationUsers));
-
-    this.reportBatchService
-      .query({ 'moneyMarketListId.specified': 'false' })
-      .pipe(map((res: HttpResponse<IReportBatch[]>) => res.body ?? []))
-      .pipe(
-        map((reportBatches: IReportBatch[]) =>
-          this.reportBatchService.addReportBatchToCollectionIfMissing<IReportBatch>(reportBatches, this.moneyMarketList?.reportBatch),
-        ),
-      )
-      .subscribe((reportBatches: IReportBatch[]) => (this.reportBatchesCollection = reportBatches));
   }
 }

@@ -18,7 +18,6 @@ package io.github.bi.domain;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import static io.github.bi.domain.ApplicationUserTestSamples.*;
 import static io.github.bi.domain.FiscalYearTestSamples.*;
 import static io.github.bi.domain.PlaceholderTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,29 +59,5 @@ class FiscalYearTest {
 
         fiscalYear.setPlaceholders(new HashSet<>());
         assertThat(fiscalYear.getPlaceholders()).doesNotContain(placeholderBack);
-    }
-
-    @Test
-    void createdByTest() {
-        FiscalYear fiscalYear = getFiscalYearRandomSampleGenerator();
-        ApplicationUser applicationUserBack = getApplicationUserRandomSampleGenerator();
-
-        fiscalYear.setCreatedBy(applicationUserBack);
-        assertThat(fiscalYear.getCreatedBy()).isEqualTo(applicationUserBack);
-
-        fiscalYear.createdBy(null);
-        assertThat(fiscalYear.getCreatedBy()).isNull();
-    }
-
-    @Test
-    void lastUpdatedByTest() {
-        FiscalYear fiscalYear = getFiscalYearRandomSampleGenerator();
-        ApplicationUser applicationUserBack = getApplicationUserRandomSampleGenerator();
-
-        fiscalYear.setLastUpdatedBy(applicationUserBack);
-        assertThat(fiscalYear.getLastUpdatedBy()).isEqualTo(applicationUserBack);
-
-        fiscalYear.lastUpdatedBy(null);
-        assertThat(fiscalYear.getLastUpdatedBy()).isNull();
     }
 }

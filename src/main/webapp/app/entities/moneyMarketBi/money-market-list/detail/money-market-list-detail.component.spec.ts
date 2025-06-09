@@ -36,7 +36,7 @@ describe('MoneyMarketList Management Detail Component', () => {
             {
               path: '**',
               loadComponent: () => import('./money-market-list-detail.component').then(m => m.MoneyMarketListDetailComponent),
-              resolve: { moneyMarketList: () => of({ id: 29763 }) },
+              resolve: { moneyMarketList: () => of({ id: 21196 }) },
             },
           ],
           withComponentInputBinding(),
@@ -58,7 +58,7 @@ describe('MoneyMarketList Management Detail Component', () => {
       const instance = await harness.navigateByUrl('/', MoneyMarketListDetailComponent);
 
       // THEN
-      expect(instance.moneyMarketList()).toEqual(expect.objectContaining({ id: 29763 }));
+      expect(instance.moneyMarketList()).toEqual(expect.objectContaining({ id: 21196 }));
     });
   });
 

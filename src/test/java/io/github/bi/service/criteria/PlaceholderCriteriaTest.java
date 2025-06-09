@@ -97,16 +97,11 @@ class PlaceholderCriteriaTest {
         placeholderCriteria.description();
         placeholderCriteria.token();
         placeholderCriteria.containingPlaceholderId();
-        placeholderCriteria.dealerId();
         placeholderCriteria.placeholderId();
-        placeholderCriteria.securityClearanceId();
-        placeholderCriteria.applicationUserId();
         placeholderCriteria.fiscalYearId();
         placeholderCriteria.fiscalQuarterId();
         placeholderCriteria.fiscalMonthId();
-        placeholderCriteria.reportBatchId();
         placeholderCriteria.moneyMarketListId();
-        placeholderCriteria.moneyMarketUploadNotificationId();
         placeholderCriteria.distinct();
     }
 
@@ -117,16 +112,11 @@ class PlaceholderCriteriaTest {
                 condition.apply(criteria.getDescription()) &&
                 condition.apply(criteria.getToken()) &&
                 condition.apply(criteria.getContainingPlaceholderId()) &&
-                condition.apply(criteria.getDealerId()) &&
                 condition.apply(criteria.getPlaceholderId()) &&
-                condition.apply(criteria.getSecurityClearanceId()) &&
-                condition.apply(criteria.getApplicationUserId()) &&
                 condition.apply(criteria.getFiscalYearId()) &&
                 condition.apply(criteria.getFiscalQuarterId()) &&
                 condition.apply(criteria.getFiscalMonthId()) &&
-                condition.apply(criteria.getReportBatchId()) &&
                 condition.apply(criteria.getMoneyMarketListId()) &&
-                condition.apply(criteria.getMoneyMarketUploadNotificationId()) &&
                 condition.apply(criteria.getDistinct()),
             "every filter matches"
         );
@@ -139,16 +129,11 @@ class PlaceholderCriteriaTest {
                 condition.apply(criteria.getDescription(), copy.getDescription()) &&
                 condition.apply(criteria.getToken(), copy.getToken()) &&
                 condition.apply(criteria.getContainingPlaceholderId(), copy.getContainingPlaceholderId()) &&
-                condition.apply(criteria.getDealerId(), copy.getDealerId()) &&
                 condition.apply(criteria.getPlaceholderId(), copy.getPlaceholderId()) &&
-                condition.apply(criteria.getSecurityClearanceId(), copy.getSecurityClearanceId()) &&
-                condition.apply(criteria.getApplicationUserId(), copy.getApplicationUserId()) &&
                 condition.apply(criteria.getFiscalYearId(), copy.getFiscalYearId()) &&
                 condition.apply(criteria.getFiscalQuarterId(), copy.getFiscalQuarterId()) &&
                 condition.apply(criteria.getFiscalMonthId(), copy.getFiscalMonthId()) &&
-                condition.apply(criteria.getReportBatchId(), copy.getReportBatchId()) &&
                 condition.apply(criteria.getMoneyMarketListId(), copy.getMoneyMarketListId()) &&
-                condition.apply(criteria.getMoneyMarketUploadNotificationId(), copy.getMoneyMarketUploadNotificationId()) &&
                 condition.apply(criteria.getDistinct(), copy.getDistinct()),
             "every filter matches"
         );

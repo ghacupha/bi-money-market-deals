@@ -24,7 +24,6 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -37,30 +36,14 @@ import org.springframework.stereotype.Repository;
 public interface MoneyMarketListRepository
     extends MoneyMarketListRepositoryWithBagRelationships, JpaRepository<MoneyMarketList, Long>, JpaSpecificationExecutor<MoneyMarketList> {
     default Optional<MoneyMarketList> findOneWithEagerRelationships(Long id) {
-        return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));
+        return this.fetchBagRelationships(this.findById(id));
     }
 
     default List<MoneyMarketList> findAllWithEagerRelationships() {
-        return this.fetchBagRelationships(this.findAllWithToOneRelationships());
+        return this.fetchBagRelationships(this.findAll());
     }
 
     default Page<MoneyMarketList> findAllWithEagerRelationships(Pageable pageable) {
-        return this.fetchBagRelationships(this.findAllWithToOneRelationships(pageable));
+        return this.fetchBagRelationships(this.findAll(pageable));
     }
-
-    @Query(
-        value = "select moneyMarketList from MoneyMarketList moneyMarketList left join fetch moneyMarketList.uploadedBy left join fetch moneyMarketList.reportBatch",
-        countQuery = "select count(moneyMarketList) from MoneyMarketList moneyMarketList"
-    )
-    Page<MoneyMarketList> findAllWithToOneRelationships(Pageable pageable);
-
-    @Query(
-        "select moneyMarketList from MoneyMarketList moneyMarketList left join fetch moneyMarketList.uploadedBy left join fetch moneyMarketList.reportBatch"
-    )
-    List<MoneyMarketList> findAllWithToOneRelationships();
-
-    @Query(
-        "select moneyMarketList from MoneyMarketList moneyMarketList left join fetch moneyMarketList.uploadedBy left join fetch moneyMarketList.reportBatch where moneyMarketList.id =:id"
-    )
-    Optional<MoneyMarketList> findOneWithToOneRelationships(@Param("id") Long id);
 }

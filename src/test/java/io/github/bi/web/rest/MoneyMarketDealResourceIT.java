@@ -238,7 +238,7 @@ class MoneyMarketDealResourceIT {
         // Add required entity
         MoneyMarketList moneyMarketList;
         if (TestUtil.findAll(em, MoneyMarketList.class).isEmpty()) {
-            moneyMarketList = MoneyMarketListResourceIT.createEntity(em);
+            moneyMarketList = MoneyMarketListResourceIT.createEntity();
             em.persist(moneyMarketList);
             em.flush();
         } else {
@@ -286,7 +286,7 @@ class MoneyMarketDealResourceIT {
         // Add required entity
         MoneyMarketList moneyMarketList;
         if (TestUtil.findAll(em, MoneyMarketList.class).isEmpty()) {
-            moneyMarketList = MoneyMarketListResourceIT.createUpdatedEntity(em);
+            moneyMarketList = MoneyMarketListResourceIT.createUpdatedEntity();
             em.persist(moneyMarketList);
             em.flush();
         } else {
@@ -2529,7 +2529,7 @@ class MoneyMarketDealResourceIT {
         MoneyMarketList moneyMarketList;
         if (TestUtil.findAll(em, MoneyMarketList.class).isEmpty()) {
             moneyMarketDealRepository.saveAndFlush(moneyMarketDeal);
-            moneyMarketList = MoneyMarketListResourceIT.createEntity(em);
+            moneyMarketList = MoneyMarketListResourceIT.createEntity();
         } else {
             moneyMarketList = TestUtil.findAll(em, MoneyMarketList.class).get(0);
         }

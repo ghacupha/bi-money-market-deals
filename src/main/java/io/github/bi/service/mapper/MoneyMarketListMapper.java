@@ -18,14 +18,10 @@ package io.github.bi.service.mapper;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import io.github.bi.domain.ApplicationUser;
 import io.github.bi.domain.MoneyMarketList;
 import io.github.bi.domain.Placeholder;
-import io.github.bi.domain.ReportBatch;
-import io.github.bi.service.dto.ApplicationUserDTO;
 import io.github.bi.service.dto.MoneyMarketListDTO;
 import io.github.bi.service.dto.PlaceholderDTO;
-import io.github.bi.service.dto.ReportBatchDTO;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.mapstruct.*;
@@ -36,8 +32,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface MoneyMarketListMapper extends EntityMapper<MoneyMarketListDTO, MoneyMarketList> {
     @Mapping(target = "placeholders", source = "placeholders", qualifiedByName = "placeholderTokenSet")
-    @Mapping(target = "uploadedBy", source = "uploadedBy", qualifiedByName = "applicationUserApplicationIdentity")
-    @Mapping(target = "reportBatch", source = "reportBatch", qualifiedByName = "reportBatchDescription")
     MoneyMarketListDTO toDto(MoneyMarketList s);
 
     @Mapping(target = "removePlaceholder", ignore = true)
@@ -53,16 +47,4 @@ public interface MoneyMarketListMapper extends EntityMapper<MoneyMarketListDTO, 
     default Set<PlaceholderDTO> toDtoPlaceholderTokenSet(Set<Placeholder> placeholder) {
         return placeholder.stream().map(this::toDtoPlaceholderToken).collect(Collectors.toSet());
     }
-
-    @Named("applicationUserApplicationIdentity")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "applicationIdentity", source = "applicationIdentity")
-    ApplicationUserDTO toDtoApplicationUserApplicationIdentity(ApplicationUser applicationUser);
-
-    @Named("reportBatchDescription")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "description", source = "description")
-    ReportBatchDTO toDtoReportBatchDescription(ReportBatch reportBatch);
 }

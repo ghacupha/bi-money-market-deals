@@ -18,12 +18,9 @@ package io.github.bi.domain;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import static io.github.bi.domain.ApplicationUserTestSamples.*;
 import static io.github.bi.domain.MoneyMarketDealTestSamples.*;
 import static io.github.bi.domain.MoneyMarketListTestSamples.*;
-import static io.github.bi.domain.MoneyMarketUploadNotificationTestSamples.*;
 import static io.github.bi.domain.PlaceholderTestSamples.*;
-import static io.github.bi.domain.ReportBatchTestSamples.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.bi.web.rest.TestUtil;
@@ -66,30 +63,6 @@ class MoneyMarketListTest {
     }
 
     @Test
-    void uploadedByTest() {
-        MoneyMarketList moneyMarketList = getMoneyMarketListRandomSampleGenerator();
-        ApplicationUser applicationUserBack = getApplicationUserRandomSampleGenerator();
-
-        moneyMarketList.setUploadedBy(applicationUserBack);
-        assertThat(moneyMarketList.getUploadedBy()).isEqualTo(applicationUserBack);
-
-        moneyMarketList.uploadedBy(null);
-        assertThat(moneyMarketList.getUploadedBy()).isNull();
-    }
-
-    @Test
-    void reportBatchTest() {
-        MoneyMarketList moneyMarketList = getMoneyMarketListRandomSampleGenerator();
-        ReportBatch reportBatchBack = getReportBatchRandomSampleGenerator();
-
-        moneyMarketList.setReportBatch(reportBatchBack);
-        assertThat(moneyMarketList.getReportBatch()).isEqualTo(reportBatchBack);
-
-        moneyMarketList.reportBatch(null);
-        assertThat(moneyMarketList.getReportBatch()).isNull();
-    }
-
-    @Test
     void moneyMarketDealTest() {
         MoneyMarketList moneyMarketList = getMoneyMarketListRandomSampleGenerator();
         MoneyMarketDeal moneyMarketDealBack = getMoneyMarketDealRandomSampleGenerator();
@@ -109,27 +82,5 @@ class MoneyMarketListTest {
         moneyMarketList.setMoneyMarketDeals(new HashSet<>());
         assertThat(moneyMarketList.getMoneyMarketDeals()).doesNotContain(moneyMarketDealBack);
         assertThat(moneyMarketDealBack.getMoneyMarketList()).isNull();
-    }
-
-    @Test
-    void moneyMarketUploadNotificationTest() {
-        MoneyMarketList moneyMarketList = getMoneyMarketListRandomSampleGenerator();
-        MoneyMarketUploadNotification moneyMarketUploadNotificationBack = getMoneyMarketUploadNotificationRandomSampleGenerator();
-
-        moneyMarketList.addMoneyMarketUploadNotification(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketList.getMoneyMarketUploadNotifications()).containsOnly(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketUploadNotificationBack.getMoneyMarketList()).isEqualTo(moneyMarketList);
-
-        moneyMarketList.removeMoneyMarketUploadNotification(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketList.getMoneyMarketUploadNotifications()).doesNotContain(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketUploadNotificationBack.getMoneyMarketList()).isNull();
-
-        moneyMarketList.moneyMarketUploadNotifications(new HashSet<>(Set.of(moneyMarketUploadNotificationBack)));
-        assertThat(moneyMarketList.getMoneyMarketUploadNotifications()).containsOnly(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketUploadNotificationBack.getMoneyMarketList()).isEqualTo(moneyMarketList);
-
-        moneyMarketList.setMoneyMarketUploadNotifications(new HashSet<>());
-        assertThat(moneyMarketList.getMoneyMarketUploadNotifications()).doesNotContain(moneyMarketUploadNotificationBack);
-        assertThat(moneyMarketUploadNotificationBack.getMoneyMarketList()).isNull();
     }
 }

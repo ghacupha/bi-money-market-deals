@@ -200,7 +200,7 @@ describe('MoneyMarketList Service', () => {
       });
 
       it('should return false if one entity is null', () => {
-        const entity1 = { id: 29763 };
+        const entity1 = { id: 21196 };
         const entity2 = null;
 
         const compareResult1 = service.compareMoneyMarketList(entity1, entity2);
@@ -211,8 +211,8 @@ describe('MoneyMarketList Service', () => {
       });
 
       it('should return false if primaryKey differs', () => {
-        const entity1 = { id: 29763 };
-        const entity2 = { id: 21170 };
+        const entity1 = { id: 21196 };
+        const entity2 = { id: 31570 };
 
         const compareResult1 = service.compareMoneyMarketList(entity1, entity2);
         const compareResult2 = service.compareMoneyMarketList(entity2, entity1);
@@ -222,8 +222,8 @@ describe('MoneyMarketList Service', () => {
       });
 
       it('should return false if primaryKey matches', () => {
-        const entity1 = { id: 29763 };
-        const entity2 = { id: 29763 };
+        const entity1 = { id: 21196 };
+        const entity2 = { id: 21196 };
 
         const compareResult1 = service.compareMoneyMarketList(entity1, entity2);
         const compareResult2 = service.compareMoneyMarketList(entity2, entity1);

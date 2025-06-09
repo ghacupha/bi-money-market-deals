@@ -25,24 +25,14 @@ import { finalize, map } from 'rxjs/operators';
 import SharedModule from 'app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IDealer } from 'app/entities/moneyMarketBi/dealer/dealer.model';
-import { DealerService } from 'app/entities/moneyMarketBi/dealer/service/dealer.service';
-import { ISecurityClearance } from 'app/entities/moneyMarketBi/security-clearance/security-clearance.model';
-import { SecurityClearanceService } from 'app/entities/moneyMarketBi/security-clearance/service/security-clearance.service';
-import { IApplicationUser } from 'app/entities/maintenance/application-user/application-user.model';
-import { ApplicationUserService } from 'app/entities/maintenance/application-user/service/application-user.service';
 import { IFiscalYear } from 'app/entities/maintenance/fiscal-year/fiscal-year.model';
 import { FiscalYearService } from 'app/entities/maintenance/fiscal-year/service/fiscal-year.service';
 import { IFiscalQuarter } from 'app/entities/maintenance/fiscal-quarter/fiscal-quarter.model';
 import { FiscalQuarterService } from 'app/entities/maintenance/fiscal-quarter/service/fiscal-quarter.service';
 import { IFiscalMonth } from 'app/entities/maintenance/fiscal-month/fiscal-month.model';
 import { FiscalMonthService } from 'app/entities/maintenance/fiscal-month/service/fiscal-month.service';
-import { IReportBatch } from 'app/entities/moneyMarketBi/report-batch/report-batch.model';
-import { ReportBatchService } from 'app/entities/moneyMarketBi/report-batch/service/report-batch.service';
 import { IMoneyMarketList } from 'app/entities/moneyMarketBi/money-market-list/money-market-list.model';
 import { MoneyMarketListService } from 'app/entities/moneyMarketBi/money-market-list/service/money-market-list.service';
-import { IMoneyMarketUploadNotification } from 'app/entities/moneyMarketBi/money-market-upload-notification/money-market-upload-notification.model';
-import { MoneyMarketUploadNotificationService } from 'app/entities/moneyMarketBi/money-market-upload-notification/service/money-market-upload-notification.service';
 import { PlaceholderService } from '../service/placeholder.service';
 import { IPlaceholder } from '../placeholder.model';
 import { PlaceholderFormGroup, PlaceholderFormService } from './placeholder-form.service';
@@ -57,41 +47,23 @@ export class PlaceholderUpdateComponent implements OnInit {
   placeholder: IPlaceholder | null = null;
 
   placeholdersSharedCollection: IPlaceholder[] = [];
-  dealersSharedCollection: IDealer[] = [];
-  securityClearancesSharedCollection: ISecurityClearance[] = [];
-  applicationUsersSharedCollection: IApplicationUser[] = [];
   fiscalYearsSharedCollection: IFiscalYear[] = [];
   fiscalQuartersSharedCollection: IFiscalQuarter[] = [];
   fiscalMonthsSharedCollection: IFiscalMonth[] = [];
-  reportBatchesSharedCollection: IReportBatch[] = [];
   moneyMarketListsSharedCollection: IMoneyMarketList[] = [];
-  moneyMarketUploadNotificationsSharedCollection: IMoneyMarketUploadNotification[] = [];
 
   protected placeholderService = inject(PlaceholderService);
   protected placeholderFormService = inject(PlaceholderFormService);
-  protected dealerService = inject(DealerService);
-  protected securityClearanceService = inject(SecurityClearanceService);
-  protected applicationUserService = inject(ApplicationUserService);
   protected fiscalYearService = inject(FiscalYearService);
   protected fiscalQuarterService = inject(FiscalQuarterService);
   protected fiscalMonthService = inject(FiscalMonthService);
-  protected reportBatchService = inject(ReportBatchService);
   protected moneyMarketListService = inject(MoneyMarketListService);
-  protected moneyMarketUploadNotificationService = inject(MoneyMarketUploadNotificationService);
   protected activatedRoute = inject(ActivatedRoute);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: PlaceholderFormGroup = this.placeholderFormService.createPlaceholderFormGroup();
 
   comparePlaceholder = (o1: IPlaceholder | null, o2: IPlaceholder | null): boolean => this.placeholderService.comparePlaceholder(o1, o2);
-
-  compareDealer = (o1: IDealer | null, o2: IDealer | null): boolean => this.dealerService.compareDealer(o1, o2);
-
-  compareSecurityClearance = (o1: ISecurityClearance | null, o2: ISecurityClearance | null): boolean =>
-    this.securityClearanceService.compareSecurityClearance(o1, o2);
-
-  compareApplicationUser = (o1: IApplicationUser | null, o2: IApplicationUser | null): boolean =>
-    this.applicationUserService.compareApplicationUser(o1, o2);
 
   compareFiscalYear = (o1: IFiscalYear | null, o2: IFiscalYear | null): boolean => this.fiscalYearService.compareFiscalYear(o1, o2);
 
@@ -100,13 +72,8 @@ export class PlaceholderUpdateComponent implements OnInit {
 
   compareFiscalMonth = (o1: IFiscalMonth | null, o2: IFiscalMonth | null): boolean => this.fiscalMonthService.compareFiscalMonth(o1, o2);
 
-  compareReportBatch = (o1: IReportBatch | null, o2: IReportBatch | null): boolean => this.reportBatchService.compareReportBatch(o1, o2);
-
   compareMoneyMarketList = (o1: IMoneyMarketList | null, o2: IMoneyMarketList | null): boolean =>
     this.moneyMarketListService.compareMoneyMarketList(o1, o2);
-
-  compareMoneyMarketUploadNotification = (o1: IMoneyMarketUploadNotification | null, o2: IMoneyMarketUploadNotification | null): boolean =>
-    this.moneyMarketUploadNotificationService.compareMoneyMarketUploadNotification(o1, o2);
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ placeholder }) => {
@@ -160,18 +127,6 @@ export class PlaceholderUpdateComponent implements OnInit {
       this.placeholdersSharedCollection,
       placeholder.containingPlaceholder,
     );
-    this.dealersSharedCollection = this.dealerService.addDealerToCollectionIfMissing<IDealer>(
-      this.dealersSharedCollection,
-      ...(placeholder.dealers ?? []),
-    );
-    this.securityClearancesSharedCollection = this.securityClearanceService.addSecurityClearanceToCollectionIfMissing<ISecurityClearance>(
-      this.securityClearancesSharedCollection,
-      ...(placeholder.securityClearances ?? []),
-    );
-    this.applicationUsersSharedCollection = this.applicationUserService.addApplicationUserToCollectionIfMissing<IApplicationUser>(
-      this.applicationUsersSharedCollection,
-      ...(placeholder.applicationUsers ?? []),
-    );
     this.fiscalYearsSharedCollection = this.fiscalYearService.addFiscalYearToCollectionIfMissing<IFiscalYear>(
       this.fiscalYearsSharedCollection,
       ...(placeholder.fiscalYears ?? []),
@@ -184,19 +139,10 @@ export class PlaceholderUpdateComponent implements OnInit {
       this.fiscalMonthsSharedCollection,
       ...(placeholder.fiscalMonths ?? []),
     );
-    this.reportBatchesSharedCollection = this.reportBatchService.addReportBatchToCollectionIfMissing<IReportBatch>(
-      this.reportBatchesSharedCollection,
-      ...(placeholder.reportBatches ?? []),
-    );
     this.moneyMarketListsSharedCollection = this.moneyMarketListService.addMoneyMarketListToCollectionIfMissing<IMoneyMarketList>(
       this.moneyMarketListsSharedCollection,
       ...(placeholder.moneyMarketLists ?? []),
     );
-    this.moneyMarketUploadNotificationsSharedCollection =
-      this.moneyMarketUploadNotificationService.addMoneyMarketUploadNotificationToCollectionIfMissing<IMoneyMarketUploadNotification>(
-        this.moneyMarketUploadNotificationsSharedCollection,
-        ...(placeholder.moneyMarketUploadNotifications ?? []),
-      );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -209,42 +155,6 @@ export class PlaceholderUpdateComponent implements OnInit {
         ),
       )
       .subscribe((placeholders: IPlaceholder[]) => (this.placeholdersSharedCollection = placeholders));
-
-    this.dealerService
-      .query()
-      .pipe(map((res: HttpResponse<IDealer[]>) => res.body ?? []))
-      .pipe(
-        map((dealers: IDealer[]) =>
-          this.dealerService.addDealerToCollectionIfMissing<IDealer>(dealers, ...(this.placeholder?.dealers ?? [])),
-        ),
-      )
-      .subscribe((dealers: IDealer[]) => (this.dealersSharedCollection = dealers));
-
-    this.securityClearanceService
-      .query()
-      .pipe(map((res: HttpResponse<ISecurityClearance[]>) => res.body ?? []))
-      .pipe(
-        map((securityClearances: ISecurityClearance[]) =>
-          this.securityClearanceService.addSecurityClearanceToCollectionIfMissing<ISecurityClearance>(
-            securityClearances,
-            ...(this.placeholder?.securityClearances ?? []),
-          ),
-        ),
-      )
-      .subscribe((securityClearances: ISecurityClearance[]) => (this.securityClearancesSharedCollection = securityClearances));
-
-    this.applicationUserService
-      .query()
-      .pipe(map((res: HttpResponse<IApplicationUser[]>) => res.body ?? []))
-      .pipe(
-        map((applicationUsers: IApplicationUser[]) =>
-          this.applicationUserService.addApplicationUserToCollectionIfMissing<IApplicationUser>(
-            applicationUsers,
-            ...(this.placeholder?.applicationUsers ?? []),
-          ),
-        ),
-      )
-      .subscribe((applicationUsers: IApplicationUser[]) => (this.applicationUsersSharedCollection = applicationUsers));
 
     this.fiscalYearService
       .query()
@@ -282,19 +192,6 @@ export class PlaceholderUpdateComponent implements OnInit {
       )
       .subscribe((fiscalMonths: IFiscalMonth[]) => (this.fiscalMonthsSharedCollection = fiscalMonths));
 
-    this.reportBatchService
-      .query()
-      .pipe(map((res: HttpResponse<IReportBatch[]>) => res.body ?? []))
-      .pipe(
-        map((reportBatches: IReportBatch[]) =>
-          this.reportBatchService.addReportBatchToCollectionIfMissing<IReportBatch>(
-            reportBatches,
-            ...(this.placeholder?.reportBatches ?? []),
-          ),
-        ),
-      )
-      .subscribe((reportBatches: IReportBatch[]) => (this.reportBatchesSharedCollection = reportBatches));
-
     this.moneyMarketListService
       .query()
       .pipe(map((res: HttpResponse<IMoneyMarketList[]>) => res.body ?? []))
@@ -307,21 +204,5 @@ export class PlaceholderUpdateComponent implements OnInit {
         ),
       )
       .subscribe((moneyMarketLists: IMoneyMarketList[]) => (this.moneyMarketListsSharedCollection = moneyMarketLists));
-
-    this.moneyMarketUploadNotificationService
-      .query()
-      .pipe(map((res: HttpResponse<IMoneyMarketUploadNotification[]>) => res.body ?? []))
-      .pipe(
-        map((moneyMarketUploadNotifications: IMoneyMarketUploadNotification[]) =>
-          this.moneyMarketUploadNotificationService.addMoneyMarketUploadNotificationToCollectionIfMissing<IMoneyMarketUploadNotification>(
-            moneyMarketUploadNotifications,
-            ...(this.placeholder?.moneyMarketUploadNotifications ?? []),
-          ),
-        ),
-      )
-      .subscribe(
-        (moneyMarketUploadNotifications: IMoneyMarketUploadNotification[]) =>
-          (this.moneyMarketUploadNotificationsSharedCollection = moneyMarketUploadNotifications),
-      );
   }
 }

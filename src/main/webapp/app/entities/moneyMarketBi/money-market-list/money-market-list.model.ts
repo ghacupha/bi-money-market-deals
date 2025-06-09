@@ -18,8 +18,6 @@
 
 import dayjs from 'dayjs/esm';
 import { IPlaceholder } from 'app/entities/maintenance/placeholder/placeholder.model';
-import { IApplicationUser } from 'app/entities/maintenance/application-user/application-user.model';
-import { IReportBatch } from 'app/entities/moneyMarketBi/report-batch/report-batch.model';
 import { reportBatchStatus } from 'app/entities/enumerations/report-batch-status.model';
 
 export interface IMoneyMarketList {
@@ -30,8 +28,6 @@ export interface IMoneyMarketList {
   description?: string | null;
   active?: boolean | null;
   placeholders?: Pick<IPlaceholder, 'id' | 'token'>[] | null;
-  uploadedBy?: Pick<IApplicationUser, 'id' | 'applicationIdentity'> | null;
-  reportBatch?: Pick<IReportBatch, 'id' | 'description'> | null;
 }
 
 export type NewMoneyMarketList = Omit<IMoneyMarketList, 'id'> & { id: null };

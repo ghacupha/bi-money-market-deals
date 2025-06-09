@@ -43,8 +43,6 @@ describe('FiscalYear Form Service', () => {
             endDate: expect.any(Object),
             fiscalYearStatus: expect.any(Object),
             placeholders: expect.any(Object),
-            createdBy: expect.any(Object),
-            lastUpdatedBy: expect.any(Object),
           }),
         );
       });
@@ -60,8 +58,6 @@ describe('FiscalYear Form Service', () => {
             endDate: expect.any(Object),
             fiscalYearStatus: expect.any(Object),
             placeholders: expect.any(Object),
-            createdBy: expect.any(Object),
-            lastUpdatedBy: expect.any(Object),
           }),
         );
       });

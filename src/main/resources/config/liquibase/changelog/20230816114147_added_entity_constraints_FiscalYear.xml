@@ -23,19 +23,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="placeholder"
                                  />
-
-        <addForeignKeyConstraint baseColumnNames="created_by_id"
-                                 baseTableName="fiscal_year"
-                                 constraintName="fk_fiscal_year__created_by_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="application_user"
-                                 />
-
-        <addForeignKeyConstraint baseColumnNames="last_updated_by_id"
-                                 baseTableName="fiscal_year"
-                                 constraintName="fk_fiscal_year__last_updated_by_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="application_user"
-                                 />
     </changeSet>
 </databaseChangeLog>

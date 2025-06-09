@@ -72,13 +72,7 @@ public class MoneyMarketListCriteria implements Serializable, Criteria {
 
     private LongFilter placeholderId;
 
-    private LongFilter uploadedById;
-
-    private LongFilter reportBatchId;
-
     private LongFilter moneyMarketDealId;
-
-    private LongFilter moneyMarketUploadNotificationId;
 
     private Boolean distinct;
 
@@ -92,10 +86,7 @@ public class MoneyMarketListCriteria implements Serializable, Criteria {
         this.description = other.optionalDescription().map(StringFilter::copy).orElse(null);
         this.active = other.optionalActive().map(BooleanFilter::copy).orElse(null);
         this.placeholderId = other.optionalPlaceholderId().map(LongFilter::copy).orElse(null);
-        this.uploadedById = other.optionalUploadedById().map(LongFilter::copy).orElse(null);
-        this.reportBatchId = other.optionalReportBatchId().map(LongFilter::copy).orElse(null);
         this.moneyMarketDealId = other.optionalMoneyMarketDealId().map(LongFilter::copy).orElse(null);
-        this.moneyMarketUploadNotificationId = other.optionalMoneyMarketUploadNotificationId().map(LongFilter::copy).orElse(null);
         this.distinct = other.distinct;
     }
 
@@ -237,44 +228,6 @@ public class MoneyMarketListCriteria implements Serializable, Criteria {
         this.placeholderId = placeholderId;
     }
 
-    public LongFilter getUploadedById() {
-        return uploadedById;
-    }
-
-    public Optional<LongFilter> optionalUploadedById() {
-        return Optional.ofNullable(uploadedById);
-    }
-
-    public LongFilter uploadedById() {
-        if (uploadedById == null) {
-            setUploadedById(new LongFilter());
-        }
-        return uploadedById;
-    }
-
-    public void setUploadedById(LongFilter uploadedById) {
-        this.uploadedById = uploadedById;
-    }
-
-    public LongFilter getReportBatchId() {
-        return reportBatchId;
-    }
-
-    public Optional<LongFilter> optionalReportBatchId() {
-        return Optional.ofNullable(reportBatchId);
-    }
-
-    public LongFilter reportBatchId() {
-        if (reportBatchId == null) {
-            setReportBatchId(new LongFilter());
-        }
-        return reportBatchId;
-    }
-
-    public void setReportBatchId(LongFilter reportBatchId) {
-        this.reportBatchId = reportBatchId;
-    }
-
     public LongFilter getMoneyMarketDealId() {
         return moneyMarketDealId;
     }
@@ -292,25 +245,6 @@ public class MoneyMarketListCriteria implements Serializable, Criteria {
 
     public void setMoneyMarketDealId(LongFilter moneyMarketDealId) {
         this.moneyMarketDealId = moneyMarketDealId;
-    }
-
-    public LongFilter getMoneyMarketUploadNotificationId() {
-        return moneyMarketUploadNotificationId;
-    }
-
-    public Optional<LongFilter> optionalMoneyMarketUploadNotificationId() {
-        return Optional.ofNullable(moneyMarketUploadNotificationId);
-    }
-
-    public LongFilter moneyMarketUploadNotificationId() {
-        if (moneyMarketUploadNotificationId == null) {
-            setMoneyMarketUploadNotificationId(new LongFilter());
-        }
-        return moneyMarketUploadNotificationId;
-    }
-
-    public void setMoneyMarketUploadNotificationId(LongFilter moneyMarketUploadNotificationId) {
-        this.moneyMarketUploadNotificationId = moneyMarketUploadNotificationId;
     }
 
     public Boolean getDistinct() {
@@ -349,30 +283,14 @@ public class MoneyMarketListCriteria implements Serializable, Criteria {
             Objects.equals(description, that.description) &&
             Objects.equals(active, that.active) &&
             Objects.equals(placeholderId, that.placeholderId) &&
-            Objects.equals(uploadedById, that.uploadedById) &&
-            Objects.equals(reportBatchId, that.reportBatchId) &&
             Objects.equals(moneyMarketDealId, that.moneyMarketDealId) &&
-            Objects.equals(moneyMarketUploadNotificationId, that.moneyMarketUploadNotificationId) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            reportDate,
-            uploadTimeStamp,
-            status,
-            description,
-            active,
-            placeholderId,
-            uploadedById,
-            reportBatchId,
-            moneyMarketDealId,
-            moneyMarketUploadNotificationId,
-            distinct
-        );
+        return Objects.hash(id, reportDate, uploadTimeStamp, status, description, active, placeholderId, moneyMarketDealId, distinct);
     }
 
     // prettier-ignore
@@ -386,10 +304,7 @@ public class MoneyMarketListCriteria implements Serializable, Criteria {
             optionalDescription().map(f -> "description=" + f + ", ").orElse("") +
             optionalActive().map(f -> "active=" + f + ", ").orElse("") +
             optionalPlaceholderId().map(f -> "placeholderId=" + f + ", ").orElse("") +
-            optionalUploadedById().map(f -> "uploadedById=" + f + ", ").orElse("") +
-            optionalReportBatchId().map(f -> "reportBatchId=" + f + ", ").orElse("") +
             optionalMoneyMarketDealId().map(f -> "moneyMarketDealId=" + f + ", ").orElse("") +
-            optionalMoneyMarketUploadNotificationId().map(f -> "moneyMarketUploadNotificationId=" + f + ", ").orElse("") +
             optionalDistinct().map(f -> "distinct=" + f + ", ").orElse("") +
         "}";
     }

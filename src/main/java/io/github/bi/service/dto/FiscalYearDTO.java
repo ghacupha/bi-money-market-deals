@@ -47,10 +47,6 @@ public class FiscalYearDTO implements Serializable {
 
     private Set<PlaceholderDTO> placeholders = new HashSet<>();
 
-    private ApplicationUserDTO createdBy;
-
-    private ApplicationUserDTO lastUpdatedBy;
-
     public Long getId() {
         return id;
     }
@@ -99,22 +95,6 @@ public class FiscalYearDTO implements Serializable {
         this.placeholders = placeholders;
     }
 
-    public ApplicationUserDTO getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(ApplicationUserDTO createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public ApplicationUserDTO getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(ApplicationUserDTO lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -146,8 +126,6 @@ public class FiscalYearDTO implements Serializable {
             ", endDate='" + getEndDate() + "'" +
             ", fiscalYearStatus='" + getFiscalYearStatus() + "'" +
             ", placeholders=" + getPlaceholders() +
-            ", createdBy=" + getCreatedBy() +
-            ", lastUpdatedBy=" + getLastUpdatedBy() +
             "}";
     }
 }

@@ -15,17 +15,12 @@
     "enableHibernateCache": true,
     "enableTranslation": false,
     "entities": [
-      "Dealer",
       "Placeholder",
-      "SecurityClearance",
-      "ApplicationUser",
       "FiscalYear",
       "FiscalQuarter",
       "FiscalMonth",
       "MoneyMarketDeal",
-      "ReportBatch",
       "MoneyMarketList",
-      "MoneyMarketUploadNotification",
       "MoneyMarketDealDailySummary"
     ],
     "feignClient": true,

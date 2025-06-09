@@ -70,10 +70,6 @@ public class FiscalYearCriteria implements Serializable, Criteria {
 
     private LongFilter placeholderId;
 
-    private LongFilter createdById;
-
-    private LongFilter lastUpdatedById;
-
     private Boolean distinct;
 
     public FiscalYearCriteria() {}
@@ -85,8 +81,6 @@ public class FiscalYearCriteria implements Serializable, Criteria {
         this.endDate = other.optionalEndDate().map(LocalDateFilter::copy).orElse(null);
         this.fiscalYearStatus = other.optionalFiscalYearStatus().map(FiscalYearStatusTypeFilter::copy).orElse(null);
         this.placeholderId = other.optionalPlaceholderId().map(LongFilter::copy).orElse(null);
-        this.createdById = other.optionalCreatedById().map(LongFilter::copy).orElse(null);
-        this.lastUpdatedById = other.optionalLastUpdatedById().map(LongFilter::copy).orElse(null);
         this.distinct = other.distinct;
     }
 
@@ -209,44 +203,6 @@ public class FiscalYearCriteria implements Serializable, Criteria {
         this.placeholderId = placeholderId;
     }
 
-    public LongFilter getCreatedById() {
-        return createdById;
-    }
-
-    public Optional<LongFilter> optionalCreatedById() {
-        return Optional.ofNullable(createdById);
-    }
-
-    public LongFilter createdById() {
-        if (createdById == null) {
-            setCreatedById(new LongFilter());
-        }
-        return createdById;
-    }
-
-    public void setCreatedById(LongFilter createdById) {
-        this.createdById = createdById;
-    }
-
-    public LongFilter getLastUpdatedById() {
-        return lastUpdatedById;
-    }
-
-    public Optional<LongFilter> optionalLastUpdatedById() {
-        return Optional.ofNullable(lastUpdatedById);
-    }
-
-    public LongFilter lastUpdatedById() {
-        if (lastUpdatedById == null) {
-            setLastUpdatedById(new LongFilter());
-        }
-        return lastUpdatedById;
-    }
-
-    public void setLastUpdatedById(LongFilter lastUpdatedById) {
-        this.lastUpdatedById = lastUpdatedById;
-    }
-
     public Boolean getDistinct() {
         return distinct;
     }
@@ -282,25 +238,13 @@ public class FiscalYearCriteria implements Serializable, Criteria {
             Objects.equals(endDate, that.endDate) &&
             Objects.equals(fiscalYearStatus, that.fiscalYearStatus) &&
             Objects.equals(placeholderId, that.placeholderId) &&
-            Objects.equals(createdById, that.createdById) &&
-            Objects.equals(lastUpdatedById, that.lastUpdatedById) &&
             Objects.equals(distinct, that.distinct)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            id,
-            fiscalYearCode,
-            startDate,
-            endDate,
-            fiscalYearStatus,
-            placeholderId,
-            createdById,
-            lastUpdatedById,
-            distinct
-        );
+        return Objects.hash(id, fiscalYearCode, startDate, endDate, fiscalYearStatus, placeholderId, distinct);
     }
 
     // prettier-ignore
@@ -313,8 +257,6 @@ public class FiscalYearCriteria implements Serializable, Criteria {
             optionalEndDate().map(f -> "endDate=" + f + ", ").orElse("") +
             optionalFiscalYearStatus().map(f -> "fiscalYearStatus=" + f + ", ").orElse("") +
             optionalPlaceholderId().map(f -> "placeholderId=" + f + ", ").orElse("") +
-            optionalCreatedById().map(f -> "createdById=" + f + ", ").orElse("") +
-            optionalLastUpdatedById().map(f -> "lastUpdatedById=" + f + ", ").orElse("") +
             optionalDistinct().map(f -> "distinct=" + f + ", ").orElse("") +
         "}";
     }

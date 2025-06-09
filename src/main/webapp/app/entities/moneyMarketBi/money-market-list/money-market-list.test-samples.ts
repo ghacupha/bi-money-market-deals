@@ -21,29 +21,29 @@ import dayjs from 'dayjs/esm';
 import { IMoneyMarketList, NewMoneyMarketList } from './money-market-list.model';
 
 export const sampleWithRequiredData: IMoneyMarketList = {
-  id: 22343,
+  id: 30260,
   reportDate: dayjs('2025-05-19'),
-  uploadTimeStamp: dayjs('2025-05-19T10:13'),
-  status: 'CANCELLED',
+  uploadTimeStamp: dayjs('2025-05-19T03:24'),
+  status: 'ACTIVE',
   active: true,
 };
 
 export const sampleWithPartialData: IMoneyMarketList = {
-  id: 12286,
+  id: 27971,
   reportDate: dayjs('2025-05-19'),
-  uploadTimeStamp: dayjs('2025-05-19T10:09'),
-  status: 'CANCELLED',
-  description: 'by under viciously',
-  active: false,
+  uploadTimeStamp: dayjs('2025-05-18T22:08'),
+  status: 'REPLACED',
+  description: 'jeopardise spanish',
+  active: true,
 };
 
 export const sampleWithFullData: IMoneyMarketList = {
-  id: 3963,
-  reportDate: dayjs('2025-05-18'),
-  uploadTimeStamp: dayjs('2025-05-19T05:49'),
-  status: 'CANCELLED',
-  description: 'tank pension sock',
-  active: true,
+  id: 9452,
+  reportDate: dayjs('2025-05-19'),
+  uploadTimeStamp: dayjs('2025-05-19T03:05'),
+  status: 'REPLACED',
+  description: 'how timely forenenst',
+  active: false,
 };
 
 export const sampleWithNewData: NewMoneyMarketList = {

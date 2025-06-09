@@ -81,19 +81,9 @@ public class PlaceholderAsserts {
             .satisfies(a ->
                 assertThat(a.getContainingPlaceholder()).as("check containingPlaceholder").isEqualTo(expected.getContainingPlaceholder())
             )
-            .satisfies(a -> assertThat(a.getDealers()).as("check dealers").isEqualTo(expected.getDealers()))
-            .satisfies(a -> assertThat(a.getSecurityClearances()).as("check securityClearances").isEqualTo(expected.getSecurityClearances())
-            )
-            .satisfies(a -> assertThat(a.getApplicationUsers()).as("check applicationUsers").isEqualTo(expected.getApplicationUsers()))
             .satisfies(a -> assertThat(a.getFiscalYears()).as("check fiscalYears").isEqualTo(expected.getFiscalYears()))
             .satisfies(a -> assertThat(a.getFiscalQuarters()).as("check fiscalQuarters").isEqualTo(expected.getFiscalQuarters()))
             .satisfies(a -> assertThat(a.getFiscalMonths()).as("check fiscalMonths").isEqualTo(expected.getFiscalMonths()))
-            .satisfies(a -> assertThat(a.getReportBatches()).as("check reportBatches").isEqualTo(expected.getReportBatches()))
-            .satisfies(a -> assertThat(a.getMoneyMarketLists()).as("check moneyMarketLists").isEqualTo(expected.getMoneyMarketLists()))
-            .satisfies(a ->
-                assertThat(a.getMoneyMarketUploadNotifications())
-                    .as("check moneyMarketUploadNotifications")
-                    .isEqualTo(expected.getMoneyMarketUploadNotifications())
-            );
+            .satisfies(a -> assertThat(a.getMoneyMarketLists()).as("check moneyMarketLists").isEqualTo(expected.getMoneyMarketLists()));
     }
 }

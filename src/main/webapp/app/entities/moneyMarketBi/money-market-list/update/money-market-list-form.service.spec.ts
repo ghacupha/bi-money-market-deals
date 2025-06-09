@@ -44,8 +44,6 @@ describe('MoneyMarketList Form Service', () => {
             description: expect.any(Object),
             active: expect.any(Object),
             placeholders: expect.any(Object),
-            uploadedBy: expect.any(Object),
-            reportBatch: expect.any(Object),
           }),
         );
       });
@@ -62,8 +60,6 @@ describe('MoneyMarketList Form Service', () => {
             description: expect.any(Object),
             active: expect.any(Object),
             placeholders: expect.any(Object),
-            uploadedBy: expect.any(Object),
-            reportBatch: expect.any(Object),
           }),
         );
       });

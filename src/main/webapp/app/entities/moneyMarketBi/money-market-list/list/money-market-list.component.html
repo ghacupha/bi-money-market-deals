@@ -124,18 +124,6 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
-            <th scope="col" jhiSortBy="uploadedBy.applicationIdentity">
-              <div class="d-flex">
-                <span>Uploaded By</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
-            <th scope="col" jhiSortBy="reportBatch.description">
-              <div class="d-flex">
-                <span>Report Batch</span>
-                <fa-icon class="p-1" icon="sort"></fa-icon>
-              </div>
-            </th>
             <th scope="col"></th>
           </tr>
         </thead>
@@ -150,24 +138,6 @@
               <td>{{ { null: '', ACTIVE: 'ACTIVE', CANCELLED: 'CANCELLED', REPLACED: 'REPLACED' }[moneyMarketList.status ?? 'null'] }}</td>
               <td>{{ moneyMarketList.description }}</td>
               <td>{{ moneyMarketList.active }}</td>
-              <td>
-                @if (moneyMarketList.uploadedBy) {
-                  <div>
-                    <a [routerLink]="['/moneymarketbi/application-user', moneyMarketList.uploadedBy.id, 'view']">{{
-                      moneyMarketList.uploadedBy.applicationIdentity
-                    }}</a>
-                  </div>
-                }
-              </td>
-              <td>
-                @if (moneyMarketList.reportBatch) {
-                  <div>
-                    <a [routerLink]="['/moneymarketbi/report-batch', moneyMarketList.reportBatch.id, 'view']">{{
-                      moneyMarketList.reportBatch.description
-                    }}</a>
-                  </div>
-                }
-              </td>
               <td class="text-end">
                 <div class="btn-group">
                   <button
@@ -179,16 +149,6 @@
                   >
                     <fa-icon icon="eye"></fa-icon>
                     <span class="d-none d-md-inline">Show Money Market Deal</span>
-                  </button>
-                  <button
-                    type="submit"
-                    [routerLink]="['/moneymarketbi/money-market-upload-notification']"
-                    [queryParams]="{ 'filter[moneyMarketListId.in]': moneyMarketList.id }"
-                    class="btn btn-info btn-sm"
-                    data-cy="filterOtherEntityButton"
-                  >
-                    <fa-icon icon="eye"></fa-icon>
-                    <span class="d-none d-md-inline">Show Money Market Upload Notification</span>
                   </button>
                   <a
                     [routerLink]="['/moneymarketbi/money-market-list', moneyMarketList.id, 'view']"

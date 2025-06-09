@@ -32,34 +32,17 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type PlaceholderFormGroupInput = IPlaceholder | PartialWithRequiredKeyOf<NewPlaceholder>;
 
-type PlaceholderFormDefaults = Pick<
-  NewPlaceholder,
-  | 'id'
-  | 'dealers'
-  | 'securityClearances'
-  | 'applicationUsers'
-  | 'fiscalYears'
-  | 'fiscalQuarters'
-  | 'fiscalMonths'
-  | 'reportBatches'
-  | 'moneyMarketLists'
-  | 'moneyMarketUploadNotifications'
->;
+type PlaceholderFormDefaults = Pick<NewPlaceholder, 'id' | 'fiscalYears' | 'fiscalQuarters' | 'fiscalMonths' | 'moneyMarketLists'>;
 
 type PlaceholderFormGroupContent = {
   id: FormControl<IPlaceholder['id'] | NewPlaceholder['id']>;
   description: FormControl<IPlaceholder['description']>;
   token: FormControl<IPlaceholder['token']>;
   containingPlaceholder: FormControl<IPlaceholder['containingPlaceholder']>;
-  dealers: FormControl<IPlaceholder['dealers']>;
-  securityClearances: FormControl<IPlaceholder['securityClearances']>;
-  applicationUsers: FormControl<IPlaceholder['applicationUsers']>;
   fiscalYears: FormControl<IPlaceholder['fiscalYears']>;
   fiscalQuarters: FormControl<IPlaceholder['fiscalQuarters']>;
   fiscalMonths: FormControl<IPlaceholder['fiscalMonths']>;
-  reportBatches: FormControl<IPlaceholder['reportBatches']>;
   moneyMarketLists: FormControl<IPlaceholder['moneyMarketLists']>;
-  moneyMarketUploadNotifications: FormControl<IPlaceholder['moneyMarketUploadNotifications']>;
 };
 
 export type PlaceholderFormGroup = FormGroup<PlaceholderFormGroupContent>;
@@ -84,15 +67,10 @@ export class PlaceholderFormService {
       }),
       token: new FormControl(placeholderRawValue.token),
       containingPlaceholder: new FormControl(placeholderRawValue.containingPlaceholder),
-      dealers: new FormControl(placeholderRawValue.dealers ?? []),
-      securityClearances: new FormControl(placeholderRawValue.securityClearances ?? []),
-      applicationUsers: new FormControl(placeholderRawValue.applicationUsers ?? []),
       fiscalYears: new FormControl(placeholderRawValue.fiscalYears ?? []),
       fiscalQuarters: new FormControl(placeholderRawValue.fiscalQuarters ?? []),
       fiscalMonths: new FormControl(placeholderRawValue.fiscalMonths ?? []),
-      reportBatches: new FormControl(placeholderRawValue.reportBatches ?? []),
       moneyMarketLists: new FormControl(placeholderRawValue.moneyMarketLists ?? []),
-      moneyMarketUploadNotifications: new FormControl(placeholderRawValue.moneyMarketUploadNotifications ?? []),
     });
   }
 
@@ -113,15 +91,10 @@ export class PlaceholderFormService {
   private getFormDefaults(): PlaceholderFormDefaults {
     return {
       id: null,
-      dealers: [],
-      securityClearances: [],
-      applicationUsers: [],
       fiscalYears: [],
       fiscalQuarters: [],
       fiscalMonths: [],
-      reportBatches: [],
       moneyMarketLists: [],
-      moneyMarketUploadNotifications: [],
     };
   }
 }

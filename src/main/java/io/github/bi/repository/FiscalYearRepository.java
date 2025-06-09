@@ -24,7 +24,6 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -37,28 +36,14 @@ import org.springframework.stereotype.Repository;
 public interface FiscalYearRepository
     extends FiscalYearRepositoryWithBagRelationships, JpaRepository<FiscalYear, Long>, JpaSpecificationExecutor<FiscalYear> {
     default Optional<FiscalYear> findOneWithEagerRelationships(Long id) {
-        return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));
+        return this.fetchBagRelationships(this.findById(id));
     }
 
     default List<FiscalYear> findAllWithEagerRelationships() {
-        return this.fetchBagRelationships(this.findAllWithToOneRelationships());
+        return this.fetchBagRelationships(this.findAll());
     }
 
     default Page<FiscalYear> findAllWithEagerRelationships(Pageable pageable) {
-        return this.fetchBagRelationships(this.findAllWithToOneRelationships(pageable));
+        return this.fetchBagRelationships(this.findAll(pageable));
     }
-
-    @Query(
-        value = "select fiscalYear from FiscalYear fiscalYear left join fetch fiscalYear.createdBy left join fetch fiscalYear.lastUpdatedBy",
-        countQuery = "select count(fiscalYear) from FiscalYear fiscalYear"
-    )
-    Page<FiscalYear> findAllWithToOneRelationships(Pageable pageable);
-
-    @Query("select fiscalYear from FiscalYear fiscalYear left join fetch fiscalYear.createdBy left join fetch fiscalYear.lastUpdatedBy")
-    List<FiscalYear> findAllWithToOneRelationships();
-
-    @Query(
-        "select fiscalYear from FiscalYear fiscalYear left join fetch fiscalYear.createdBy left join fetch fiscalYear.lastUpdatedBy where fiscalYear.id =:id"
-    )
-    Optional<FiscalYear> findOneWithToOneRelationships(@Param("id") Long id);
 }

@@ -79,57 +79,6 @@
         </div>
 
         <div class="mb-3">
-          <label for="field_dealers">Dealer</label>
-          <select
-            class="form-control"
-            id="field_dealers"
-            data-cy="dealer"
-            multiple
-            name="dealers"
-            formControlName="dealers"
-            [compareWith]="compareDealer"
-          >
-            @for (dealerOption of dealersSharedCollection; track $index) {
-              <option [ngValue]="dealerOption">{{ dealerOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label for="field_securityClearances">Security Clearance</label>
-          <select
-            class="form-control"
-            id="field_securityClearances"
-            data-cy="securityClearance"
-            multiple
-            name="securityClearances"
-            formControlName="securityClearances"
-            [compareWith]="compareSecurityClearance"
-          >
-            @for (securityClearanceOption of securityClearancesSharedCollection; track $index) {
-              <option [ngValue]="securityClearanceOption">{{ securityClearanceOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label for="field_applicationUsers">Application User</label>
-          <select
-            class="form-control"
-            id="field_applicationUsers"
-            data-cy="applicationUser"
-            multiple
-            name="applicationUsers"
-            formControlName="applicationUsers"
-            [compareWith]="compareApplicationUser"
-          >
-            @for (applicationUserOption of applicationUsersSharedCollection; track $index) {
-              <option [ngValue]="applicationUserOption">{{ applicationUserOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
           <label for="field_fiscalYears">Fiscal Year</label>
           <select
             class="form-control"
@@ -181,23 +130,6 @@
         </div>
 
         <div class="mb-3">
-          <label for="field_reportBatches">Report Batch</label>
-          <select
-            class="form-control"
-            id="field_reportBatches"
-            data-cy="reportBatch"
-            multiple
-            name="reportBatches"
-            formControlName="reportBatches"
-            [compareWith]="compareReportBatch"
-          >
-            @for (reportBatchOption of reportBatchesSharedCollection; track $index) {
-              <option [ngValue]="reportBatchOption">{{ reportBatchOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
           <label for="field_moneyMarketLists">Money Market List</label>
           <select
             class="form-control"
@@ -210,23 +142,6 @@
           >
             @for (moneyMarketListOption of moneyMarketListsSharedCollection; track $index) {
               <option [ngValue]="moneyMarketListOption">{{ moneyMarketListOption.id }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label for="field_moneyMarketUploadNotifications">Money Market Upload Notification</label>
-          <select
-            class="form-control"
-            id="field_moneyMarketUploadNotifications"
-            data-cy="moneyMarketUploadNotification"
-            multiple
-            name="moneyMarketUploadNotifications"
-            formControlName="moneyMarketUploadNotifications"
-            [compareWith]="compareMoneyMarketUploadNotification"
-          >
-            @for (moneyMarketUploadNotificationOption of moneyMarketUploadNotificationsSharedCollection; track $index) {
-              <option [ngValue]="moneyMarketUploadNotificationOption">{{ moneyMarketUploadNotificationOption.id }}</option>
             }
           </select>
         </div>

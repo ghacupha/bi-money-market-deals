@@ -66,7 +66,7 @@ public class FiscalQuarter implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "placeholders", "createdBy", "lastUpdatedBy" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "placeholders" }, allowSetters = true)
     private FiscalYear fiscalYear;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -77,19 +77,7 @@ public class FiscalQuarter implements Serializable {
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = {
-            "containingPlaceholder",
-            "dealers",
-            "placeholders",
-            "securityClearances",
-            "applicationUsers",
-            "fiscalYears",
-            "fiscalQuarters",
-            "fiscalMonths",
-            "reportBatches",
-            "moneyMarketLists",
-            "moneyMarketUploadNotifications",
-        },
+        value = { "containingPlaceholder", "placeholders", "fiscalYears", "fiscalQuarters", "fiscalMonths", "moneyMarketLists" },
         allowSetters = true
     )
     private Set<Placeholder> placeholders = new HashSet<>();

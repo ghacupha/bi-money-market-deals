@@ -41,15 +41,10 @@ describe('Placeholder Form Service', () => {
             description: expect.any(Object),
             token: expect.any(Object),
             containingPlaceholder: expect.any(Object),
-            dealers: expect.any(Object),
-            securityClearances: expect.any(Object),
-            applicationUsers: expect.any(Object),
             fiscalYears: expect.any(Object),
             fiscalQuarters: expect.any(Object),
             fiscalMonths: expect.any(Object),
-            reportBatches: expect.any(Object),
             moneyMarketLists: expect.any(Object),
-            moneyMarketUploadNotifications: expect.any(Object),
           }),
         );
       });
@@ -63,15 +58,10 @@ describe('Placeholder Form Service', () => {
             description: expect.any(Object),
             token: expect.any(Object),
             containingPlaceholder: expect.any(Object),
-            dealers: expect.any(Object),
-            securityClearances: expect.any(Object),
-            applicationUsers: expect.any(Object),
             fiscalYears: expect.any(Object),
             fiscalQuarters: expect.any(Object),
             fiscalMonths: expect.any(Object),
-            reportBatches: expect.any(Object),
             moneyMarketLists: expect.any(Object),
-            moneyMarketUploadNotifications: expect.any(Object),
           }),
         );
       });

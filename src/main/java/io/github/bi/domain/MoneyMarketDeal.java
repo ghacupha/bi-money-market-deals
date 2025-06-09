@@ -150,10 +150,7 @@ public class MoneyMarketDeal implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(
-        value = { "placeholders", "uploadedBy", "reportBatch", "moneyMarketDeals", "moneyMarketUploadNotifications" },
-        allowSetters = true
-    )
+    @JsonIgnoreProperties(value = { "placeholders", "moneyMarketDeals" }, allowSetters = true)
     private MoneyMarketList moneyMarketList;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

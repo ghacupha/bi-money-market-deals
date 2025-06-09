@@ -55,8 +55,6 @@ type MoneyMarketListFormGroupContent = {
   description: FormControl<MoneyMarketListFormRawValue['description']>;
   active: FormControl<MoneyMarketListFormRawValue['active']>;
   placeholders: FormControl<MoneyMarketListFormRawValue['placeholders']>;
-  uploadedBy: FormControl<MoneyMarketListFormRawValue['uploadedBy']>;
-  reportBatch: FormControl<MoneyMarketListFormRawValue['reportBatch']>;
 };
 
 export type MoneyMarketListFormGroup = FormGroup<MoneyMarketListFormGroupContent>;
@@ -90,12 +88,6 @@ export class MoneyMarketListFormService {
         validators: [Validators.required],
       }),
       placeholders: new FormControl(moneyMarketListRawValue.placeholders ?? []),
-      uploadedBy: new FormControl(moneyMarketListRawValue.uploadedBy, {
-        validators: [Validators.required],
-      }),
-      reportBatch: new FormControl(moneyMarketListRawValue.reportBatch, {
-        validators: [Validators.required],
-      }),
     });
   }
 

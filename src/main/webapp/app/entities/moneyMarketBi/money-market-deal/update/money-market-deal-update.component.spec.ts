@@ -67,10 +67,10 @@ describe('MoneyMarketDeal Management Update Component', () => {
   describe('ngOnInit', () => {
     it('should call MoneyMarketList query and add missing value', () => {
       const moneyMarketDeal: IMoneyMarketDeal = { id: 4189 };
-      const moneyMarketList: IMoneyMarketList = { id: 29763 };
+      const moneyMarketList: IMoneyMarketList = { id: 21196 };
       moneyMarketDeal.moneyMarketList = moneyMarketList;
 
-      const moneyMarketListCollection: IMoneyMarketList[] = [{ id: 29763 }];
+      const moneyMarketListCollection: IMoneyMarketList[] = [{ id: 21196 }];
       jest.spyOn(moneyMarketListService, 'query').mockReturnValue(of(new HttpResponse({ body: moneyMarketListCollection })));
       const additionalMoneyMarketLists = [moneyMarketList];
       const expectedCollection: IMoneyMarketList[] = [...additionalMoneyMarketLists, ...moneyMarketListCollection];
@@ -89,7 +89,7 @@ describe('MoneyMarketDeal Management Update Component', () => {
 
     it('should update editForm', () => {
       const moneyMarketDeal: IMoneyMarketDeal = { id: 4189 };
-      const moneyMarketList: IMoneyMarketList = { id: 29763 };
+      const moneyMarketList: IMoneyMarketList = { id: 21196 };
       moneyMarketDeal.moneyMarketList = moneyMarketList;
 
       activatedRoute.data = of({ moneyMarketDeal });
@@ -171,8 +171,8 @@ describe('MoneyMarketDeal Management Update Component', () => {
   describe('Compare relationships', () => {
     describe('compareMoneyMarketList', () => {
       it('should forward to moneyMarketListService', () => {
-        const entity = { id: 29763 };
-        const entity2 = { id: 21170 };
+        const entity = { id: 21196 };
+        const entity2 = { id: 31570 };
         jest.spyOn(moneyMarketListService, 'compareMoneyMarketList');
         comp.compareMoneyMarketList(entity, entity2);
         expect(moneyMarketListService.compareMoneyMarketList).toHaveBeenCalledWith(entity, entity2);

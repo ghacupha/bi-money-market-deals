@@ -65,26 +65,6 @@
               </span>
             }
           </dd>
-          <dt><span>Uploaded By</span></dt>
-          <dd>
-            @if (moneyMarketList()!.uploadedBy) {
-              <div>
-                <a [routerLink]="['/moneymarketbi/application-user', moneyMarketList()!.uploadedBy?.id, 'view']">{{
-                  moneyMarketListRef.uploadedBy?.applicationIdentity
-                }}</a>
-              </div>
-            }
-          </dd>
-          <dt><span>Report Batch</span></dt>
-          <dd>
-            @if (moneyMarketList()!.reportBatch) {
-              <div>
-                <a [routerLink]="['/moneymarketbi/report-batch', moneyMarketList()!.reportBatch?.id, 'view']">{{
-                  moneyMarketListRef.reportBatch?.description
-                }}</a>
-              </div>
-            }
-          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

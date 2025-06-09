@@ -26,12 +26,6 @@
             <column name="fiscal_year_status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="created_by_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="last_updated_by_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

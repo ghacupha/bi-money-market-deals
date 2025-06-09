@@ -105,15 +105,8 @@ public class PlaceholderQueryService extends QueryService<Placeholder> {
                 buildSpecification(criteria.getContainingPlaceholderId(), root ->
                     root.join(Placeholder_.containingPlaceholder, JoinType.LEFT).get(Placeholder_.id)
                 ),
-                buildSpecification(criteria.getDealerId(), root -> root.join(Placeholder_.dealers, JoinType.LEFT).get(Dealer_.id)),
                 buildSpecification(criteria.getPlaceholderId(), root ->
                     root.join(Placeholder_.placeholders, JoinType.LEFT).get(Placeholder_.id)
-                ),
-                buildSpecification(criteria.getSecurityClearanceId(), root ->
-                    root.join(Placeholder_.securityClearances, JoinType.LEFT).get(SecurityClearance_.id)
-                ),
-                buildSpecification(criteria.getApplicationUserId(), root ->
-                    root.join(Placeholder_.applicationUsers, JoinType.LEFT).get(ApplicationUser_.id)
                 ),
                 buildSpecification(criteria.getFiscalYearId(), root ->
                     root.join(Placeholder_.fiscalYears, JoinType.LEFT).get(FiscalYear_.id)
@@ -124,14 +117,8 @@ public class PlaceholderQueryService extends QueryService<Placeholder> {
                 buildSpecification(criteria.getFiscalMonthId(), root ->
                     root.join(Placeholder_.fiscalMonths, JoinType.LEFT).get(FiscalMonth_.id)
                 ),
-                buildSpecification(criteria.getReportBatchId(), root ->
-                    root.join(Placeholder_.reportBatches, JoinType.LEFT).get(ReportBatch_.id)
-                ),
                 buildSpecification(criteria.getMoneyMarketListId(), root ->
                     root.join(Placeholder_.moneyMarketLists, JoinType.LEFT).get(MoneyMarketList_.id)
-                ),
-                buildSpecification(criteria.getMoneyMarketUploadNotificationId(), root ->
-                    root.join(Placeholder_.moneyMarketUploadNotifications, JoinType.LEFT).get(MoneyMarketUploadNotification_.id)
                 )
             );
         }

@@ -100,10 +100,7 @@ class MoneyMarketListCriteriaTest {
         moneyMarketListCriteria.description();
         moneyMarketListCriteria.active();
         moneyMarketListCriteria.placeholderId();
-        moneyMarketListCriteria.uploadedById();
-        moneyMarketListCriteria.reportBatchId();
         moneyMarketListCriteria.moneyMarketDealId();
-        moneyMarketListCriteria.moneyMarketUploadNotificationId();
         moneyMarketListCriteria.distinct();
     }
 
@@ -117,10 +114,7 @@ class MoneyMarketListCriteriaTest {
                 condition.apply(criteria.getDescription()) &&
                 condition.apply(criteria.getActive()) &&
                 condition.apply(criteria.getPlaceholderId()) &&
-                condition.apply(criteria.getUploadedById()) &&
-                condition.apply(criteria.getReportBatchId()) &&
                 condition.apply(criteria.getMoneyMarketDealId()) &&
-                condition.apply(criteria.getMoneyMarketUploadNotificationId()) &&
                 condition.apply(criteria.getDistinct()),
             "every filter matches"
         );
@@ -139,10 +133,7 @@ class MoneyMarketListCriteriaTest {
                 condition.apply(criteria.getDescription(), copy.getDescription()) &&
                 condition.apply(criteria.getActive(), copy.getActive()) &&
                 condition.apply(criteria.getPlaceholderId(), copy.getPlaceholderId()) &&
-                condition.apply(criteria.getUploadedById(), copy.getUploadedById()) &&
-                condition.apply(criteria.getReportBatchId(), copy.getReportBatchId()) &&
                 condition.apply(criteria.getMoneyMarketDealId(), copy.getMoneyMarketDealId()) &&
-                condition.apply(criteria.getMoneyMarketUploadNotificationId(), copy.getMoneyMarketUploadNotificationId()) &&
                 condition.apply(criteria.getDistinct(), copy.getDistinct()),
             "every filter matches"
         );

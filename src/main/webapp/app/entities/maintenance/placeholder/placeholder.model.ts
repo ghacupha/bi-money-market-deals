@@ -16,30 +16,20 @@
 /// along with this program. If not, see <http://www.gnu.org/licenses/>.
 ///
 
-import { IDealer } from 'app/entities/moneyMarketBi/dealer/dealer.model';
-import { ISecurityClearance } from 'app/entities/moneyMarketBi/security-clearance/security-clearance.model';
-import { IApplicationUser } from 'app/entities/maintenance/application-user/application-user.model';
 import { IFiscalYear } from 'app/entities/maintenance/fiscal-year/fiscal-year.model';
 import { IFiscalQuarter } from 'app/entities/maintenance/fiscal-quarter/fiscal-quarter.model';
 import { IFiscalMonth } from 'app/entities/maintenance/fiscal-month/fiscal-month.model';
-import { IReportBatch } from 'app/entities/moneyMarketBi/report-batch/report-batch.model';
 import { IMoneyMarketList } from 'app/entities/moneyMarketBi/money-market-list/money-market-list.model';
-import { IMoneyMarketUploadNotification } from 'app/entities/moneyMarketBi/money-market-upload-notification/money-market-upload-notification.model';
 
 export interface IPlaceholder {
   id: number;
   description?: string | null;
   token?: string | null;
   containingPlaceholder?: Pick<IPlaceholder, 'id' | 'description'> | null;
-  dealers?: Pick<IDealer, 'id'>[] | null;
-  securityClearances?: Pick<ISecurityClearance, 'id'>[] | null;
-  applicationUsers?: Pick<IApplicationUser, 'id'>[] | null;
   fiscalYears?: Pick<IFiscalYear, 'id'>[] | null;
   fiscalQuarters?: Pick<IFiscalQuarter, 'id'>[] | null;
   fiscalMonths?: Pick<IFiscalMonth, 'id'>[] | null;
-  reportBatches?: Pick<IReportBatch, 'id'>[] | null;
   moneyMarketLists?: Pick<IMoneyMarketList, 'id'>[] | null;
-  moneyMarketUploadNotifications?: Pick<IMoneyMarketUploadNotification, 'id'>[] | null;
 }
 
 export type NewPlaceholder = Omit<IPlaceholder, 'id'> & { id: null };

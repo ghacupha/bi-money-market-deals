@@ -43,6 +43,8 @@ public class MoneyMarketList implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     @Column(name = "id")
     private Long id;
 
@@ -77,54 +79,16 @@ public class MoneyMarketList implements Serializable {
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = {
-            "containingPlaceholder",
-            "dealers",
-            "placeholders",
-            "securityClearances",
-            "applicationUsers",
-            "fiscalYears",
-            "fiscalQuarters",
-            "fiscalMonths",
-            "reportBatches",
-            "moneyMarketLists",
-            "moneyMarketUploadNotifications",
-        },
+        value = { "containingPlaceholder", "placeholders", "fiscalYears", "fiscalQuarters", "fiscalMonths", "moneyMarketLists" },
         allowSetters = true
     )
     private Set<Placeholder> placeholders = new HashSet<>();
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(
-        value = {
-            "organization", "department", "securityClearance", "dealerIdentity", "placeholders", "reportBatches", "moneyMarketLists",
-        },
-        allowSetters = true
-    )
-    private ApplicationUser uploadedBy;
-
-    @JsonIgnoreProperties(
-        value = { "uploadedBy", "placeholders", "moneyMarketList", "moneyMarketUploadNotifications" },
-        allowSetters = true
-    )
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @NotNull
-    @MapsId
-    @JoinColumn(name = "id")
-    private ReportBatch reportBatch;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "moneyMarketList")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @org.springframework.data.annotation.Transient
     @JsonIgnoreProperties(value = { "moneyMarketList" }, allowSetters = true)
     private Set<MoneyMarketDeal> moneyMarketDeals = new HashSet<>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "moneyMarketList")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @org.springframework.data.annotation.Transient
-    @JsonIgnoreProperties(value = { "moneyMarketList", "reportBatch", "placeholders" }, allowSetters = true)
-    private Set<MoneyMarketUploadNotification> moneyMarketUploadNotifications = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -229,32 +193,6 @@ public class MoneyMarketList implements Serializable {
         return this;
     }
 
-    public ApplicationUser getUploadedBy() {
-        return this.uploadedBy;
-    }
-
-    public void setUploadedBy(ApplicationUser applicationUser) {
-        this.uploadedBy = applicationUser;
-    }
-
-    public MoneyMarketList uploadedBy(ApplicationUser applicationUser) {
-        this.setUploadedBy(applicationUser);
-        return this;
-    }
-
-    public ReportBatch getReportBatch() {
-        return this.reportBatch;
-    }
-
-    public void setReportBatch(ReportBatch reportBatch) {
-        this.reportBatch = reportBatch;
-    }
-
-    public MoneyMarketList reportBatch(ReportBatch reportBatch) {
-        this.setReportBatch(reportBatch);
-        return this;
-    }
-
     public Set<MoneyMarketDeal> getMoneyMarketDeals() {
         return this.moneyMarketDeals;
     }
@@ -283,37 +221,6 @@ public class MoneyMarketList implements Serializable {
     public MoneyMarketList removeMoneyMarketDeal(MoneyMarketDeal moneyMarketDeal) {
         this.moneyMarketDeals.remove(moneyMarketDeal);
         moneyMarketDeal.setMoneyMarketList(null);
-        return this;
-    }
-
-    public Set<MoneyMarketUploadNotification> getMoneyMarketUploadNotifications() {
-        return this.moneyMarketUploadNotifications;
-    }
-
-    public void setMoneyMarketUploadNotifications(Set<MoneyMarketUploadNotification> moneyMarketUploadNotifications) {
-        if (this.moneyMarketUploadNotifications != null) {
-            this.moneyMarketUploadNotifications.forEach(i -> i.setMoneyMarketList(null));
-        }
-        if (moneyMarketUploadNotifications != null) {
-            moneyMarketUploadNotifications.forEach(i -> i.setMoneyMarketList(this));
-        }
-        this.moneyMarketUploadNotifications = moneyMarketUploadNotifications;
-    }
-
-    public MoneyMarketList moneyMarketUploadNotifications(Set<MoneyMarketUploadNotification> moneyMarketUploadNotifications) {
-        this.setMoneyMarketUploadNotifications(moneyMarketUploadNotifications);
-        return this;
-    }
-
-    public MoneyMarketList addMoneyMarketUploadNotification(MoneyMarketUploadNotification moneyMarketUploadNotification) {
-        this.moneyMarketUploadNotifications.add(moneyMarketUploadNotification);
-        moneyMarketUploadNotification.setMoneyMarketList(this);
-        return this;
-    }
-
-    public MoneyMarketList removeMoneyMarketUploadNotification(MoneyMarketUploadNotification moneyMarketUploadNotification) {
-        this.moneyMarketUploadNotifications.remove(moneyMarketUploadNotification);
-        moneyMarketUploadNotification.setMoneyMarketList(null);
         return this;
     }
 

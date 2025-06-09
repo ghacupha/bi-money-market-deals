@@ -99,8 +99,6 @@ class FiscalYearCriteriaTest {
         fiscalYearCriteria.endDate();
         fiscalYearCriteria.fiscalYearStatus();
         fiscalYearCriteria.placeholderId();
-        fiscalYearCriteria.createdById();
-        fiscalYearCriteria.lastUpdatedById();
         fiscalYearCriteria.distinct();
     }
 
@@ -113,8 +111,6 @@ class FiscalYearCriteriaTest {
                 condition.apply(criteria.getEndDate()) &&
                 condition.apply(criteria.getFiscalYearStatus()) &&
                 condition.apply(criteria.getPlaceholderId()) &&
-                condition.apply(criteria.getCreatedById()) &&
-                condition.apply(criteria.getLastUpdatedById()) &&
                 condition.apply(criteria.getDistinct()),
             "every filter matches"
         );
@@ -129,8 +125,6 @@ class FiscalYearCriteriaTest {
                 condition.apply(criteria.getEndDate(), copy.getEndDate()) &&
                 condition.apply(criteria.getFiscalYearStatus(), copy.getFiscalYearStatus()) &&
                 condition.apply(criteria.getPlaceholderId(), copy.getPlaceholderId()) &&
-                condition.apply(criteria.getCreatedById(), copy.getCreatedById()) &&
-                condition.apply(criteria.getLastUpdatedById(), copy.getLastUpdatedById()) &&
                 condition.apply(criteria.getDistinct(), copy.getDistinct()),
             "every filter matches"
         );

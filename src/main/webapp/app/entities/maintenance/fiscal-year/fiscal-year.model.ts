@@ -18,7 +18,6 @@
 
 import dayjs from 'dayjs/esm';
 import { IPlaceholder } from 'app/entities/maintenance/placeholder/placeholder.model';
-import { IApplicationUser } from 'app/entities/maintenance/application-user/application-user.model';
 import { FiscalYearStatusType } from 'app/entities/enumerations/fiscal-year-status-type.model';
 
 export interface IFiscalYear {
@@ -28,8 +27,6 @@ export interface IFiscalYear {
   endDate?: dayjs.Dayjs | null;
   fiscalYearStatus?: keyof typeof FiscalYearStatusType | null;
   placeholders?: Pick<IPlaceholder, 'id' | 'description'>[] | null;
-  createdBy?: Pick<IApplicationUser, 'id' | 'applicationIdentity'> | null;
-  lastUpdatedBy?: Pick<IApplicationUser, 'id' | 'applicationIdentity'> | null;
 }
 
 export type NewFiscalYear = Omit<IFiscalYear, 'id'> & { id: null };

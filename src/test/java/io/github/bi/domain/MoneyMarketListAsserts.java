@@ -46,17 +46,6 @@ public class MoneyMarketListAsserts {
     }
 
     /**
-     * Asserts that the derived primary key is set correctly.
-     *
-     * @param entityToPersist the entity used to persist
-     * @param persisted the persisted entity
-     */
-    public static void assertMoneyMarketListMapsIdRelationshipPersistedValue(MoneyMarketList entityToPersist, MoneyMarketList persisted) {
-        // Validate the id for MapsId, the ids must be same
-        assertThat(entityToPersist.getReportBatch().getId()).isEqualTo(persisted.getId());
-    }
-
-    /**
      * Asserts that the entity has all the auto generated properties (fields/relationships) set.
      *
      * @param expected the expected entity
@@ -98,7 +87,6 @@ public class MoneyMarketListAsserts {
     public static void assertMoneyMarketListUpdatableRelationshipsEquals(MoneyMarketList expected, MoneyMarketList actual) {
         assertThat(actual)
             .as("Verify MoneyMarketList relationships")
-            .satisfies(a -> assertThat(a.getPlaceholders()).as("check placeholders").isEqualTo(expected.getPlaceholders()))
-            .satisfies(a -> assertThat(a.getUploadedBy()).as("check uploadedBy").isEqualTo(expected.getUploadedBy()));
+            .satisfies(a -> assertThat(a.getPlaceholders()).as("check placeholders").isEqualTo(expected.getPlaceholders()));
     }
 }

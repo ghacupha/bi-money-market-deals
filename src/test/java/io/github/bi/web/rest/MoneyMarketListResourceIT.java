@@ -30,10 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bi.IntegrationTest;
-import io.github.bi.domain.ApplicationUser;
 import io.github.bi.domain.MoneyMarketList;
 import io.github.bi.domain.Placeholder;
-import io.github.bi.domain.ReportBatch;
 import io.github.bi.domain.enumeration.reportBatchStatus;
 import io.github.bi.repository.MoneyMarketListRepository;
 import io.github.bi.repository.search.MoneyMarketListSearchRepository;
@@ -135,34 +133,13 @@ class MoneyMarketListResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static MoneyMarketList createEntity(EntityManager em) {
-        MoneyMarketList moneyMarketList = new MoneyMarketList()
+    public static MoneyMarketList createEntity() {
+        return new MoneyMarketList()
             .reportDate(DEFAULT_REPORT_DATE)
             .uploadTimeStamp(DEFAULT_UPLOAD_TIME_STAMP)
             .status(DEFAULT_STATUS)
             .description(DEFAULT_DESCRIPTION)
             .active(DEFAULT_ACTIVE);
-        // Add required entity
-        ApplicationUser applicationUser;
-        if (TestUtil.findAll(em, ApplicationUser.class).isEmpty()) {
-            applicationUser = ApplicationUserResourceIT.createEntity(em);
-            em.persist(applicationUser);
-            em.flush();
-        } else {
-            applicationUser = TestUtil.findAll(em, ApplicationUser.class).get(0);
-        }
-        moneyMarketList.setUploadedBy(applicationUser);
-        // Add required entity
-        ReportBatch reportBatch;
-        if (TestUtil.findAll(em, ReportBatch.class).isEmpty()) {
-            reportBatch = ReportBatchResourceIT.createEntity(em);
-            em.persist(reportBatch);
-            em.flush();
-        } else {
-            reportBatch = TestUtil.findAll(em, ReportBatch.class).get(0);
-        }
-        moneyMarketList.setReportBatch(reportBatch);
-        return moneyMarketList;
     }
 
     /**
@@ -171,31 +148,18 @@ class MoneyMarketListResourceIT {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static MoneyMarketList createUpdatedEntity(EntityManager em) {
-        MoneyMarketList updatedMoneyMarketList = new MoneyMarketList()
+    public static MoneyMarketList createUpdatedEntity() {
+        return new MoneyMarketList()
             .reportDate(UPDATED_REPORT_DATE)
             .uploadTimeStamp(UPDATED_UPLOAD_TIME_STAMP)
             .status(UPDATED_STATUS)
             .description(UPDATED_DESCRIPTION)
             .active(UPDATED_ACTIVE);
-        // Add required entity
-        ApplicationUser applicationUser;
-        applicationUser = ApplicationUserResourceIT.createUpdatedEntity(em);
-        em.persist(applicationUser);
-        em.flush();
-        updatedMoneyMarketList.setUploadedBy(applicationUser);
-        // Add required entity
-        ReportBatch reportBatch;
-        reportBatch = ReportBatchResourceIT.createUpdatedEntity(em);
-        em.persist(reportBatch);
-        em.flush();
-        updatedMoneyMarketList.setReportBatch(reportBatch);
-        return updatedMoneyMarketList;
     }
 
     @BeforeEach
     void initTest() {
-        moneyMarketList = createEntity(em);
+        moneyMarketList = createEntity();
     }
 
     @AfterEach
@@ -236,8 +200,6 @@ class MoneyMarketListResourceIT {
                 assertThat(searchDatabaseSizeAfter).isEqualTo(searchDatabaseSizeBefore + 1);
             });
 
-        assertMoneyMarketListMapsIdRelationshipPersistedValue(moneyMarketList, returnedMoneyMarketList);
-
         insertedMoneyMarketList = returnedMoneyMarketList;
     }
 
@@ -258,47 +220,6 @@ class MoneyMarketListResourceIT {
 
         // Validate the MoneyMarketList in the database
         assertSameRepositoryCount(databaseSizeBeforeCreate);
-        int searchDatabaseSizeAfter = IterableUtil.sizeOf(moneyMarketListSearchRepository.findAll());
-        assertThat(searchDatabaseSizeAfter).isEqualTo(searchDatabaseSizeBefore);
-    }
-
-    @Test
-    @Transactional
-    void updateMoneyMarketListMapsIdAssociationWithNewId() throws Exception {
-        // Initialize the database
-        insertedMoneyMarketList = moneyMarketListRepository.saveAndFlush(moneyMarketList);
-        long databaseSizeBeforeCreate = getRepositoryCount();
-        int searchDatabaseSizeBefore = IterableUtil.sizeOf(moneyMarketListSearchRepository.findAll());
-
-        // Load the moneyMarketList
-        MoneyMarketList updatedMoneyMarketList = moneyMarketListRepository.findById(moneyMarketList.getId()).orElseThrow();
-        assertThat(updatedMoneyMarketList).isNotNull();
-        // Disconnect from session so that the updates on updatedMoneyMarketList are not directly saved in db
-        em.detach(updatedMoneyMarketList);
-
-        // Update the ReportBatch with new association value
-        // updatedMoneyMarketList.setReportBatch();
-        MoneyMarketListDTO updatedMoneyMarketListDTO = moneyMarketListMapper.toDto(updatedMoneyMarketList);
-        assertThat(updatedMoneyMarketListDTO).isNotNull();
-
-        // Update the entity
-        restMoneyMarketListMockMvc
-            .perform(
-                put(ENTITY_API_URL_ID, updatedMoneyMarketListDTO.getId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(om.writeValueAsBytes(updatedMoneyMarketListDTO))
-            )
-            .andExpect(status().isOk());
-
-        // Validate the MoneyMarketList in the database
-        assertSameRepositoryCount(databaseSizeBeforeCreate);
-
-        /**
-         * Validate the id for MapsId, the ids must be same
-         * Uncomment the following line for assertion. However, please note that there is a known issue and uncommenting will fail the test.
-         * Please look at https://github.com/jhipster/generator-jhipster/issues/9100. You can modify this test as necessary.
-         * assertThat(testMoneyMarketList.getId()).isEqualTo(testMoneyMarketList.getReportBatch().getId());
-         */
         int searchDatabaseSizeAfter = IterableUtil.sizeOf(moneyMarketListSearchRepository.findAll());
         assertThat(searchDatabaseSizeAfter).isEqualTo(searchDatabaseSizeBefore);
     }
@@ -760,42 +681,6 @@ class MoneyMarketListResourceIT {
 
         // Get all the moneyMarketListList where placeholder equals to (placeholderId + 1)
         defaultMoneyMarketListShouldNotBeFound("placeholderId.equals=" + (placeholderId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllMoneyMarketListsByUploadedByIsEqualToSomething() throws Exception {
-        ApplicationUser uploadedBy;
-        if (TestUtil.findAll(em, ApplicationUser.class).isEmpty()) {
-            moneyMarketListRepository.saveAndFlush(moneyMarketList);
-            uploadedBy = ApplicationUserResourceIT.createEntity(em);
-        } else {
-            uploadedBy = TestUtil.findAll(em, ApplicationUser.class).get(0);
-        }
-        em.persist(uploadedBy);
-        em.flush();
-        moneyMarketList.setUploadedBy(uploadedBy);
-        moneyMarketListRepository.saveAndFlush(moneyMarketList);
-        Long uploadedById = uploadedBy.getId();
-        // Get all the moneyMarketListList where uploadedBy equals to uploadedById
-        defaultMoneyMarketListShouldBeFound("uploadedById.equals=" + uploadedById);
-
-        // Get all the moneyMarketListList where uploadedBy equals to (uploadedById + 1)
-        defaultMoneyMarketListShouldNotBeFound("uploadedById.equals=" + (uploadedById + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllMoneyMarketListsByReportBatchIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        ReportBatch reportBatch = moneyMarketList.getReportBatch();
-        moneyMarketListRepository.saveAndFlush(moneyMarketList);
-        Long reportBatchId = reportBatch.getId();
-        // Get all the moneyMarketListList where reportBatch equals to reportBatchId
-        defaultMoneyMarketListShouldBeFound("reportBatchId.equals=" + reportBatchId);
-
-        // Get all the moneyMarketListList where reportBatch equals to (reportBatchId + 1)
-        defaultMoneyMarketListShouldNotBeFound("reportBatchId.equals=" + (reportBatchId + 1));
     }
 
     private void defaultMoneyMarketListFiltering(String shouldBeFound, String shouldNotBeFound) throws Exception {

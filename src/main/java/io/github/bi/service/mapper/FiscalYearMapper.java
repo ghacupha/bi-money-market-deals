@@ -18,10 +18,8 @@ package io.github.bi.service.mapper;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import io.github.bi.domain.ApplicationUser;
 import io.github.bi.domain.FiscalYear;
 import io.github.bi.domain.Placeholder;
-import io.github.bi.service.dto.ApplicationUserDTO;
 import io.github.bi.service.dto.FiscalYearDTO;
 import io.github.bi.service.dto.PlaceholderDTO;
 import java.util.Set;
@@ -34,8 +32,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface FiscalYearMapper extends EntityMapper<FiscalYearDTO, FiscalYear> {
     @Mapping(target = "placeholders", source = "placeholders", qualifiedByName = "placeholderDescriptionSet")
-    @Mapping(target = "createdBy", source = "createdBy", qualifiedByName = "applicationUserApplicationIdentity")
-    @Mapping(target = "lastUpdatedBy", source = "lastUpdatedBy", qualifiedByName = "applicationUserApplicationIdentity")
     FiscalYearDTO toDto(FiscalYear s);
 
     @Mapping(target = "removePlaceholder", ignore = true)
@@ -51,10 +47,4 @@ public interface FiscalYearMapper extends EntityMapper<FiscalYearDTO, FiscalYear
     default Set<PlaceholderDTO> toDtoPlaceholderDescriptionSet(Set<Placeholder> placeholder) {
         return placeholder.stream().map(this::toDtoPlaceholderDescription).collect(Collectors.toSet());
     }
-
-    @Named("applicationUserApplicationIdentity")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "applicationIdentity", source = "applicationIdentity")
-    ApplicationUserDTO toDtoApplicationUserApplicationIdentity(ApplicationUser applicationUser);
 }

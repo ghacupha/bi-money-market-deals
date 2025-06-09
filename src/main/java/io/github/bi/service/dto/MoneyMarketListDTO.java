@@ -51,12 +51,6 @@ public class MoneyMarketListDTO implements Serializable {
 
     private Set<PlaceholderDTO> placeholders = new HashSet<>();
 
-    @NotNull
-    private ApplicationUserDTO uploadedBy;
-
-    @NotNull
-    private ReportBatchDTO reportBatch;
-
     public Long getId() {
         return id;
     }
@@ -113,22 +107,6 @@ public class MoneyMarketListDTO implements Serializable {
         this.placeholders = placeholders;
     }
 
-    public ApplicationUserDTO getUploadedBy() {
-        return uploadedBy;
-    }
-
-    public void setUploadedBy(ApplicationUserDTO uploadedBy) {
-        this.uploadedBy = uploadedBy;
-    }
-
-    public ReportBatchDTO getReportBatch() {
-        return reportBatch;
-    }
-
-    public void setReportBatch(ReportBatchDTO reportBatch) {
-        this.reportBatch = reportBatch;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -161,8 +139,6 @@ public class MoneyMarketListDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", active='" + getActive() + "'" +
             ", placeholders=" + getPlaceholders() +
-            ", uploadedBy=" + getUploadedBy() +
-            ", reportBatch=" + getReportBatch() +
             "}";
     }
 }

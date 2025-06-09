@@ -39,23 +39,13 @@ public class PlaceholderDTO implements Serializable {
 
     private PlaceholderDTO containingPlaceholder;
 
-    private Set<DealerDTO> dealers = new HashSet<>();
-
-    private Set<SecurityClearanceDTO> securityClearances = new HashSet<>();
-
-    private Set<ApplicationUserDTO> applicationUsers = new HashSet<>();
-
     private Set<FiscalYearDTO> fiscalYears = new HashSet<>();
 
     private Set<FiscalQuarterDTO> fiscalQuarters = new HashSet<>();
 
     private Set<FiscalMonthDTO> fiscalMonths = new HashSet<>();
 
-    private Set<ReportBatchDTO> reportBatches = new HashSet<>();
-
     private Set<MoneyMarketListDTO> moneyMarketLists = new HashSet<>();
-
-    private Set<MoneyMarketUploadNotificationDTO> moneyMarketUploadNotifications = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -89,30 +79,6 @@ public class PlaceholderDTO implements Serializable {
         this.containingPlaceholder = containingPlaceholder;
     }
 
-    public Set<DealerDTO> getDealers() {
-        return dealers;
-    }
-
-    public void setDealers(Set<DealerDTO> dealers) {
-        this.dealers = dealers;
-    }
-
-    public Set<SecurityClearanceDTO> getSecurityClearances() {
-        return securityClearances;
-    }
-
-    public void setSecurityClearances(Set<SecurityClearanceDTO> securityClearances) {
-        this.securityClearances = securityClearances;
-    }
-
-    public Set<ApplicationUserDTO> getApplicationUsers() {
-        return applicationUsers;
-    }
-
-    public void setApplicationUsers(Set<ApplicationUserDTO> applicationUsers) {
-        this.applicationUsers = applicationUsers;
-    }
-
     public Set<FiscalYearDTO> getFiscalYears() {
         return fiscalYears;
     }
@@ -137,28 +103,12 @@ public class PlaceholderDTO implements Serializable {
         this.fiscalMonths = fiscalMonths;
     }
 
-    public Set<ReportBatchDTO> getReportBatches() {
-        return reportBatches;
-    }
-
-    public void setReportBatches(Set<ReportBatchDTO> reportBatches) {
-        this.reportBatches = reportBatches;
-    }
-
     public Set<MoneyMarketListDTO> getMoneyMarketLists() {
         return moneyMarketLists;
     }
 
     public void setMoneyMarketLists(Set<MoneyMarketListDTO> moneyMarketLists) {
         this.moneyMarketLists = moneyMarketLists;
-    }
-
-    public Set<MoneyMarketUploadNotificationDTO> getMoneyMarketUploadNotifications() {
-        return moneyMarketUploadNotifications;
-    }
-
-    public void setMoneyMarketUploadNotifications(Set<MoneyMarketUploadNotificationDTO> moneyMarketUploadNotifications) {
-        this.moneyMarketUploadNotifications = moneyMarketUploadNotifications;
     }
 
     @Override
@@ -190,15 +140,10 @@ public class PlaceholderDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", token='" + getToken() + "'" +
             ", containingPlaceholder=" + getContainingPlaceholder() +
-            ", dealers=" + getDealers() +
-            ", securityClearances=" + getSecurityClearances() +
-            ", applicationUsers=" + getApplicationUsers() +
             ", fiscalYears=" + getFiscalYears() +
             ", fiscalQuarters=" + getFiscalQuarters() +
             ", fiscalMonths=" + getFiscalMonths() +
-            ", reportBatches=" + getReportBatches() +
             ", moneyMarketLists=" + getMoneyMarketLists() +
-            ", moneyMarketUploadNotifications=" + getMoneyMarketUploadNotifications() +
             "}";
     }
 }
