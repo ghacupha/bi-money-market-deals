@@ -1,0 +1,167 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (moneyMarketDeal(); as moneyMarketDealRef) {
+      <div>
+        <h2 data-cy="moneyMarketDealDetailsHeading"><span>Money Market Deal</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.id }}</span>
+          </dd>
+          <dt><span>Deal Number</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.dealNumber }}</span>
+          </dd>
+          <dt><span>Trading Book</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.tradingBook }}</span>
+          </dd>
+          <dt><span>Counter Party Name</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.counterPartyName }}</span>
+          </dd>
+          <dt><span>Final Interest Accrual Date</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.finalInterestAccrualDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Counter Party Side Type</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.counterPartySideType }}</span>
+          </dd>
+          <dt><span>Date Of Collection Statement</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.dateOfCollectionStatement }}</span>
+          </dd>
+          <dt><span>Currency Code</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.currencyCode }}</span>
+          </dd>
+          <dt><span>Principal Amount</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.principalAmount }}</span>
+          </dd>
+          <dt><span>Interest Rate</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.interestRate }}</span>
+          </dd>
+          <dt><span>Interest Accrued Amount</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.interestAccruedAmount }}</span>
+          </dd>
+          <dt><span>Total Interest At Maturity</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.totalInterestAtMaturity }}</span>
+          </dd>
+          <dt><span>Counterparty Nationality</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.counterpartyNationality }}</span>
+          </dd>
+          <dt><span>End Date</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.endDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Treasury Ledger</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.treasuryLedger }}</span>
+          </dd>
+          <dt><span>Deal Subtype</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.dealSubtype }}</span>
+          </dd>
+          <dt><span>Shilling Equivalent Principal</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.shillingEquivalentPrincipal }}</span>
+          </dd>
+          <dt><span>Shilling Equivalent Interest Accrued</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.shillingEquivalentInterestAccrued }}</span>
+          </dd>
+          <dt><span>Shilling Equivalent PV Full</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.shillingEquivalentPVFull }}</span>
+          </dd>
+          <dt><span>Counterparty Domicile</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.counterpartyDomicile }}</span>
+          </dd>
+          <dt><span>Settlement Date</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.settlementDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Transaction Collateral</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.transactionCollateral }}</span>
+          </dd>
+          <dt><span>Institution Type</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.institutionType }}</span>
+          </dd>
+          <dt><span>Maturity Date</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.maturityDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Institution Report Name</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.institutionReportName }}</span>
+          </dd>
+          <dt><span>Transaction Type</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.transactionType }}</span>
+          </dd>
+          <dt><span>Report Date</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.reportDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Active</span></dt>
+          <dd>
+            <span>{{ moneyMarketDealRef.active }}</span>
+          </dd>
+          <dt><span>Money Market List</span></dt>
+          <dd>
+            @if (moneyMarketDeal()!.moneyMarketList) {
+              <div>
+                <a [routerLink]="['/moneymarketbi/money-market-list', moneyMarketDeal()!.moneyMarketList?.id, 'view']">{{
+                  moneyMarketDealRef.moneyMarketList?.description
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/moneymarketbi/money-market-deal', moneyMarketDealRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

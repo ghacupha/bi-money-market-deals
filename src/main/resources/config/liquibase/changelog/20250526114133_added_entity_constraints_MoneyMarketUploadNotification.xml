@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity MoneyMarketUploadNotification.
+    -->
+    <changeSet id="20250526114133-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="money_market_list_id"
+                                 baseTableName="money_market_upload_notification"
+                                 constraintName="fk_money_market_upload_notification__money_market_list_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="money_market_list"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="report_batch_id"
+                                 baseTableName="money_market_upload_notification"
+                                 constraintName="fk_money_market_upload_notification__report_batch_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="report_batch"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="money_market_upload_notification_id"
+                                 baseTableName="rel_money_market_upload_notification__placeholder"
+                                 constraintName="fk_rel_money_market_upload_noti__money_market_upload_noti_09_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="money_market_upload_notification"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="placeholder_id"
+                                 baseTableName="rel_money_market_upload_notification__placeholder"
+                                 constraintName="fk_rel_money_market_upload_noti__placeholder_d1_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="placeholder"
+                                 />
+    </changeSet>
+</databaseChangeLog>

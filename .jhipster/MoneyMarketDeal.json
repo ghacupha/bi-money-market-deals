@@ -1,0 +1,143 @@
+{
+  "annotations": {
+    "changelogDate": "20250516114857"
+  },
+  "clientRootFolder": "moneyMarketBi",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "dealNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tradingBook",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "counterPartyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "finalInterestAccrualDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "counterPartySideType",
+      "fieldType": "String",
+      "fieldValidateRules": []
+    },
+    {
+      "fieldName": "dateOfCollectionStatement",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currencyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "principalAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "interestRate",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "interestAccruedAmount",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "totalInterestAtMaturity",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "counterpartyNationality",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "treasuryLedger",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dealSubtype",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "shillingEquivalentPrincipal",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "shillingEquivalentInterestAccrued",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "shillingEquivalentPVFull",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "counterpartyDomicile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "settlementDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "transactionCollateral",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "institutionType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "maturityDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "institutionReportName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "transactionType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "reportDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "moneyMarketBi",
+  "name": "MoneyMarketDeal",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "description",
+      "otherEntityName": "moneyMarketList",
+      "otherEntityRelationshipName": "moneyMarketDeal",
+      "relationshipName": "moneyMarketList",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
+  "service": "serviceImpl"
+}

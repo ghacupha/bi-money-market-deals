@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity MoneyMarketList.
+    -->
+    <changeSet id="20250519114830-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="money_market_list_id"
+                                 baseTableName="rel_money_market_list__placeholder"
+                                 constraintName="fk_rel_money_market_list__placeholder__money_market_list_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="money_market_list"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="placeholder_id"
+                                 baseTableName="rel_money_market_list__placeholder"
+                                 constraintName="fk_rel_money_market_list__placeholder__placeholder_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="placeholder"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="uploaded_by_id"
+                                 baseTableName="money_market_list"
+                                 constraintName="fk_money_market_list__uploaded_by_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="application_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="id"
+                                 baseTableName="money_market_list"
+                                 constraintName="fk_money_market_list__report_batch_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="report_batch"
+                                 />
+    </changeSet>
+</databaseChangeLog>

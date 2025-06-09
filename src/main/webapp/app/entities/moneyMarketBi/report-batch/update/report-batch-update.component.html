@@ -1,0 +1,286 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-report-batch-heading" data-cy="ReportBatchCreateUpdateHeading">Create or edit a Report Batch</h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let reportDateRef = editForm.get('reportDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_reportDate">Report Date</label>
+          <div class="input-group">
+            <input
+              id="field_reportDate"
+              data-cy="reportDate"
+              type="text"
+              class="form-control"
+              name="reportDate"
+              ngbDatepicker
+              #reportDateDp="ngbDatepicker"
+              formControlName="reportDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="reportDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (reportDateRef.invalid && (reportDateRef.dirty || reportDateRef.touched)) {
+            <div>
+              @if (editForm.get('reportDate')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let uploadTimeStampRef = editForm.get('uploadTimeStamp')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_uploadTimeStamp">Upload Time Stamp</label>
+          <div class="d-flex">
+            <input
+              id="field_uploadTimeStamp"
+              data-cy="uploadTimeStamp"
+              type="datetime-local"
+              class="form-control"
+              name="uploadTimeStamp"
+              formControlName="uploadTimeStamp"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (uploadTimeStampRef.invalid && (uploadTimeStampRef.dirty || uploadTimeStampRef.touched)) {
+            <div>
+              @if (editForm.get('uploadTimeStamp')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('uploadTimeStamp')?.errors?.datetimelocal"
+                >This field should be a date and time.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let statusRef = editForm.get('status')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null"></option>
+            @for (reportBatchStatus of reportBatchStatusValues; track $index) {
+              <option [value]="reportBatchStatus">
+                {{ { null: '', ACTIVE: 'ACTIVE', CANCELLED: 'CANCELLED', REPLACED: 'REPLACED' }[reportBatchStatus] }}
+              </option>
+            }
+          </select>
+          @if (statusRef.invalid && (statusRef.dirty || statusRef.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let activeRef = editForm.get('active')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_active">Active</label>
+          <input type="checkbox" class="form-check" name="active" id="field_active" data-cy="active" formControlName="active" />
+          @if (activeRef.invalid && (activeRef.dirty || activeRef.touched)) {
+            <div>
+              @if (editForm.get('active')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let descriptionRef = editForm.get('description')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+          @if (descriptionRef.invalid && (descriptionRef.dirty || descriptionRef.touched)) {
+            <div>
+              @if (editForm.get('description')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let fileIdentifierRef = editForm.get('fileIdentifier')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fileIdentifier">File Identifier</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fileIdentifier"
+            id="field_fileIdentifier"
+            data-cy="fileIdentifier"
+            formControlName="fileIdentifier"
+          />
+          @if (fileIdentifierRef.invalid && (fileIdentifierRef.dirty || fileIdentifierRef.touched)) {
+            <div>
+              @if (editForm.get('fileIdentifier')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_processFlag">Process Flag</label>
+          <select class="form-control" name="processFlag" formControlName="processFlag" id="field_processFlag" data-cy="processFlag">
+            <option [ngValue]="null"></option>
+            @for (fileProcessFlag of fileProcessFlagValues; track $index) {
+              <option [value]="fileProcessFlag">
+                {{
+                  { null: '', PENDING: 'PENDING', IN_PROGRESS: 'IN_PROGRESS', FAILED: 'FAILED', PROCESSED: 'PROCESSED' }[fileProcessFlag]
+                }}
+              </option>
+            }
+          </select>
+        </div>
+
+        @let csvFileAttachmentRef = editForm.get('csvFileAttachment')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_csvFileAttachment">Csv File Attachment</label>
+          <div>
+            @if (csvFileAttachmentRef.value) {
+              <div class="form-text text-danger clearfix">
+                <a class="pull-start" (click)="openFile(csvFileAttachmentRef.value!, editForm.get('csvFileAttachmentContentType')!.value!)"
+                  >Open</a
+                ><br />
+                <span class="pull-start"
+                  >{{ editForm.get('csvFileAttachmentContentType')!.value }}, {{ byteSize(csvFileAttachmentRef.value!) }}</span
+                >
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ csvFileAttachment: undefined, csvFileAttachmentContentType: undefined })"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+            }
+            <input
+              type="file"
+              id="file_csvFileAttachment"
+              data-cy="csvFileAttachment"
+              (change)="setFileData($event, 'csvFileAttachment', false)"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="csvFileAttachment"
+            id="field_csvFileAttachment"
+            data-cy="csvFileAttachment"
+            formControlName="csvFileAttachment"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="csvFileAttachmentContentType"
+            id="field_csvFileAttachmentContentType"
+            formControlName="csvFileAttachmentContentType"
+          />
+          @if (csvFileAttachmentRef.invalid && (csvFileAttachmentRef.dirty || csvFileAttachmentRef.touched)) {
+            <div>
+              @if (editForm.get('csvFileAttachment')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_uploadedBy">Uploaded By</label>
+          <select
+            class="form-control"
+            id="field_uploadedBy"
+            data-cy="uploadedBy"
+            name="uploadedBy"
+            formControlName="uploadedBy"
+            [compareWith]="compareApplicationUser"
+          >
+            @if (editForm.get(['uploadedBy'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (applicationUserOption of applicationUsersSharedCollection; track $index) {
+              <option [ngValue]="applicationUserOption">{{ applicationUserOption.applicationIdentity }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['uploadedBy'])!.invalid && (editForm.get(['uploadedBy'])!.dirty || editForm.get(['uploadedBy'])!.touched)) {
+          <div>
+            @if (editForm.get(['uploadedBy'])?.errors?.required) {
+              <small class="form-text text-danger">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label for="field_placeholders">Placeholder</label>
+          <select
+            class="form-control"
+            id="field_placeholders"
+            data-cy="placeholder"
+            multiple
+            name="placeholders"
+            formControlName="placeholders"
+            [compareWith]="comparePlaceholder"
+          >
+            @for (placeholderOption of placeholdersSharedCollection; track $index) {
+              <option [ngValue]="placeholderOption">{{ placeholderOption.token }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

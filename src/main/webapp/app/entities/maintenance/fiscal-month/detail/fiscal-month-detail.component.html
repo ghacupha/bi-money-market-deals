@@ -1,0 +1,94 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (fiscalMonth(); as fiscalMonthRef) {
+      <div>
+        <h2 data-cy="fiscalMonthDetailsHeading"><span>Fiscal Month</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ fiscalMonthRef.id }}</span>
+          </dd>
+          <dt><span>Month Number</span></dt>
+          <dd>
+            <span>{{ fiscalMonthRef.monthNumber }}</span>
+          </dd>
+          <dt><span>Start Date</span></dt>
+          <dd>
+            <span>{{ fiscalMonthRef.startDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>End Date</span></dt>
+          <dd>
+            <span>{{ fiscalMonthRef.endDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Fiscal Month Code</span></dt>
+          <dd>
+            <span>{{ fiscalMonthRef.fiscalMonthCode }}</span>
+          </dd>
+          <dt><span>Fiscal Year</span></dt>
+          <dd>
+            @if (fiscalMonth()!.fiscalYear) {
+              <div>
+                <a [routerLink]="['/moneymarketbi/fiscal-year', fiscalMonth()!.fiscalYear?.id, 'view']">{{
+                  fiscalMonthRef.fiscalYear?.fiscalYearCode
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Placeholder</span></dt>
+          <dd>
+            @for (placeholder of fiscalMonthRef.placeholders; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/moneymarketbi/placeholder', placeholder.id, 'view']">{{ placeholder?.description }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span>Fiscal Quarter</span></dt>
+          <dd>
+            @if (fiscalMonth()!.fiscalQuarter) {
+              <div>
+                <a [routerLink]="['/moneymarketbi/fiscal-quarter', fiscalMonth()!.fiscalQuarter?.id, 'view']">{{
+                  fiscalMonthRef.fiscalQuarter?.fiscalQuarterCode
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/moneymarketbi/fiscal-month', fiscalMonthRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

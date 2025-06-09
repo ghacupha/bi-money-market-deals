@@ -1,0 +1,42 @@
+{
+  "annotations": {
+    "changelogDate": "20250604143314"
+  },
+  "clientRootFolder": "moneyMarketBi",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "reportDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "ledger",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numberOfDeals",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "totalPrincipal",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "interestAccrued",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": []
+    },
+    {
+      "fieldName": "totalPVFull",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "moneyMarketBi",
+  "name": "MoneyMarketDealDailySummary",
+  "pagination": "pagination",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceImpl"
+}

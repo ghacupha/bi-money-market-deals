@@ -1,0 +1,222 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-application-user-heading" data-cy="ApplicationUserCreateUpdateHeading">Create or edit a Application User</h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let designationRef = editForm.get('designation')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_designation">Designation</label>
+          <input
+            type="text"
+            class="form-control"
+            name="designation"
+            id="field_designation"
+            data-cy="designation"
+            formControlName="designation"
+          />
+          @if (designationRef.invalid && (designationRef.dirty || designationRef.touched)) {
+            <div>
+              @if (editForm.get('designation')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let applicationIdentityRef = editForm.get('applicationIdentity')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_applicationIdentity">Application Identity</label>
+          <input
+            type="text"
+            class="form-control"
+            name="applicationIdentity"
+            id="field_applicationIdentity"
+            data-cy="applicationIdentity"
+            formControlName="applicationIdentity"
+          />
+          @if (applicationIdentityRef.invalid && (applicationIdentityRef.dirty || applicationIdentityRef.touched)) {
+            <div>
+              @if (editForm.get('applicationIdentity')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_organization">Organization</label>
+          <select
+            class="form-control"
+            id="field_organization"
+            data-cy="organization"
+            name="organization"
+            formControlName="organization"
+            [compareWith]="compareDealer"
+          >
+            @if (!editForm.get('organization')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (dealerOption of dealersSharedCollection; track $index) {
+              <option [ngValue]="dealerOption">{{ dealerOption.dealerName }}</option>
+            }
+          </select>
+        </div>
+        @if (
+          editForm.get(['organization'])!.invalid && (editForm.get(['organization'])!.dirty || editForm.get(['organization'])!.touched)
+        ) {
+          <div>
+            @if (editForm.get(['organization'])?.errors?.required) {
+              <small class="form-text text-danger">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_department">Department</label>
+          <select
+            class="form-control"
+            id="field_department"
+            data-cy="department"
+            name="department"
+            formControlName="department"
+            [compareWith]="compareDealer"
+          >
+            @if (!editForm.get('department')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (dealerOption of dealersSharedCollection; track $index) {
+              <option [ngValue]="dealerOption">{{ dealerOption.dealerName }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['department'])!.invalid && (editForm.get(['department'])!.dirty || editForm.get(['department'])!.touched)) {
+          <div>
+            @if (editForm.get(['department'])?.errors?.required) {
+              <small class="form-text text-danger">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_securityClearance">Security Clearance</label>
+          <select
+            class="form-control"
+            id="field_securityClearance"
+            data-cy="securityClearance"
+            name="securityClearance"
+            formControlName="securityClearance"
+            [compareWith]="compareSecurityClearance"
+          >
+            @if (!editForm.get('securityClearance')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (securityClearanceOption of securityClearancesSharedCollection; track $index) {
+              <option [ngValue]="securityClearanceOption">{{ securityClearanceOption.clearanceLevel }}</option>
+            }
+          </select>
+        </div>
+        @if (
+          editForm.get(['securityClearance'])!.invalid &&
+          (editForm.get(['securityClearance'])!.dirty || editForm.get(['securityClearance'])!.touched)
+        ) {
+          <div>
+            @if (editForm.get(['securityClearance'])?.errors?.required) {
+              <small class="form-text text-danger">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dealerIdentity">Dealer Identity</label>
+          <select
+            class="form-control"
+            id="field_dealerIdentity"
+            data-cy="dealerIdentity"
+            name="dealerIdentity"
+            formControlName="dealerIdentity"
+            [compareWith]="compareDealer"
+          >
+            @if (editForm.get(['dealerIdentity'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (dealerOption of dealerIdentitiesCollection; track $index) {
+              <option [ngValue]="dealerOption">{{ dealerOption.dealerName }}</option>
+            }
+          </select>
+        </div>
+        @if (
+          editForm.get(['dealerIdentity'])!.invalid &&
+          (editForm.get(['dealerIdentity'])!.dirty || editForm.get(['dealerIdentity'])!.touched)
+        ) {
+          <div>
+            @if (editForm.get(['dealerIdentity'])?.errors?.required) {
+              <small class="form-text text-danger">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label for="field_placeholders">Placeholder</label>
+          <select
+            class="form-control"
+            id="field_placeholders"
+            data-cy="placeholder"
+            multiple
+            name="placeholders"
+            formControlName="placeholders"
+            [compareWith]="comparePlaceholder"
+          >
+            @for (placeholderOption of placeholdersSharedCollection; track $index) {
+              <option [ngValue]="placeholderOption">{{ placeholderOption.description }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

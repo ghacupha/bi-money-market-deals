@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity FiscalQuarter.
+    -->
+    <changeSet id="20230816125243-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="fiscal_year_id"
+                                 baseTableName="fiscal_quarter"
+                                 constraintName="fk_fiscal_quarter__fiscal_year_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fiscal_year"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="fiscal_quarter_id"
+                                 baseTableName="rel_fiscal_quarter__placeholder"
+                                 constraintName="fk_rel_fiscal_quarter__placeholder__fiscal_quarter_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="fiscal_quarter"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="placeholder_id"
+                                 baseTableName="rel_fiscal_quarter__placeholder"
+                                 constraintName="fk_rel_fiscal_quarter__placeholder__placeholder_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="placeholder"
+                                 />
+    </changeSet>
+</databaseChangeLog>

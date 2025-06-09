@@ -12,7 +12,30 @@
     <property name="timeType" value="time(6)" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210721163636_added_entity_Dealer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210823115335_added_entity_Placeholder.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220701123538_added_entity_SecurityClearance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220701133235_added_entity_ApplicationUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230816114147_added_entity_FiscalYear.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230816125243_added_entity_FiscalQuarter.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230816131238_added_entity_FiscalMonth.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250516114857_added_entity_MoneyMarketDeal.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250519083601_added_entity_ReportBatch.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250519114830_added_entity_MoneyMarketList.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250526114133_added_entity_MoneyMarketUploadNotification.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250604143314_added_entity_MoneyMarketDealDailySummary.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20210721163636_added_entity_constraints_Dealer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210823115335_added_entity_constraints_Placeholder.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220701123538_added_entity_constraints_SecurityClearance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220701133235_added_entity_constraints_ApplicationUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230816114147_added_entity_constraints_FiscalYear.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230816125243_added_entity_constraints_FiscalQuarter.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230816131238_added_entity_constraints_FiscalMonth.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250516114857_added_entity_constraints_MoneyMarketDeal.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250519083601_added_entity_constraints_ReportBatch.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250519114830_added_entity_constraints_MoneyMarketList.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20250526114133_added_entity_constraints_MoneyMarketUploadNotification.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

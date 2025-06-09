@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity MoneyMarketDeal.
+    -->
+    <changeSet id="20250516114857-1" author="jhipster">
+        <createTable tableName="money_market_deal">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="deal_number" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="trading_book" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="counter_party_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="final_interest_accrual_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="counter_party_side_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_of_collection_statement" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="currency_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="principal_amount" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="interest_rate" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="interest_accrued_amount" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="total_interest_at_maturity" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="counterparty_nationality" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="end_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="treasury_ledger" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="deal_subtype" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="shilling_equivalent_principal" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="shilling_equivalent_interest_accrued" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="shilling_equivalent_pv_full" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+            <column name="counterparty_domicile" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="settlement_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="transaction_collateral" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="institution_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="maturity_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="institution_report_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="transaction_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="report_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="active" type="boolean">
+                <constraints nullable="false" />
+            </column>
+            <column name="money_market_list_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20250516114857-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/money_market_deal.csv"
+                  separator=";"
+                  tableName="money_market_deal"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="deal_number" type="string"/>
+            <column name="trading_book" type="string"/>
+            <column name="counter_party_name" type="string"/>
+            <column name="final_interest_accrual_date" type="date"/>
+            <column name="counter_party_side_type" type="string"/>
+            <column name="date_of_collection_statement" type="string"/>
+            <column name="currency_code" type="string"/>
+            <column name="principal_amount" type="numeric"/>
+            <column name="interest_rate" type="numeric"/>
+            <column name="interest_accrued_amount" type="numeric"/>
+            <column name="total_interest_at_maturity" type="numeric"/>
+            <column name="counterparty_nationality" type="string"/>
+            <column name="end_date" type="date"/>
+            <column name="treasury_ledger" type="string"/>
+            <column name="deal_subtype" type="string"/>
+            <column name="shilling_equivalent_principal" type="numeric"/>
+            <column name="shilling_equivalent_interest_accrued" type="numeric"/>
+            <column name="shilling_equivalent_pv_full" type="numeric"/>
+            <column name="counterparty_domicile" type="string"/>
+            <column name="settlement_date" type="date"/>
+            <column name="transaction_collateral" type="string"/>
+            <column name="institution_type" type="string"/>
+            <column name="maturity_date" type="date"/>
+            <column name="institution_report_name" type="string"/>
+            <column name="transaction_type" type="string"/>
+            <column name="report_date" type="date"/>
+            <column name="active" type="boolean"/>
+            <column name="money_market_list_id" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

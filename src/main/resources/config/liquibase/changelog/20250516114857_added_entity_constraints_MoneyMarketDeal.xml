@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity MoneyMarketDeal.
+    -->
+    <changeSet id="20250516114857-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="money_market_list_id"
+                                 baseTableName="money_market_deal"
+                                 constraintName="fk_money_market_deal__money_market_list_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="money_market_list"
+                                 />
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,71 @@
+{
+  "annotations": {
+    "changelogDate": "20250519114830"
+  },
+  "clientRootFolder": "moneyMarketBi",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "reportDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "uploadTimeStamp",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "reportBatchStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ACTIVE,CANCELLED,REPLACED"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique"]
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "moneyMarketBi",
+  "name": "MoneyMarketList",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "token",
+      "otherEntityName": "placeholder",
+      "otherEntityRelationshipName": "moneyMarketList",
+      "relationshipName": "placeholder",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "applicationIdentity",
+      "otherEntityName": "applicationUser",
+      "otherEntityRelationshipName": "moneyMarketList",
+      "relationshipName": "uploadedBy",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    },
+    {
+      "id": true,
+      "otherEntityField": "description",
+      "otherEntityName": "reportBatch",
+      "otherEntityRelationshipName": "moneyMarketList",
+      "relationshipName": "reportBatch",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
+  "service": "serviceImpl"
+}

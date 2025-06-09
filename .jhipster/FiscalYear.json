@@ -1,0 +1,63 @@
+{
+  "annotations": {
+    "changelogDate": "20230816114147"
+  },
+  "changelogDate": "20230816114147",
+  "clientRootFolder": "maintenance",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "fiscalYearCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "fiscalYearStatus",
+      "fieldType": "FiscalYearStatusType",
+      "fieldValues": "OPEN,CLOSED,IN_PROGRESS"
+    }
+  ],
+  "incrementalChangelog": false,
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "moneyMarketBi",
+  "name": "FiscalYear",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "description",
+      "otherEntityName": "placeholder",
+      "otherEntityRelationshipName": "fiscalYear",
+      "ownerSide": true,
+      "relationshipName": "placeholder",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "applicationIdentity",
+      "otherEntityName": "applicationUser",
+      "relationshipName": "createdBy",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "applicationIdentity",
+      "otherEntityName": "applicationUser",
+      "relationshipName": "lastUpdatedBy",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

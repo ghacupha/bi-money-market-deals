@@ -1,0 +1,142 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-money-market-upload-notification-heading" data-cy="MoneyMarketUploadNotificationCreateUpdateHeading">
+        Create or edit a Money Market Upload Notification
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_errorMessage">Error Message</label>
+          <textarea
+            class="form-control"
+            name="errorMessage"
+            id="field_errorMessage"
+            data-cy="errorMessage"
+            formControlName="errorMessage"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_rowNumber">Row Number</label>
+          <input type="number" class="form-control" name="rowNumber" id="field_rowNumber" data-cy="rowNumber" formControlName="rowNumber" />
+        </div>
+
+        @let referenceNumberRef = editForm.get('referenceNumber')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_referenceNumber">Reference Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="referenceNumber"
+            id="field_referenceNumber"
+            data-cy="referenceNumber"
+            formControlName="referenceNumber"
+          />
+          @if (referenceNumberRef.invalid && (referenceNumberRef.dirty || referenceNumberRef.touched)) {
+            <div>
+              @if (editForm.get('referenceNumber')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_moneyMarketList">Money Market List</label>
+          <select
+            class="form-control"
+            id="field_moneyMarketList"
+            data-cy="moneyMarketList"
+            name="moneyMarketList"
+            formControlName="moneyMarketList"
+            [compareWith]="compareMoneyMarketList"
+          >
+            <option [ngValue]="null"></option>
+            @for (moneyMarketListOption of moneyMarketListsSharedCollection; track $index) {
+              <option [ngValue]="moneyMarketListOption">{{ moneyMarketListOption.description }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_reportBatch">Report Batch</label>
+          <select
+            class="form-control"
+            id="field_reportBatch"
+            data-cy="reportBatch"
+            name="reportBatch"
+            formControlName="reportBatch"
+            [compareWith]="compareReportBatch"
+          >
+            <option [ngValue]="null"></option>
+            @for (reportBatchOption of reportBatchesSharedCollection; track $index) {
+              <option [ngValue]="reportBatchOption">{{ reportBatchOption.description }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_placeholders">Placeholder</label>
+          <select
+            class="form-control"
+            id="field_placeholders"
+            data-cy="placeholder"
+            multiple
+            name="placeholders"
+            formControlName="placeholders"
+            [compareWith]="comparePlaceholder"
+          >
+            @for (placeholderOption of placeholdersSharedCollection; track $index) {
+              <option [ngValue]="placeholderOption">{{ placeholderOption.token }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

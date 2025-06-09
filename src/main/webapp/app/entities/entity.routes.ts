@@ -19,6 +19,66 @@
 import { Routes } from '@angular/router';
 
 const routes: Routes = [
+  {
+    path: 'dealer',
+    data: { pageTitle: 'Dealers' },
+    loadChildren: () => import('./moneyMarketBi/dealer/dealer.routes'),
+  },
+  {
+    path: 'placeholder',
+    data: { pageTitle: 'Placeholders' },
+    loadChildren: () => import('./maintenance/placeholder/placeholder.routes'),
+  },
+  {
+    path: 'security-clearance',
+    data: { pageTitle: 'SecurityClearances' },
+    loadChildren: () => import('./moneyMarketBi/security-clearance/security-clearance.routes'),
+  },
+  {
+    path: 'application-user',
+    data: { pageTitle: 'ApplicationUsers' },
+    loadChildren: () => import('./maintenance/application-user/application-user.routes'),
+  },
+  {
+    path: 'fiscal-year',
+    data: { pageTitle: 'FiscalYears' },
+    loadChildren: () => import('./maintenance/fiscal-year/fiscal-year.routes'),
+  },
+  {
+    path: 'fiscal-quarter',
+    data: { pageTitle: 'FiscalQuarters' },
+    loadChildren: () => import('./maintenance/fiscal-quarter/fiscal-quarter.routes'),
+  },
+  {
+    path: 'fiscal-month',
+    data: { pageTitle: 'FiscalMonths' },
+    loadChildren: () => import('./maintenance/fiscal-month/fiscal-month.routes'),
+  },
+  {
+    path: 'money-market-deal',
+    data: { pageTitle: 'MoneyMarketDeals' },
+    loadChildren: () => import('./moneyMarketBi/money-market-deal/money-market-deal.routes'),
+  },
+  {
+    path: 'report-batch',
+    data: { pageTitle: 'ReportBatches' },
+    loadChildren: () => import('./moneyMarketBi/report-batch/report-batch.routes'),
+  },
+  {
+    path: 'money-market-list',
+    data: { pageTitle: 'MoneyMarketLists' },
+    loadChildren: () => import('./moneyMarketBi/money-market-list/money-market-list.routes'),
+  },
+  {
+    path: 'money-market-upload-notification',
+    data: { pageTitle: 'MoneyMarketUploadNotifications' },
+    loadChildren: () => import('./moneyMarketBi/money-market-upload-notification/money-market-upload-notification.routes'),
+  },
+  {
+    path: 'money-market-deal-daily-summary',
+    data: { pageTitle: 'MoneyMarketDealDailySummaries' },
+    loadChildren: () => import('./moneyMarketBi/money-market-deal-daily-summary/money-market-deal-daily-summary.routes'),
+  },
   /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
 ];
 

@@ -1,0 +1,134 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (dealer(); as dealerRef) {
+      <div>
+        <h2 data-cy="dealerDetailsHeading"><span>Dealer</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ dealerRef.id }}</span>
+          </dd>
+          <dt><span>Dealer Name</span></dt>
+          <dd>
+            <span>{{ dealerRef.dealerName }}</span>
+          </dd>
+          <dt><span>Tax Number</span></dt>
+          <dd>
+            <span>{{ dealerRef.taxNumber }}</span>
+          </dd>
+          <dt><span>Identification Document Number</span></dt>
+          <dd>
+            <span>{{ dealerRef.identificationDocumentNumber }}</span>
+          </dd>
+          <dt><span>Organization Name</span></dt>
+          <dd>
+            <span>{{ dealerRef.organizationName }}</span>
+          </dd>
+          <dt><span>Department</span></dt>
+          <dd>
+            <span>{{ dealerRef.department }}</span>
+          </dd>
+          <dt><span>Position</span></dt>
+          <dd>
+            <span>{{ dealerRef.position }}</span>
+          </dd>
+          <dt><span>Postal Address</span></dt>
+          <dd>
+            <span>{{ dealerRef.postalAddress }}</span>
+          </dd>
+          <dt><span>Physical Address</span></dt>
+          <dd>
+            <span>{{ dealerRef.physicalAddress }}</span>
+          </dd>
+          <dt><span>Account Name</span></dt>
+          <dd>
+            <span>{{ dealerRef.accountName }}</span>
+          </dd>
+          <dt><span>Account Number</span></dt>
+          <dd>
+            <span>{{ dealerRef.accountNumber }}</span>
+          </dd>
+          <dt><span>Bankers Name</span></dt>
+          <dd>
+            <span>{{ dealerRef.bankersName }}</span>
+          </dd>
+          <dt><span>Bankers Branch</span></dt>
+          <dd>
+            <span>{{ dealerRef.bankersBranch }}</span>
+          </dd>
+          <dt><span>Bankers Swift Code</span></dt>
+          <dd>
+            <span>{{ dealerRef.bankersSwiftCode }}</span>
+          </dd>
+          <dt><span>File Upload Token</span></dt>
+          <dd>
+            <span>{{ dealerRef.fileUploadToken }}</span>
+          </dd>
+          <dt><span>Compilation Token</span></dt>
+          <dd>
+            <span>{{ dealerRef.compilationToken }}</span>
+          </dd>
+          <dt><span>Remarks</span></dt>
+          <dd>
+            <span>{{ dealerRef.remarks }}</span>
+          </dd>
+          <dt><span>Other Names</span></dt>
+          <dd>
+            <span>{{ dealerRef.otherNames }}</span>
+          </dd>
+          <dt><span>Dealer Group</span></dt>
+          <dd>
+            @if (dealer()!.dealerGroup) {
+              <div>
+                <a [routerLink]="['/moneymarketbi/dealer', dealer()!.dealerGroup?.id, 'view']">{{ dealerRef.dealerGroup?.dealerName }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span>Placeholder</span></dt>
+          <dd>
+            @for (placeholder of dealerRef.placeholders; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/moneymarketbi/placeholder', placeholder.id, 'view']">{{ placeholder?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/moneymarketbi/dealer', dealerRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

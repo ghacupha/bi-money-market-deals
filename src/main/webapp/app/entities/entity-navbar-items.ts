@@ -18,4 +18,13 @@
 
 import NavbarItem from 'app/layouts/navbar/navbar-item.model';
 
-export const EntityNavbarItems: NavbarItem[] = [];
+export const EntityNavbarItems: NavbarItem[] = [
+  {
+    name: 'Money Market Deal',
+    route: '/moneymarketbi/money-market-deal',
+  },
+  {
+    name: 'Money Market List',
+    route: '/moneymarketbi/money-market-list',
+  },
+];

@@ -1,0 +1,104 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-security-clearance-heading" data-cy="SecurityClearanceCreateUpdateHeading">Create or edit a Security Clearance</h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let clearanceLevelRef = editForm.get('clearanceLevel')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_clearanceLevel">Clearance Level</label>
+          <input
+            type="text"
+            class="form-control"
+            name="clearanceLevel"
+            id="field_clearanceLevel"
+            data-cy="clearanceLevel"
+            formControlName="clearanceLevel"
+          />
+          @if (clearanceLevelRef.invalid && (clearanceLevelRef.dirty || clearanceLevelRef.touched)) {
+            <div>
+              @if (editForm.get('clearanceLevel')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let levelRef = editForm.get('level')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_level">Level</label>
+          <input type="number" class="form-control" name="level" id="field_level" data-cy="level" formControlName="level" />
+          @if (levelRef.invalid && (levelRef.dirty || levelRef.touched)) {
+            <div>
+              @if (editForm.get('level')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('level')?.errors?.number">This field should be a number.</small>
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="field_placeholders">Placeholder</label>
+          <select
+            class="form-control"
+            id="field_placeholders"
+            data-cy="placeholder"
+            multiple
+            name="placeholders"
+            formControlName="placeholders"
+            [compareWith]="comparePlaceholder"
+          >
+            @for (placeholderOption of placeholdersSharedCollection; track $index) {
+              <option [ngValue]="placeholderOption">{{ placeholderOption.description }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,206 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-fiscal-month-heading" data-cy="FiscalMonthCreateUpdateHeading">Create or edit a Fiscal Month</h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let monthNumberRef = editForm.get('monthNumber')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_monthNumber">Month Number</label>
+          <input
+            type="number"
+            class="form-control"
+            name="monthNumber"
+            id="field_monthNumber"
+            data-cy="monthNumber"
+            formControlName="monthNumber"
+          />
+          @if (monthNumberRef.invalid && (monthNumberRef.dirty || monthNumberRef.touched)) {
+            <div>
+              @if (editForm.get('monthNumber')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('monthNumber')?.errors?.number"
+                >This field should be a number.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let startDateRef = editForm.get('startDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_startDate">Start Date</label>
+          <div class="input-group">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="text"
+              class="form-control"
+              name="startDate"
+              ngbDatepicker
+              #startDateDp="ngbDatepicker"
+              formControlName="startDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (startDateRef.invalid && (startDateRef.dirty || startDateRef.touched)) {
+            <div>
+              @if (editForm.get('startDate')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let endDateRef = editForm.get('endDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (endDateRef.invalid && (endDateRef.dirty || endDateRef.touched)) {
+            <div>
+              @if (editForm.get('endDate')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let fiscalMonthCodeRef = editForm.get('fiscalMonthCode')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_fiscalMonthCode">Fiscal Month Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fiscalMonthCode"
+            id="field_fiscalMonthCode"
+            data-cy="fiscalMonthCode"
+            formControlName="fiscalMonthCode"
+          />
+          @if (fiscalMonthCodeRef.invalid && (fiscalMonthCodeRef.dirty || fiscalMonthCodeRef.touched)) {
+            <div>
+              @if (editForm.get('fiscalMonthCode')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fiscalYear">Fiscal Year</label>
+          <select
+            class="form-control"
+            id="field_fiscalYear"
+            data-cy="fiscalYear"
+            name="fiscalYear"
+            formControlName="fiscalYear"
+            [compareWith]="compareFiscalYear"
+          >
+            @if (!editForm.get('fiscalYear')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (fiscalYearOption of fiscalYearsSharedCollection; track $index) {
+              <option [ngValue]="fiscalYearOption">{{ fiscalYearOption.fiscalYearCode }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['fiscalYear'])!.invalid && (editForm.get(['fiscalYear'])!.dirty || editForm.get(['fiscalYear'])!.touched)) {
+          <div>
+            @if (editForm.get(['fiscalYear'])?.errors?.required) {
+              <small class="form-text text-danger">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label for="field_placeholders">Placeholder</label>
+          <select
+            class="form-control"
+            id="field_placeholders"
+            data-cy="placeholder"
+            multiple
+            name="placeholders"
+            formControlName="placeholders"
+            [compareWith]="comparePlaceholder"
+          >
+            @for (placeholderOption of placeholdersSharedCollection; track $index) {
+              <option [ngValue]="placeholderOption">{{ placeholderOption.description }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fiscalQuarter">Fiscal Quarter</label>
+          <select
+            class="form-control"
+            id="field_fiscalQuarter"
+            data-cy="fiscalQuarter"
+            name="fiscalQuarter"
+            formControlName="fiscalQuarter"
+            [compareWith]="compareFiscalQuarter"
+          >
+            <option [ngValue]="null"></option>
+            @for (fiscalQuarterOption of fiscalQuartersSharedCollection; track $index) {
+              <option [ngValue]="fiscalQuarterOption">{{ fiscalQuarterOption.fiscalQuarterCode }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

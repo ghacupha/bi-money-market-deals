@@ -20,7 +20,7 @@ spring:
       fail-fast: false # if not in "prod" profile, do not force to use Spring Cloud Config
       uri: http://admin:${jhipster.registry.password}@localhost:9761/config
       # name of the config server's property source (file.yml) that we want to use
-      name: moneyMarketBiDev
+      name: moneyMarketBi
       profile: dev # profile(s) of the property source
       label: main # toggle to switch to a different version of the configuration as stored in git
       # it can be set to any label, branch or commit of the configuration source Git repository

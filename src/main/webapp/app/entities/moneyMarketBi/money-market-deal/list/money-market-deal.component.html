@@ -1,0 +1,395 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div>
+  <h2 id="page-heading" data-cy="MoneyMarketDealHeading">
+    <span>Money Market Deals</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-money-market-deal"
+        [routerLink]="['/moneymarketbi/money-market-deal/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down">Create a new Money Market Deal</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <form name="searchForm" class="row row-cols-sm-auto align-items-center">
+    <div class="col-sm-12">
+      <div class="input-group w-100 mt-3">
+        <label class="visually-hidden" for="currentSearch">Search for Money Market Deal</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="currentSearch"
+          id="currentSearch"
+          name="currentSearch"
+          placeholder="Search for Money Market Deal"
+        />
+
+        <button class="btn btn-info" (click)="search(currentSearch)">
+          <fa-icon icon="search"></fa-icon>
+        </button>
+
+        @if (currentSearch) {
+          <button class="btn btn-danger" (click)="search('')">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        }
+      </div>
+    </div>
+  </form>
+
+  <jhi-filter [filters]="filters" />
+
+  @if (moneyMarketDeals().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>No Money Market Deals found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dealNumber">
+              <div class="d-flex">
+                <span>Deal Number</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tradingBook">
+              <div class="d-flex">
+                <span>Trading Book</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="counterPartyName">
+              <div class="d-flex">
+                <span>Counter Party Name</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="finalInterestAccrualDate">
+              <div class="d-flex">
+                <span>Final Interest Accrual Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="counterPartySideType">
+              <div class="d-flex">
+                <span>Counter Party Side Type</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateOfCollectionStatement">
+              <div class="d-flex">
+                <span>Date Of Collection Statement</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="currencyCode">
+              <div class="d-flex">
+                <span>Currency Code</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="principalAmount">
+              <div class="d-flex">
+                <span>Principal Amount</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="interestRate">
+              <div class="d-flex">
+                <span>Interest Rate</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="interestAccruedAmount">
+              <div class="d-flex">
+                <span>Interest Accrued Amount</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="totalInterestAtMaturity">
+              <div class="d-flex">
+                <span>Total Interest At Maturity</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="counterpartyNationality">
+              <div class="d-flex">
+                <span>Counterparty Nationality</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="endDate">
+              <div class="d-flex">
+                <span>End Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="treasuryLedger">
+              <div class="d-flex">
+                <span>Treasury Ledger</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dealSubtype">
+              <div class="d-flex">
+                <span>Deal Subtype</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="shillingEquivalentPrincipal">
+              <div class="d-flex">
+                <span>Shilling Equivalent Principal</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="shillingEquivalentInterestAccrued">
+              <div class="d-flex">
+                <span>Shilling Equivalent Interest Accrued</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="shillingEquivalentPVFull">
+              <div class="d-flex">
+                <span>Shilling Equivalent PV Full</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="counterpartyDomicile">
+              <div class="d-flex">
+                <span>Counterparty Domicile</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="settlementDate">
+              <div class="d-flex">
+                <span>Settlement Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="transactionCollateral">
+              <div class="d-flex">
+                <span>Transaction Collateral</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="institutionType">
+              <div class="d-flex">
+                <span>Institution Type</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="maturityDate">
+              <div class="d-flex">
+                <span>Maturity Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="institutionReportName">
+              <div class="d-flex">
+                <span>Institution Report Name</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="transactionType">
+              <div class="d-flex">
+                <span>Transaction Type</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="reportDate">
+              <div class="d-flex">
+                <span>Report Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="active">
+              <div class="d-flex">
+                <span>Active</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="moneyMarketList.description">
+              <div class="d-flex">
+                <span>Money Market List</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (moneyMarketDeal of moneyMarketDeals(); track trackId(moneyMarketDeal)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/moneymarketbi/money-market-deal', moneyMarketDeal.id, 'view']">{{ moneyMarketDeal.id }}</a>
+              </td>
+              <td>{{ moneyMarketDeal.dealNumber }}</td>
+              <td>{{ moneyMarketDeal.tradingBook }}</td>
+              <td>{{ moneyMarketDeal.counterPartyName }}</td>
+              <td>{{ moneyMarketDeal.finalInterestAccrualDate | formatMediumDate }}</td>
+              <td>{{ moneyMarketDeal.counterPartySideType }}</td>
+              <td>{{ moneyMarketDeal.dateOfCollectionStatement }}</td>
+              <td>{{ moneyMarketDeal.currencyCode }}</td>
+              <td>{{ moneyMarketDeal.principalAmount }}</td>
+              <td>{{ moneyMarketDeal.interestRate }}</td>
+              <td>{{ moneyMarketDeal.interestAccruedAmount }}</td>
+              <td>{{ moneyMarketDeal.totalInterestAtMaturity }}</td>
+              <td>{{ moneyMarketDeal.counterpartyNationality }}</td>
+              <td>{{ moneyMarketDeal.endDate | formatMediumDate }}</td>
+              <td>{{ moneyMarketDeal.treasuryLedger }}</td>
+              <td>{{ moneyMarketDeal.dealSubtype }}</td>
+              <td>{{ moneyMarketDeal.shillingEquivalentPrincipal }}</td>
+              <td>{{ moneyMarketDeal.shillingEquivalentInterestAccrued }}</td>
+              <td>{{ moneyMarketDeal.shillingEquivalentPVFull }}</td>
+              <td>{{ moneyMarketDeal.counterpartyDomicile }}</td>
+              <td>{{ moneyMarketDeal.settlementDate | formatMediumDate }}</td>
+              <td>{{ moneyMarketDeal.transactionCollateral }}</td>
+              <td>{{ moneyMarketDeal.institutionType }}</td>
+              <td>{{ moneyMarketDeal.maturityDate | formatMediumDate }}</td>
+              <td>{{ moneyMarketDeal.institutionReportName }}</td>
+              <td>{{ moneyMarketDeal.transactionType }}</td>
+              <td>{{ moneyMarketDeal.reportDate | formatMediumDate }}</td>
+              <td>{{ moneyMarketDeal.active }}</td>
+              <td>
+                @if (moneyMarketDeal.moneyMarketList) {
+                  <div>
+                    <a [routerLink]="['/moneymarketbi/money-market-list', moneyMarketDeal.moneyMarketList.id, 'view']">{{
+                      moneyMarketDeal.moneyMarketList.description
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/moneymarketbi/money-market-deal', moneyMarketDeal.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">View</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/moneymarketbi/money-market-deal', moneyMarketDeal.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(moneyMarketDeal)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (moneyMarketDeals().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page, totalItems, itemsPerPage }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

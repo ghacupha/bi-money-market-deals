@@ -1,0 +1,486 @@
+<!--
+
+    Money Market Bi - BI Microservice for Money Market Bi deals is part of the Granular Bi System
+    Copyright © 2025 Edwin Njeru (mailnjeru@gmail.com)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-money-market-deal-heading" data-cy="MoneyMarketDealCreateUpdateHeading">Create or edit a Money Market Deal</h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let dealNumberRef = editForm.get('dealNumber')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dealNumber">Deal Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="dealNumber"
+            id="field_dealNumber"
+            data-cy="dealNumber"
+            formControlName="dealNumber"
+          />
+          @if (dealNumberRef.invalid && (dealNumberRef.dirty || dealNumberRef.touched)) {
+            <div>
+              @if (editForm.get('dealNumber')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tradingBook">Trading Book</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tradingBook"
+            id="field_tradingBook"
+            data-cy="tradingBook"
+            formControlName="tradingBook"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_counterPartyName">Counter Party Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="counterPartyName"
+            id="field_counterPartyName"
+            data-cy="counterPartyName"
+            formControlName="counterPartyName"
+          />
+        </div>
+
+        @let finalInterestAccrualDateRef = editForm.get('finalInterestAccrualDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_finalInterestAccrualDate">Final Interest Accrual Date</label>
+          <div class="input-group">
+            <input
+              id="field_finalInterestAccrualDate"
+              data-cy="finalInterestAccrualDate"
+              type="text"
+              class="form-control"
+              name="finalInterestAccrualDate"
+              ngbDatepicker
+              #finalInterestAccrualDateDp="ngbDatepicker"
+              formControlName="finalInterestAccrualDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="finalInterestAccrualDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (finalInterestAccrualDateRef.invalid && (finalInterestAccrualDateRef.dirty || finalInterestAccrualDateRef.touched)) {
+            <div>
+              @if (editForm.get('finalInterestAccrualDate')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_counterPartySideType">Counter Party Side Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="counterPartySideType"
+            id="field_counterPartySideType"
+            data-cy="counterPartySideType"
+            formControlName="counterPartySideType"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateOfCollectionStatement">Date Of Collection Statement</label>
+          <input
+            type="text"
+            class="form-control"
+            name="dateOfCollectionStatement"
+            id="field_dateOfCollectionStatement"
+            data-cy="dateOfCollectionStatement"
+            formControlName="dateOfCollectionStatement"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_currencyCode">Currency Code</label>
+          <input
+            type="text"
+            class="form-control"
+            name="currencyCode"
+            id="field_currencyCode"
+            data-cy="currencyCode"
+            formControlName="currencyCode"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_principalAmount">Principal Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="principalAmount"
+            id="field_principalAmount"
+            data-cy="principalAmount"
+            formControlName="principalAmount"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_interestRate">Interest Rate</label>
+          <input
+            type="number"
+            class="form-control"
+            name="interestRate"
+            id="field_interestRate"
+            data-cy="interestRate"
+            formControlName="interestRate"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_interestAccruedAmount">Interest Accrued Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="interestAccruedAmount"
+            id="field_interestAccruedAmount"
+            data-cy="interestAccruedAmount"
+            formControlName="interestAccruedAmount"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_totalInterestAtMaturity">Total Interest At Maturity</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalInterestAtMaturity"
+            id="field_totalInterestAtMaturity"
+            data-cy="totalInterestAtMaturity"
+            formControlName="totalInterestAtMaturity"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_counterpartyNationality">Counterparty Nationality</label>
+          <input
+            type="text"
+            class="form-control"
+            name="counterpartyNationality"
+            id="field_counterpartyNationality"
+            data-cy="counterpartyNationality"
+            formControlName="counterpartyNationality"
+          />
+        </div>
+
+        @let endDateRef = editForm.get('endDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_endDate">End Date</label>
+          <div class="input-group">
+            <input
+              id="field_endDate"
+              data-cy="endDate"
+              type="text"
+              class="form-control"
+              name="endDate"
+              ngbDatepicker
+              #endDateDp="ngbDatepicker"
+              formControlName="endDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (endDateRef.invalid && (endDateRef.dirty || endDateRef.touched)) {
+            <div>
+              @if (editForm.get('endDate')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_treasuryLedger">Treasury Ledger</label>
+          <input
+            type="text"
+            class="form-control"
+            name="treasuryLedger"
+            id="field_treasuryLedger"
+            data-cy="treasuryLedger"
+            formControlName="treasuryLedger"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dealSubtype">Deal Subtype</label>
+          <input
+            type="text"
+            class="form-control"
+            name="dealSubtype"
+            id="field_dealSubtype"
+            data-cy="dealSubtype"
+            formControlName="dealSubtype"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_shillingEquivalentPrincipal">Shilling Equivalent Principal</label>
+          <input
+            type="number"
+            class="form-control"
+            name="shillingEquivalentPrincipal"
+            id="field_shillingEquivalentPrincipal"
+            data-cy="shillingEquivalentPrincipal"
+            formControlName="shillingEquivalentPrincipal"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_shillingEquivalentInterestAccrued">Shilling Equivalent Interest Accrued</label>
+          <input
+            type="number"
+            class="form-control"
+            name="shillingEquivalentInterestAccrued"
+            id="field_shillingEquivalentInterestAccrued"
+            data-cy="shillingEquivalentInterestAccrued"
+            formControlName="shillingEquivalentInterestAccrued"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_shillingEquivalentPVFull">Shilling Equivalent PV Full</label>
+          <input
+            type="number"
+            class="form-control"
+            name="shillingEquivalentPVFull"
+            id="field_shillingEquivalentPVFull"
+            data-cy="shillingEquivalentPVFull"
+            formControlName="shillingEquivalentPVFull"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_counterpartyDomicile">Counterparty Domicile</label>
+          <input
+            type="text"
+            class="form-control"
+            name="counterpartyDomicile"
+            id="field_counterpartyDomicile"
+            data-cy="counterpartyDomicile"
+            formControlName="counterpartyDomicile"
+          />
+        </div>
+
+        @let settlementDateRef = editForm.get('settlementDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_settlementDate">Settlement Date</label>
+          <div class="input-group">
+            <input
+              id="field_settlementDate"
+              data-cy="settlementDate"
+              type="text"
+              class="form-control"
+              name="settlementDate"
+              ngbDatepicker
+              #settlementDateDp="ngbDatepicker"
+              formControlName="settlementDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="settlementDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (settlementDateRef.invalid && (settlementDateRef.dirty || settlementDateRef.touched)) {
+            <div>
+              @if (editForm.get('settlementDate')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_transactionCollateral">Transaction Collateral</label>
+          <input
+            type="text"
+            class="form-control"
+            name="transactionCollateral"
+            id="field_transactionCollateral"
+            data-cy="transactionCollateral"
+            formControlName="transactionCollateral"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_institutionType">Institution Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="institutionType"
+            id="field_institutionType"
+            data-cy="institutionType"
+            formControlName="institutionType"
+          />
+        </div>
+
+        @let maturityDateRef = editForm.get('maturityDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_maturityDate">Maturity Date</label>
+          <div class="input-group">
+            <input
+              id="field_maturityDate"
+              data-cy="maturityDate"
+              type="text"
+              class="form-control"
+              name="maturityDate"
+              ngbDatepicker
+              #maturityDateDp="ngbDatepicker"
+              formControlName="maturityDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="maturityDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          @if (maturityDateRef.invalid && (maturityDateRef.dirty || maturityDateRef.touched)) {
+            <div>
+              @if (editForm.get('maturityDate')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_institutionReportName">Institution Report Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="institutionReportName"
+            id="field_institutionReportName"
+            data-cy="institutionReportName"
+            formControlName="institutionReportName"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_transactionType">Transaction Type</label>
+          <input
+            type="text"
+            class="form-control"
+            name="transactionType"
+            id="field_transactionType"
+            data-cy="transactionType"
+            formControlName="transactionType"
+          />
+        </div>
+
+        @let reportDateRef = editForm.get('reportDate')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_reportDate">Report Date</label>
+          <div class="input-group">
+            <input
+              id="field_reportDate"
+              data-cy="reportDate"
+              type="text"
+              class="form-control"
+              name="reportDate"
+              ngbDatepicker
+              #reportDateDp="ngbDatepicker"
+              formControlName="reportDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="reportDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          @if (reportDateRef.invalid && (reportDateRef.dirty || reportDateRef.touched)) {
+            <div>
+              @if (editForm.get('reportDate')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let activeRef = editForm.get('active')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_active">Active</label>
+          <input type="checkbox" class="form-check" name="active" id="field_active" data-cy="active" formControlName="active" />
+          @if (activeRef.invalid && (activeRef.dirty || activeRef.touched)) {
+            <div>
+              @if (editForm.get('active')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_moneyMarketList">Money Market List</label>
+          <select
+            class="form-control"
+            id="field_moneyMarketList"
+            data-cy="moneyMarketList"
+            name="moneyMarketList"
+            formControlName="moneyMarketList"
+            [compareWith]="compareMoneyMarketList"
+          >
+            @if (editForm.get(['moneyMarketList'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (moneyMarketListOption of moneyMarketListsSharedCollection; track $index) {
+              <option [ngValue]="moneyMarketListOption">{{ moneyMarketListOption.description }}</option>
+            }
+          </select>
+        </div>
+        @if (
+          editForm.get(['moneyMarketList'])!.invalid &&
+          (editForm.get(['moneyMarketList'])!.dirty || editForm.get(['moneyMarketList'])!.touched)
+        ) {
+          <div>
+            @if (editForm.get(['moneyMarketList'])?.errors?.required) {
+              <small class="form-text text-danger">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
